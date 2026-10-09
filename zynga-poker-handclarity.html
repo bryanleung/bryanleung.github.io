@@ -13,17 +13,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Zynga Poker: Hand Clarity · Bryan Leung</title>
-    <meta name="description" content="A clearer winning-hand display brought the App Store rating back to 4.6 and cut refund calls by 10%.">
+    <meta name="description" content="Players thought they had won hands they lost. I redesigned how the table shows a winning hand.">
     <link href="https://framerusercontent.com/images/99o0xGOEfZotkYzWe1YIcqlI.png" rel="icon" media="(prefers-color-scheme: light)">
     <link href="https://framerusercontent.com/images/LGMKjWlTTfHSZ8lfmcI9t43rL0.png" rel="icon" media="(prefers-color-scheme: dark)">
     <link rel="apple-touch-icon" href="https://framerusercontent.com/images/SbstrRfnXC1gsLsJ9mINoHRhh4Y.png">
 
     <meta property="og:type" content="article">
     <meta property="og:title" content="Zynga Poker: Hand Clarity · Bryan Leung">
-    <meta property="og:description" content="A clearer winning-hand display brought the App Store rating back to 4.6 and cut refund calls by 10%.">
+    <meta property="og:description" content="Players thought they had won hands they lost. I redesigned how the table shows a winning hand.">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Zynga Poker: Hand Clarity · Bryan Leung">
-    <meta name="twitter:description" content="A clearer winning-hand display brought the App Store rating back to 4.6 and cut refund calls by 10%.">
+    <meta name="twitter:description" content="Players thought they had won hands they lost. I redesigned how the table shows a winning hand.">
     <meta name="robots" content="max-image-preview:large">
 
     <script>
@@ -63,7 +63,7 @@
         <article>
             <header class="wrap case-head">
                 <h1>Zynga Poker: Hand Clarity</h1>
-                <p class="lede">A clearer winning-hand display brought the App Store rating back to 4.6 and cut refund calls by 10%.</p>
+                <p class="lede">Players thought they had won hands they lost. I redesigned how the table shows a winning hand.</p>
                 <dl class="facts">
                     <div><dt>Employer</dt><dd>Zynga</dd></div>
                     <div><dt>Role</dt><dd>Principal Designer</dd></div>
@@ -82,32 +82,42 @@
             </div>
 
             <div class="wrap">
-            <section class="section" aria-labelledby="the-challenge">
-                <h2 id="the-challenge">The challenge</h2>
+            <section class="section" aria-labelledby="summary">
+                <h2 id="summary">Summary</h2>
                 <div class="body">
-                    <p>Players believed they had held the winning hand and still lost. They called support asking for their chips back, and left 1-star reviews saying the game was rigged. Lower ratings mean fewer new installs.</p>
-                    <p>We tracked three things: the App Store rating, what reviews said, and customer service calls.</p>
-                    <h3>Why players were confused</h3>
-                    <ul>
-                        <li><strong>Too fast.</strong> The pause between rounds was too short to confirm who had won.</li>
-                        <li><strong>Side pots.</strong> Side pots and their payouts are hard to understand and hard to show clearly.</li>
-                        <li><strong>Hand rankings.</strong> Some players didn't know what decides the winner when two players hold the same hand.</li>
-                    </ul>
+<dl class="summary">
+<div><dt>Problem</dt><dd>Players believed they had won and still lost. They asked for refunds and left 1-star reviews calling the game rigged.</dd></div>
+<div><dt>Role</dt><dd>Designer, with one product manager and one engineer. Visual exploration, assets and implementation.</dd></div>
+<div><dt>Solution</dt><dd>Winning cards glow, the rest dim, a stronger banner names the hand, and a kicker card explains ties.</dd></div>
+<div><dt>Result</dt><dd>App Store rating back to 4.6, refund calls down 10%. Other experiments ran at the same time.</dd></div>
+</dl>
                 </div>
             </section>
-
-            <section class="section" aria-labelledby="ideas">
-                <h2 id="ideas">Ideas</h2>
+            <section class="section" aria-labelledby="the-challenge">
+                <h2 id="the-challenge">The problem</h2>
                 <div class="body">
-                    <p>The team narrowed the ideas to the quickest ones we could act on right away:</p>
-                    <ul>
-                        <li>Lengthen the pause between hands.</li>
-                        <li>Reposition the winner's hole cards so they are easier to see.</li>
-                        <li>Show side pot payouts clearly.</li>
-                        <li>Dim the community cards that aren't part of the winning hand.</li>
-                        <li>Add stronger visual indicators to the winning hand.</li>
-                    </ul>
-                    <figure>
+<p>Lower ratings mean fewer new installs. We tracked the App Store rating, what reviews said, and customer service calls.</p>
+<p>Three causes of the confusion:</p>
+<ul>
+<li><strong>Too fast.</strong> The pause between rounds was too short to confirm who had won.</li>
+<li><strong>Side pots.</strong> Side pots and their payouts are hard to understand and hard to show clearly.</li>
+<li><strong>Hand rankings.</strong> Some players didn't know what decides the winner when two players hold the same hand.</li>
+</ul>
+                </div>
+            </section>
+            <section class="section" aria-labelledby="ideas">
+                <h2 id="ideas">Choosing what to fix</h2>
+                <div class="body">
+<p>The team narrowed the ideas to what we could act on right away:</p>
+<ul>
+<li>Lengthen the pause between hands.</li>
+<li>Reposition the winner's hole cards so they are easier to see.</li>
+<li>Show side pot payouts clearly.</li>
+<li>Dim the community cards that aren't part of the winning hand.</li>
+<li>Add stronger visual indicators to the winning hand.</li>
+</ul>
+<p>We wanted the longer pause and dropped it: too much technical complexity. The visual changes were quick to build and release.</p>
+<figure>
                         <div class="shots stack-narrow" style="--cols: 3; --cols-narrow: 1; --ratio: 1.7766">
                             <a class="zoom" href="https://framerusercontent.com/images/RnEJNrZSCsLNUMnVPVtfcvIhToI.png" style="--own: 1.7766"><img width="1137" height="640" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/RnEJNrZSCsLNUMnVPVtfcvIhToI.png?scale-down-to=512 512w, https://framerusercontent.com/images/RnEJNrZSCsLNUMnVPVtfcvIhToI.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/RnEJNrZSCsLNUMnVPVtfcvIhToI.png 1137w" sizes="(min-width: 810px) 245px, 100vw" src="https://framerusercontent.com/images/RnEJNrZSCsLNUMnVPVtfcvIhToI.png?scale-down-to=1024" alt="Table exploration with the winning hand labeled."></a>
                             <a class="zoom" href="https://framerusercontent.com/images/essCUtvbLPHUB0IIaKxZpvvXY.png" style="--own: 1.7766"><img width="1137" height="640" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/essCUtvbLPHUB0IIaKxZpvvXY.png?scale-down-to=512 512w, https://framerusercontent.com/images/essCUtvbLPHUB0IIaKxZpvvXY.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/essCUtvbLPHUB0IIaKxZpvvXY.png 1137w" sizes="(min-width: 810px) 245px, 100vw" src="https://framerusercontent.com/images/essCUtvbLPHUB0IIaKxZpvvXY.png?scale-down-to=1024" alt="Table exploration with raised winning cards."></a>
@@ -117,9 +127,14 @@
                         </div>
                         <figcaption>Explorations at the table.</figcaption>
                     </figure>
-                    <h3>Animated reveal</h3>
-                    <p>The hypothesis: if players can't see the winning hand, an animated reveal will pull their eyes to the center of the screen, where the winning cards sit in the foreground. It also adds time between hands.</p>
-                    <figure>
+                </div>
+            </section>
+            <section class="section" aria-labelledby="exploration">
+                <h2 id="exploration">Exploration</h2>
+                <div class="body">
+<h3>An animated reveal</h3>
+<p>Hypothesis: an animated reveal pulls the eye to the center of the screen, where the winning cards sit. It also adds time between hands.</p>
+<figure>
                         <div class="shots" style="--cols: 4; --cols-narrow: 2; --ratio: 1.7739">
                             <a class="zoom" href="https://framerusercontent.com/images/sEmxw3P51YvkdXFjDn21s8fHsuM.png" style="--own: 1.7739"><img width="2668" height="1504" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/sEmxw3P51YvkdXFjDn21s8fHsuM.png?scale-down-to=512 512w, https://framerusercontent.com/images/sEmxw3P51YvkdXFjDn21s8fHsuM.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/sEmxw3P51YvkdXFjDn21s8fHsuM.png?scale-down-to=2048 2048w, https://framerusercontent.com/images/sEmxw3P51YvkdXFjDn21s8fHsuM.png 2668w" sizes="(min-width: 810px) 184px, 50vw" src="https://framerusercontent.com/images/sEmxw3P51YvkdXFjDn21s8fHsuM.png?scale-down-to=2048" alt="Hole card reveal variations."></a>
                             <a class="zoom" href="https://framerusercontent.com/images/WtAy2c3DbZVrVJK5F4VKHQ2vGd0.png" style="--own: 1.7739"><img width="2668" height="1504" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/WtAy2c3DbZVrVJK5F4VKHQ2vGd0.png?scale-down-to=512 512w, https://framerusercontent.com/images/WtAy2c3DbZVrVJK5F4VKHQ2vGd0.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/WtAy2c3DbZVrVJK5F4VKHQ2vGd0.png?scale-down-to=2048 2048w, https://framerusercontent.com/images/WtAy2c3DbZVrVJK5F4VKHQ2vGd0.png 2668w" sizes="(min-width: 810px) 184px, 50vw" src="https://framerusercontent.com/images/WtAy2c3DbZVrVJK5F4VKHQ2vGd0.png?scale-down-to=2048" alt="Side pot and split pot winner variations."></a>
@@ -128,21 +143,22 @@
                         </div>
                         <figcaption>Hole cards, side pots, border colors and community cards.</figcaption>
                     </figure>
-                    <h3>Putting it together</h3>
-                    <p>With every component adjusted, the result still wasn't clear enough, so I pushed the banner further. Once the layout was settled, I explored colors for it.</p>
-                    <figure>
+<h3>When small fixes weren't enough</h3>
+<p>With every component adjusted, the result still wasn't clear enough. So I pushed the banner further, then explored its colors.</p>
+<figure>
                         <div class="shots stack-narrow" style="--cols: 2; --cols-narrow: 1; --ratio: 1.7766">
                             <a class="zoom" href="https://framerusercontent.com/images/tQoX2Qo83HhtsnRTecRjVnxBeA.png" style="--own: 1.7766"><img width="1137" height="640" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/tQoX2Qo83HhtsnRTecRjVnxBeA.png?scale-down-to=512 512w, https://framerusercontent.com/images/tQoX2Qo83HhtsnRTecRjVnxBeA.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/tQoX2Qo83HhtsnRTecRjVnxBeA.png 1137w" sizes="(min-width: 810px) 368px, 100vw" src="https://framerusercontent.com/images/tQoX2Qo83HhtsnRTecRjVnxBeA.png?scale-down-to=1024" alt="Table with the adjusted cards and a small hand label."></a>
                             <a class="zoom" href="https://framerusercontent.com/images/Dyf7qbVVnRpSxGCTw6aK9Mj5Lw.png" style="--own: 1.7766"><img width="2274" height="1280" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/Dyf7qbVVnRpSxGCTw6aK9Mj5Lw.png?scale-down-to=512 512w, https://framerusercontent.com/images/Dyf7qbVVnRpSxGCTw6aK9Mj5Lw.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/Dyf7qbVVnRpSxGCTw6aK9Mj5Lw.png?scale-down-to=2048 2048w, https://framerusercontent.com/images/Dyf7qbVVnRpSxGCTw6aK9Mj5Lw.png 2274w" sizes="(min-width: 810px) 368px, 100vw" src="https://framerusercontent.com/images/Dyf7qbVVnRpSxGCTw6aK9Mj5Lw.png?scale-down-to=2048" alt="Table with all adjusted components combined."></a>
                         </div>
+                        <figcaption>All the adjusted components together, before the banner was reworked.</figcaption>
                     </figure>
-                    <figure>
+<figure>
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.5833">
                             <a class="zoom" href="https://framerusercontent.com/images/VoxOlMYrdF9TfSQoJ2A8XQrb50.png" style="--own: 1.5833"><img width="1976" height="1248" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/VoxOlMYrdF9TfSQoJ2A8XQrb50.png?scale-down-to=512 512w, https://framerusercontent.com/images/VoxOlMYrdF9TfSQoJ2A8XQrb50.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/VoxOlMYrdF9TfSQoJ2A8XQrb50.png 1976w" sizes="(min-width: 810px) 736px, 100vw" src="https://framerusercontent.com/images/VoxOlMYrdF9TfSQoJ2A8XQrb50.png?scale-down-to=1024" alt="Grid of winning banner layout variations."></a>
                         </div>
                         <figcaption>Banner layouts.</figcaption>
                     </figure>
-                    <figure>
+<figure>
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.7429">
                             <a class="zoom" href="img/image76.gif" style="--own: 1.7429"><img width="800" height="459" loading="lazy" decoding="async" src="img/image76.gif" alt="Recording cycling through banner color options at the table."></a>
                         </div>
@@ -150,34 +166,33 @@
                     </figure>
                 </div>
             </section>
-
             <section class="section" aria-labelledby="before-and-after">
-                <h2 id="before-and-after">Before and after</h2>
+                <h2 id="before-and-after">The final design</h2>
                 <div class="body">
-                    <figure>
+<figure>
                         <div class="shots" style="--cols: 2; --cols-narrow: 2; --ratio: 0.9980">
                             <a class="zoom" href="https://framerusercontent.com/images/u0QEAzOtyW0PyRs9raEx1mCAQ14.png" style="--own: 0.9980"><img width="974" height="976" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/u0QEAzOtyW0PyRs9raEx1mCAQ14.png?scale-down-to=512 512w, https://framerusercontent.com/images/u0QEAzOtyW0PyRs9raEx1mCAQ14.png 974w" sizes="(min-width: 810px) 368px, 50vw" src="https://framerusercontent.com/images/u0QEAzOtyW0PyRs9raEx1mCAQ14.png?scale-down-to=512" alt="Before: tilted hole cards above the winner label."></a>
                             <a class="zoom" href="https://framerusercontent.com/images/V8t8hYwzsfE5FaEwAveZ0dBV3V4.png" style="--own: 0.9980"><img width="978" height="980" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/V8t8hYwzsfE5FaEwAveZ0dBV3V4.png?scale-down-to=512 512w, https://framerusercontent.com/images/V8t8hYwzsfE5FaEwAveZ0dBV3V4.png 978w" sizes="(min-width: 810px) 368px, 50vw" src="https://framerusercontent.com/images/V8t8hYwzsfE5FaEwAveZ0dBV3V4.png?scale-down-to=512" alt="After: straightened hole cards with a glow on the winning card."></a>
                         </div>
                         <figcaption>Hole cards are straightened, the winning card glows, and the irrelevant card is dimmed.</figcaption>
                     </figure>
-                    <figure>
+<figure>
                         <div class="shots stack-narrow" style="--cols: 2; --cols-narrow: 1; --ratio: 3.8154">
                             <a class="zoom" href="https://framerusercontent.com/images/J5Svo3l8a2WvdwmAefBdXZzTQ.png" style="--own: 3.8308"><img width="996" height="260" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/J5Svo3l8a2WvdwmAefBdXZzTQ.png?scale-down-to=512 512w, https://framerusercontent.com/images/J5Svo3l8a2WvdwmAefBdXZzTQ.png 996w" sizes="(min-width: 810px) 368px, 100vw" src="https://framerusercontent.com/images/J5Svo3l8a2WvdwmAefBdXZzTQ.png?scale-down-to=512" alt="Before: community cards all shown equally."></a>
                             <a class="zoom" href="https://framerusercontent.com/images/fJpPE3igqmqSqS9cTzRcCn6EeVk.png" style="--own: 3.8000"><img width="988" height="260" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/fJpPE3igqmqSqS9cTzRcCn6EeVk.png?scale-down-to=512 512w, https://framerusercontent.com/images/fJpPE3igqmqSqS9cTzRcCn6EeVk.png 988w" sizes="(min-width: 810px) 368px, 100vw" src="https://framerusercontent.com/images/fJpPE3igqmqSqS9cTzRcCn6EeVk.png?scale-down-to=512" alt="After: winning community cards glow and the rest are dimmed."></a>
                         </div>
                         <figcaption>Community cards dim when they aren't part of the hand, and the winning cards glow.</figcaption>
                     </figure>
-                    <figure>
+<figure>
                         <div class="shots stack-narrow" style="--cols: 2; --cols-narrow: 1; --ratio: 2.9215">
                             <a class="zoom" href="https://framerusercontent.com/images/OtAi2KpXAPTzlIruify33rg2s.png" style="--own: 2.9244"><img width="1006" height="344" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/OtAi2KpXAPTzlIruify33rg2s.png?scale-down-to=512 512w, https://framerusercontent.com/images/OtAi2KpXAPTzlIruify33rg2s.png 1006w" sizes="(min-width: 810px) 368px, 100vw" src="https://framerusercontent.com/images/OtAi2KpXAPTzlIruify33rg2s.png?scale-down-to=512" alt="Before: a plain Two Pair banner."></a>
                             <a class="zoom" href="https://framerusercontent.com/images/EtmejvxSrBLvTcHIzMsSobw8ao.png" style="--own: 2.9186"><img width="1004" height="344" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/EtmejvxSrBLvTcHIzMsSobw8ao.png?scale-down-to=512 512w, https://framerusercontent.com/images/EtmejvxSrBLvTcHIzMsSobw8ao.png 1004w" sizes="(min-width: 810px) 368px, 100vw" src="https://framerusercontent.com/images/EtmejvxSrBLvTcHIzMsSobw8ao.png?scale-down-to=512" alt="After: a brighter Two Pair banner with the kicker card."></a>
                         </div>
                         <figcaption>The winning banner is more decorated and stands out from the table.</figcaption>
                     </figure>
-                    <h3>New: the kicker card</h3>
-                    <p>When two players hold the same hand, the next-highest hole card decides the winner. Showing that card teaches the rule.</p>
-                    <figure>
+<h3>New: the kicker card</h3>
+<p>When two players hold the same hand, the next-highest hole card decides the winner. Showing that card in the banner teaches the rule.</p>
+<figure>
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.7766">
                             <a class="zoom" href="https://framerusercontent.com/images/6B4NVsStjkXfbww1Dl3vwwz2i0.png" style="--own: 1.7766"><img width="2274" height="1280" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/6B4NVsStjkXfbww1Dl3vwwz2i0.png?scale-down-to=512 512w, https://framerusercontent.com/images/6B4NVsStjkXfbww1Dl3vwwz2i0.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/6B4NVsStjkXfbww1Dl3vwwz2i0.png?scale-down-to=2048 2048w, https://framerusercontent.com/images/6B4NVsStjkXfbww1Dl3vwwz2i0.png 2274w" sizes="(min-width: 810px) 736px, 100vw" src="https://framerusercontent.com/images/6B4NVsStjkXfbww1Dl3vwwz2i0.png?scale-down-to=2048" alt="Final table design with the winning banner and kicker card."></a>
                         </div>
@@ -185,26 +200,26 @@
                     </figure>
                 </div>
             </section>
-
             <section class="section" aria-labelledby="results">
-                <h2 id="results">Results</h2>
+                <h2 id="results">Outcome</h2>
                 <div class="body">
-                    <dl class="numbers">
-                        <div><dt>App Store rating, restored</dt><dd>4.6</dd></div>
-                        <div><dt>Fewer chip-refund calls</dt><dd>10%</dd></div>
-                    </dl>
-                    <p>Reviews rarely mention incorrect hands any more.</p>
+<dl class="numbers">
+<div><dt>App Store rating, restored</dt><dd>4.6</dd></div>
+<div><dt>Fewer chip-refund calls</dt><dd>10%</dd></div>
+</dl>
+<ul>
+<li>Reviews rarely mention incorrect hands any more.</li>
+<li>Other experiments were running at the same time, so it is hard to attribute any change in business metrics to this update.</li>
+</ul>
                 </div>
             </section>
-
             <section class="section" aria-labelledby="reflection">
                 <h2 id="reflection">Reflection</h2>
                 <div class="body">
-                    <ul>
-                        <li>The changes were mostly visual, so they were quick to build and release.</li>
-                        <li>We wanted a longer pause between hands, but it would have added too much technical complexity.</li>
-                        <li>Other experiments were running at the same time, so it is hard to attribute any change in business metrics to this update.</li>
-                    </ul>
+<ul>
+<li>A holdout group on the old table would have separated this change from the others.</li>
+<li>The pause between hands is the one cause we couldn't address directly.</li>
+</ul>
                 </div>
             </section>
             </div>
@@ -212,7 +227,7 @@
 
         <nav class="next" aria-label="More case studies">
             <div class="wrap">
-                <a class="forward" href="./canvas-selective-modules-release"><span>Next</span> Selective Modules Release <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg></a>
+                <a class="forward" href="./zynga-hpps"><span>Next</span> Harry Potter: Puzzles &amp; Spells <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg></a>
                 <a class="back" href="./#work">All work</a>
             </div>
         </nav>

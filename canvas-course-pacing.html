@@ -13,17 +13,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Course Pacing Redesign · Bryan Leung</title>
-    <meta name="description" content="Instructors of rolling-enrollment courses can now set a pace for each section and each student. Adoption rose 5% in beta.">
+    <meta name="description" content="I redesigned Course Pacing so instructors can set a pace for each section and each student, not only for the whole course.">
     <link href="https://framerusercontent.com/images/99o0xGOEfZotkYzWe1YIcqlI.png" rel="icon" media="(prefers-color-scheme: light)">
     <link href="https://framerusercontent.com/images/LGMKjWlTTfHSZ8lfmcI9t43rL0.png" rel="icon" media="(prefers-color-scheme: dark)">
     <link rel="apple-touch-icon" href="https://framerusercontent.com/images/SbstrRfnXC1gsLsJ9mINoHRhh4Y.png">
 
     <meta property="og:type" content="article">
     <meta property="og:title" content="Course Pacing Redesign · Bryan Leung">
-    <meta property="og:description" content="Instructors of rolling-enrollment courses can now set a pace for each section and each student. Adoption rose 5% in beta.">
+    <meta property="og:description" content="I redesigned Course Pacing so instructors can set a pace for each section and each student, not only for the whole course.">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Course Pacing Redesign · Bryan Leung">
-    <meta name="twitter:description" content="Instructors of rolling-enrollment courses can now set a pace for each section and each student. Adoption rose 5% in beta.">
+    <meta name="twitter:description" content="I redesigned Course Pacing so instructors can set a pace for each section and each student, not only for the whole course.">
     <meta name="robots" content="max-image-preview:large">
 
     <script>
@@ -63,7 +63,7 @@
         <article>
             <header class="wrap case-head">
                 <h1>Course Pacing Redesign</h1>
-                <p class="lede">Instructors of rolling-enrollment courses can now set a pace for each section and each student. Adoption rose 5% in beta.</p>
+                <p class="lede">I redesigned Course Pacing so instructors can set a pace for each section and each student, not only for the whole course.</p>
                 <dl class="facts">
                     <div><dt>Product</dt><dd>Canvas LMS</dd></div>
                     <div><dt>Role</dt><dd>Senior Designer</dd></div>
@@ -82,19 +82,30 @@
             </div>
 
             <div class="wrap">
+            <section class="section" aria-labelledby="summary">
+                <h2 id="summary">Summary</h2>
+                <div class="body">
+<dl class="summary">
+<div><dt>Problem</dt><dd>Course Pacing could only pace a whole course. Instructors said that made it unusable, and usage was very low.</dd></div>
+<div><dt>Role</dt><dd>Only designer, with one product manager and six engineers. Design, research and support through the build.</dd></div>
+<div><dt>Solution</dt><dd>Sections and Students tabs, a full-screen view for each pace, blackout dates and pending changes.</dd></div>
+<div><dt>Result</dt><dd>Released to beta. Instructors were glad to set custom paces. We set no clear measure of success.</dd></div>
+</dl>
+                </div>
+            </section>
             <section class="section" aria-labelledby="the-problem">
                 <h2 id="the-problem">The problem</h2>
                 <div class="body">
-                    <p>In a rolling-enrollment course, students start on different dates, so every due date is different for every student. Instructors used to enter those dates by hand, and again whenever a student needed an extension.</p>
-                    <p>The first version of Course Pacing set one pace for the whole course. Instructors told us that without paces for sections and individual students, they couldn't use it.</p>
-                    <blockquote><p>The feature is essentially useless to me unless I can set paces for my students individually.</p></blockquote>
-                    <p>The old design had three problems:</p>
-                    <ul>
-                        <li>No pace for a section or an individual student.</li>
-                        <li>A dropdown for switching between sections and students, which stops working past about 25 students.</li>
-                        <li>Very low usage, which we wanted to raise.</li>
-                    </ul>
-                    <figure>
+<p>In a rolling-enrollment course, students start on different dates, so every due date differs by student. Instructors entered them by hand, and again for every extension.</p>
+<p>Course Pacing calculates the dates from a pace. Its first version set one pace for the whole course.</p>
+<blockquote><p>The feature is essentially useless to me unless I can set paces for my students individually.</p></blockquote>
+<p>What made it hard:</p>
+<ul>
+<li><strong>Scale.</strong> The dropdown for switching between sections and students stops working past about 25 students.</li>
+<li><strong>Three levels.</strong> A course, a section and a student can each have a pace.</li>
+<li><strong>No documentation.</strong> The first version's design decisions weren't written down. The engineers who built it were the best source.</li>
+</ul>
+<figure>
                         <div class="shots stack-narrow" style="--cols: 2; --cols-narrow: 1; --ratio: 1.6446">
                             <a class="zoom" href="https://framerusercontent.com/images/4Vh92qiwoY8Mi5YWEaaK2WvvshM.png" style="--own: 1.6446"><img width="2036" height="1238" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/4Vh92qiwoY8Mi5YWEaaK2WvvshM.png?scale-down-to=512 512w, https://framerusercontent.com/images/4Vh92qiwoY8Mi5YWEaaK2WvvshM.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/4Vh92qiwoY8Mi5YWEaaK2WvvshM.png 2036w" sizes="(min-width: 810px) 368px, 100vw" src="https://framerusercontent.com/images/4Vh92qiwoY8Mi5YWEaaK2WvvshM.png?scale-down-to=1024" alt="The original Course Pacing page."></a>
                             <a class="zoom" href="https://framerusercontent.com/images/ERxQJ0Sv3x7UJ3hmNhWLKu2pwQs.png" style="--own: 1.6446"><img width="2036" height="1238" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/ERxQJ0Sv3x7UJ3hmNhWLKu2pwQs.png?scale-down-to=512 512w, https://framerusercontent.com/images/ERxQJ0Sv3x7UJ3hmNhWLKu2pwQs.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/ERxQJ0Sv3x7UJ3hmNhWLKu2pwQs.png 2036w" sizes="(min-width: 810px) 368px, 100vw" src="https://framerusercontent.com/images/ERxQJ0Sv3x7UJ3hmNhWLKu2pwQs.png?scale-down-to=1024" alt="The original page with the student and section dropdown open."></a>
@@ -103,64 +114,68 @@
                     </figure>
                 </div>
             </section>
-
-            <section class="section" aria-labelledby="the-redesign">
-                <h2 id="the-redesign">The redesign</h2>
+            <section class="section" aria-labelledby="design-decisions">
+                <h2 id="design-decisions">Design decisions</h2>
                 <div class="body">
-                    <p>We <a href="https://www.figma.com/design/hwEOGLjXxmW7sERv8ymNrQ/%E2%9C%85-%5BDelivered%5D-Course-Pacing---Bryan?node-id=713%3A101533&amp;t=vEYJImQsljrN7WTL-1" target="_blank" rel="noopener">considered several options</a> and chose one that fit the time and technical constraints. It solved the scaling problem and improved the page in other ways:</p>
-                    <ul>
-                        <li>A page title and a one-line description, so instructors know where they are.</li>
-                        <li>More prominent stats and default pace.</li>
-                        <li>Sections and Students tabs in place of the dropdown.</li>
-                        <li>Selecting a section or student opens a full-screen view for setting its pace.</li>
-                    </ul>
-                    <figure>
-                        <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 3.2663">
-                            <a class="zoom" href="https://framerusercontent.com/images/rQYwYJ79zpI8DHPVRLMVMIDgsY.png" style="--own: 3.2663"><img width="2048" height="627" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/rQYwYJ79zpI8DHPVRLMVMIDgsY.png?scale-down-to=512 512w, https://framerusercontent.com/images/rQYwYJ79zpI8DHPVRLMVMIDgsY.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/rQYwYJ79zpI8DHPVRLMVMIDgsY.png 2048w" sizes="(min-width: 810px) 736px, 100vw" src="https://framerusercontent.com/images/rQYwYJ79zpI8DHPVRLMVMIDgsY.png?scale-down-to=1024" alt="The old Course Pacing page beside the new student pace view."></a>
-                        </div>
-                        <figcaption>Old (left) and new (right).</figcaption>
-                    </figure>
-                    <figure>
+<h3>Tabs in place of a dropdown</h3>
+<p>I <a href="https://www.figma.com/design/hwEOGLjXxmW7sERv8ymNrQ/%E2%9C%85-%5BDelivered%5D-Course-Pacing---Bryan?node-id=713%3A101533&amp;t=vEYJImQsljrN7WTL-1" target="_blank" rel="noopener">explored several directions</a> and chose the one that fit our time and technical constraints. Sections and Students each get a tab, so a large course is a list to scan.</p>
+<figure>
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.6446">
                             <a class="zoom" href="https://framerusercontent.com/images/3OyyMJP4OHXwUp4dUnGoNOSRQ.png" style="--own: 1.6446"><img width="2036" height="1238" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/3OyyMJP4OHXwUp4dUnGoNOSRQ.png?scale-down-to=512 512w, https://framerusercontent.com/images/3OyyMJP4OHXwUp4dUnGoNOSRQ.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/3OyyMJP4OHXwUp4dUnGoNOSRQ.png 2036w" sizes="(min-width: 810px) 736px, 100vw" src="https://framerusercontent.com/images/3OyyMJP4OHXwUp4dUnGoNOSRQ.png?scale-down-to=1024" alt="Redesigned Course Pacing page with Sections and Students tabs."></a>
                         </div>
                         <figcaption>The redesigned page with Sections and Students tabs.</figcaption>
                     </figure>
-                    <p>I validated the design with moderated user tests and surveys, and reviewed it with our accessibility engineers for screen reader and keyboard focus issues. During the build I stayed with the engineering team to answer usability and accessibility questions and offer alternatives when something couldn't be built as designed.</p>
-                    <h3>Added along the way</h3>
-                    <ul>
-                        <li>Blackout dates, so nothing falls due inside a set date range.</li>
-                        <li>A way to view and reset pending changes.</li>
-                    </ul>
-                    <figure>
+<h3>A full-screen view for each pace</h3>
+<p>Selecting a section or student opens its pace full screen.</p>
+<figure>
+                        <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 3.2663">
+                            <a class="zoom" href="https://framerusercontent.com/images/rQYwYJ79zpI8DHPVRLMVMIDgsY.png" style="--own: 3.2663"><img width="2048" height="627" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/rQYwYJ79zpI8DHPVRLMVMIDgsY.png?scale-down-to=512 512w, https://framerusercontent.com/images/rQYwYJ79zpI8DHPVRLMVMIDgsY.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/rQYwYJ79zpI8DHPVRLMVMIDgsY.png 2048w" sizes="(min-width: 810px) 736px, 100vw" src="https://framerusercontent.com/images/rQYwYJ79zpI8DHPVRLMVMIDgsY.png?scale-down-to=1024" alt="The old Course Pacing page beside the new student pace view."></a>
+                        </div>
+                        <figcaption>Old (left) and new (right).</figcaption>
+                    </figure>
+<h3>A page that says where you are</h3>
+<p>A title, a one-line description, and more prominent stats and default pace. The original had no title.</p>
+<h3>Added in the same release</h3>
+<ul>
+<li>Blackout dates, so nothing falls due inside a set date range.</li>
+<li>A way to view and reset pending changes.</li>
+</ul>
+<figure>
                         <div class="shots stack-narrow" style="--cols: 2; --cols-narrow: 1; --ratio: 1.6446">
                             <a class="zoom" href="https://framerusercontent.com/images/bAuJoJhhoaPOerJ7OtAYERHyE1k.png" style="--own: 1.6446"><img width="2036" height="1238" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/bAuJoJhhoaPOerJ7OtAYERHyE1k.png?scale-down-to=512 512w, https://framerusercontent.com/images/bAuJoJhhoaPOerJ7OtAYERHyE1k.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/bAuJoJhhoaPOerJ7OtAYERHyE1k.png 2036w" sizes="(min-width: 810px) 368px, 100vw" src="https://framerusercontent.com/images/bAuJoJhhoaPOerJ7OtAYERHyE1k.png?scale-down-to=1024" alt="Student pace view with assignment durations and due dates."></a>
                             <a class="zoom" href="https://framerusercontent.com/images/OYzhbe3AOmaYb4tRiQHOzMhu8pY.png" style="--own: 1.6446"><img width="2036" height="1238" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/OYzhbe3AOmaYb4tRiQHOzMhu8pY.png?scale-down-to=512 512w, https://framerusercontent.com/images/OYzhbe3AOmaYb4tRiQHOzMhu8pY.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/OYzhbe3AOmaYb4tRiQHOzMhu8pY.png 2036w" sizes="(min-width: 810px) 368px, 100vw" src="https://framerusercontent.com/images/OYzhbe3AOmaYb4tRiQHOzMhu8pY.png?scale-down-to=1024" alt="Blackout dates dialog."></a>
                         </div>
                     </figure>
-                    <p><a href="https://www.figma.com/proto/hwEOGLjXxmW7sERv8ymNrQ/%E2%9C%85-%5BDelivered%5D-Course-Pacing---Bryan?page-id=1370%3A144832&amp;node-id=1882-181522&amp;viewport=216%2C187%2C0.03&amp;t=5AHYsqg9YbVYq9xH-1&amp;scaling=scale-down&amp;starting-point-node-id=1439%3A177571" target="_blank" rel="noopener">Open the Course Pacing prototype in Figma</a></p>
+<p><a href="https://www.figma.com/proto/hwEOGLjXxmW7sERv8ymNrQ/%E2%9C%85-%5BDelivered%5D-Course-Pacing---Bryan?page-id=1370%3A144832&amp;node-id=1882-181522&amp;viewport=216%2C187%2C0.03&amp;t=5AHYsqg9YbVYq9xH-1&amp;scaling=scale-down&amp;starting-point-node-id=1439%3A177571" target="_blank" rel="noopener">Open the Course Pacing prototype in Figma</a></p>
                 </div>
             </section>
-
+            <section class="section" aria-labelledby="validation-and-delivery">
+                <h2 id="validation-and-delivery">Validation and delivery</h2>
+                <div class="body">
+<ul>
+<li><strong>Testing.</strong> Three moderated tests with administrators at US universities, plus surveys. Overall sentiment favored the selected design.</li>
+<li><strong>Accessibility.</strong> Reviewed with our accessibility engineers for screen reader and keyboard focus issues.</li>
+<li><strong>Build.</strong> Several sprints. I answered usability and accessibility questions and proposed alternatives when something couldn't be built as designed.</li>
+</ul>
+                </div>
+            </section>
             <section class="section" aria-labelledby="results">
-                <h2 id="results">Results</h2>
+                <h2 id="results">Outcome</h2>
                 <div class="body">
-                    <dl class="numbers">
-                        <div><dt>Lift in adoption during beta</dt><dd>5%</dd></div>
-                    </dl>
-                    <p>Instructors were glad to be able to set custom paces for their students.</p>
+<ul>
+<li>The redesign went to beta together with the new features.</li>
+<li>Instructors were glad to set custom paces for their students.</li>
+<li>We never set a clear measure of success. More paces created was treated as enough.</li>
+</ul>
                 </div>
             </section>
-
-            <section class="section" aria-labelledby="what-i-learned">
-                <h2 id="what-i-learned">What I learned</h2>
+            <section class="section" aria-labelledby="reflection">
+                <h2 id="reflection">Reflection</h2>
                 <div class="body">
-                    <ul>
-                        <li>We couldn't tell whether the redesign or the new features drove the increase.</li>
-                        <li>We never set a clear measure of success. More paces created was treated as enough.</li>
-                        <li>The first version's design decisions weren't documented. The engineers who built it were the best source.</li>
-                        <li>Adjusting the duration of individual items is still inefficient. I wanted to redesign it and met significant resistance.</li>
-                    </ul>
+<ul>
+<li>I would agree on the success measure first, and count section and student paces separately from course paces. Without that, I can't put a number on the result.</li>
+<li>Adjusting the duration of individual items is still inefficient. I wanted to redesign it and met significant resistance.</li>
+</ul>
                 </div>
             </section>
             </div>
@@ -168,7 +183,7 @@
 
         <nav class="next" aria-label="More case studies">
             <div class="wrap">
-                <a class="forward" href="./zynga-hpps"><span>Next</span> Harry Potter: Puzzles &amp; Spells <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg></a>
+                <a class="forward" href="./canvas-bulk-publish"><span>Next</span> Bulk Publish <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg></a>
                 <a class="back" href="./#work">All work</a>
             </div>
         </nav>

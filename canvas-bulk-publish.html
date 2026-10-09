@@ -13,17 +13,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bulk Publish · Bryan Leung</title>
-    <meta name="description" content="Publishing a 120-item course went from 120 clicks to 2.">
+    <meta name="description" content="One engineer and I cut publishing a 120-item course from 120 clicks to 2, in a hackathon week.">
     <link href="https://framerusercontent.com/images/99o0xGOEfZotkYzWe1YIcqlI.png" rel="icon" media="(prefers-color-scheme: light)">
     <link href="https://framerusercontent.com/images/LGMKjWlTTfHSZ8lfmcI9t43rL0.png" rel="icon" media="(prefers-color-scheme: dark)">
     <link rel="apple-touch-icon" href="https://framerusercontent.com/images/SbstrRfnXC1gsLsJ9mINoHRhh4Y.png">
 
     <meta property="og:type" content="article">
     <meta property="og:title" content="Bulk Publish · Bryan Leung">
-    <meta property="og:description" content="Publishing a 120-item course went from 120 clicks to 2.">
+    <meta property="og:description" content="One engineer and I cut publishing a 120-item course from 120 clicks to 2, in a hackathon week.">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Bulk Publish · Bryan Leung">
-    <meta name="twitter:description" content="Publishing a 120-item course went from 120 clicks to 2.">
+    <meta name="twitter:description" content="One engineer and I cut publishing a 120-item course from 120 clicks to 2, in a hackathon week.">
     <meta name="robots" content="max-image-preview:large">
 
     <script>
@@ -63,7 +63,7 @@
         <article>
             <header class="wrap case-head">
                 <h1>Bulk Publish</h1>
-                <p class="lede">Publishing a 120-item course went from 120 clicks to 2.</p>
+                <p class="lede">One engineer and I cut publishing a 120-item course from 120 clicks to 2, in a hackathon week.</p>
                 <dl class="facts">
                     <div><dt>Product</dt><dd>Canvas LMS</dd></div>
                     <div><dt>Role</dt><dd>Designer</dd></div>
@@ -82,20 +82,30 @@
             </div>
 
             <div class="wrap">
+            <section class="section" aria-labelledby="summary">
+                <h2 id="summary">Summary</h2>
+                <div class="body">
+<dl class="summary">
+<div><dt>Problem</dt><dd>Instructors could publish course items only one at a time. A semester course has 80 to 120.</dd></div>
+<div><dt>Role</dt><dd>Designer, paired with one engineer for a hackathon week.</dd></div>
+<div><dt>Solution</dt><dd>Bulk publish actions for a whole course or module, with progress and error states.</dd></div>
+<div><dt>Result</dt><dd>120 clicks to 2. Released soon after.</dd></div>
+</dl>
+                </div>
+            </section>
             <section class="section" aria-labelledby="the-problem">
                 <h2 id="the-problem">The problem</h2>
                 <div class="body">
-                    <p>Instructors could publish or unpublish course items only one at a time. A semester course has 80 to 120 of them.</p>
-                    <blockquote><p>It is quite a long list of assignments that I do not all want to be published when I publish the course.</p></blockquote>
-                    <figure>
+<p>Every module and item had its own publish button. That was the only way.</p>
+<blockquote><p>It is quite a long list of assignments that I do not all want to be published when I publish the course.</p></blockquote>
+<figure>
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.5560">
                             <a class="zoom" href="https://framerusercontent.com/images/W7YFiNw3Td7sp3RilnhIpBBOH0.png" style="--own: 1.5560"><img width="1556" height="1000" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/W7YFiNw3Td7sp3RilnhIpBBOH0.png?scale-down-to=512 512w, https://framerusercontent.com/images/W7YFiNw3Td7sp3RilnhIpBBOH0.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/W7YFiNw3Td7sp3RilnhIpBBOH0.png 1556w" sizes="(min-width: 810px) 736px, 100vw" src="https://framerusercontent.com/images/W7YFiNw3Td7sp3RilnhIpBBOH0.png?scale-down-to=1024" alt="A module with the publish button on each item highlighted."></a>
                         </div>
                         <figcaption>One publish button per item was the only way.</figcaption>
                     </figure>
-                    <h3>Measuring it</h3>
-                    <p>Watching test participants, each click took <strong>0.75 to 1 second</strong>. A 120-item course is 90 to 120 seconds of clicking a 32-pixel icon, and longer once scrolling is counted.</p>
-                    <figure>
+<p>I watched a handful of test participants: <strong>0.75 to 1 second</strong> per click. A 120-item course is 90 to 120 seconds, before scrolling.</p>
+<figure>
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.4859">
                             <a class="zoom" href="https://framerusercontent.com/images/qN4scrPbopwaHFDI2VrP5eVQiKM.gif" style="--own: 1.4859"><img width="740" height="498" loading="lazy" decoding="async" src="https://framerusercontent.com/images/qN4scrPbopwaHFDI2VrP5eVQiKM.gif" alt="Recording of items being published one click at a time."></a>
                         </div>
@@ -103,75 +113,78 @@
                     </figure>
                 </div>
             </section>
-
             <section class="section" aria-labelledby="the-solution">
-                <h2 id="the-solution">The solution</h2>
+                <h2 id="the-solution">A menu, not multi-select</h2>
                 <div class="body">
-                    <p>With one engineer, I added a menu of bulk actions, available for the whole course and for each module:</p>
-                    <ul>
-                        <li><strong>Publish all modules and items</strong> publishes everything.</li>
-                        <li><strong>Publish all modules</strong> publishes the modules only, so students can see the course outline before the assignments are released.</li>
-                        <li><strong>Unpublish all</strong> unpublishes everything.</li>
-                    </ul>
-                    <figure>
-                        <div class="shots stack-narrow" style="--cols: 2; --cols-narrow: 1; --ratio: 1.6446">
-                            <a class="zoom" href="https://framerusercontent.com/images/d4UU2Wd6dBWhbWEggMuiMWWNL8.png" style="--own: 1.6446"><img width="2036" height="1238" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/d4UU2Wd6dBWhbWEggMuiMWWNL8.png?scale-down-to=512 512w, https://framerusercontent.com/images/d4UU2Wd6dBWhbWEggMuiMWWNL8.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/d4UU2Wd6dBWhbWEggMuiMWWNL8.png 2036w" sizes="(min-width: 810px) 368px, 100vw" src="https://framerusercontent.com/images/d4UU2Wd6dBWhbWEggMuiMWWNL8.png?scale-down-to=1024" alt="Modules page with the Publish All menu at course level."></a>
-                            <a class="zoom" href="https://framerusercontent.com/images/15IBPWlM5IQZsfSdS5je4bsI0Zk.png" style="--own: 1.6446"><img width="2036" height="1238" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/15IBPWlM5IQZsfSdS5je4bsI0Zk.png?scale-down-to=512 512w, https://framerusercontent.com/images/15IBPWlM5IQZsfSdS5je4bsI0Zk.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/15IBPWlM5IQZsfSdS5je4bsI0Zk.png 2036w" sizes="(min-width: 810px) 368px, 100vw" src="https://framerusercontent.com/images/15IBPWlM5IQZsfSdS5je4bsI0Zk.png?scale-down-to=1024" alt="Modules page with the publish menu on a single module."></a>
-                        </div>
-                    </figure>
-                    <figure>
-                        <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.4859">
-                            <a class="zoom" href="https://framerusercontent.com/images/SlEliGr8MxR0xYejbk7vhZjOdk.gif" style="--own: 1.4859"><img width="740" height="498" loading="lazy" decoding="async" src="https://framerusercontent.com/images/SlEliGr8MxR0xYejbk7vhZjOdk.gif" alt="Recording of a module published with one menu action."></a>
-                        </div>
-                        <figcaption>Publishing a module and its items in one action.</figcaption>
-                    </figure>
-                    <p>Publishing runs in the background and takes time on a large course, so the design includes a progress dialog and an alert when the job finishes.</p>
-                    <figure>
-                        <div class="shots stack-narrow" style="--cols: 2; --cols-narrow: 1; --ratio: 1.6446">
-                            <a class="zoom" href="https://framerusercontent.com/images/lfKc1se9IqwpRAgGjYmCVIA08.png" style="--own: 1.6446"><img width="2036" height="1238" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/lfKc1se9IqwpRAgGjYmCVIA08.png?scale-down-to=512 512w, https://framerusercontent.com/images/lfKc1se9IqwpRAgGjYmCVIA08.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/lfKc1se9IqwpRAgGjYmCVIA08.png 2036w" sizes="(min-width: 810px) 368px, 100vw" src="https://framerusercontent.com/images/lfKc1se9IqwpRAgGjYmCVIA08.png?scale-down-to=1024" alt="Progress dialog shown while items are being published."></a>
-                            <a class="zoom" href="https://framerusercontent.com/images/Lo4qVyCtR4XWRZNueT5MYUgJNzE.png" style="--own: 1.6446"><img width="2036" height="1238" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/Lo4qVyCtR4XWRZNueT5MYUgJNzE.png?scale-down-to=512 512w, https://framerusercontent.com/images/Lo4qVyCtR4XWRZNueT5MYUgJNzE.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/Lo4qVyCtR4XWRZNueT5MYUgJNzE.png 2036w" sizes="(min-width: 810px) 368px, 100vw" src="https://framerusercontent.com/images/Lo4qVyCtR4XWRZNueT5MYUgJNzE.png?scale-down-to=1024" alt="Modules page after publishing, with a completion alert."></a>
-                        </div>
-                    </figure>
-                </div>
-            </section>
-
-            <section class="section" aria-labelledby="edge-cases">
-                <h2 id="edge-cases">Edge cases</h2>
-                <div class="body">
-                    <p>A job that runs over time, in a course with several editors, raises cases the old one-click button never had. I mapped what happens when:</p>
-                    <ul>
-                        <li>the browser tab is closed while the job is running;</li>
-                        <li>another editor opens the Modules page during the job, or already had it open;</li>
-                        <li>one editor cancels the job while another is watching its progress;</li>
-                        <li>two editors start the job at once;</li>
-                        <li>an item's content cannot be changed.</li>
-                    </ul>
-                    <figure>
-                        <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.4321">
-                            <a class="zoom" href="https://framerusercontent.com/images/3eGSEqjWZ26exvTrcQq8jDmVyyw.png" style="--own: 1.4321"><img width="3288" height="2296" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/3eGSEqjWZ26exvTrcQq8jDmVyyw.png?scale-down-to=512 512w, https://framerusercontent.com/images/3eGSEqjWZ26exvTrcQq8jDmVyyw.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/3eGSEqjWZ26exvTrcQq8jDmVyyw.png?scale-down-to=2048 2048w, https://framerusercontent.com/images/3eGSEqjWZ26exvTrcQq8jDmVyyw.png 3288w" sizes="(min-width: 810px) 736px, 100vw" src="https://framerusercontent.com/images/3eGSEqjWZ26exvTrcQq8jDmVyyw.png?scale-down-to=2048" alt="Annotated screens covering error states and concurrent editors."></a>
-                        </div>
-                        <figcaption>Error states and concurrent-editor cases.</figcaption>
-                    </figure>
-                    <h3>An alternative we dropped</h3>
-                    <p>We considered the traditional pattern: a checkbox on every item and a bulk-action menu. It needed far more engineering, and it put the publish actions where instructors didn't expect them.</p>
-                    <figure>
+<p>The usual pattern is a checkbox on every item plus an action menu. We dropped it: far more engineering, and it put publish where instructors didn't expect it.</p>
+<figure>
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 4.4536">
                             <a class="zoom" href="https://framerusercontent.com/images/qulyBNC0G5RZb5GbzhFnnQuIIFc.png" style="--own: 4.4536"><img width="2690" height="604" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/qulyBNC0G5RZb5GbzhFnnQuIIFc.png?scale-down-to=512 512w, https://framerusercontent.com/images/qulyBNC0G5RZb5GbzhFnnQuIIFc.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/qulyBNC0G5RZb5GbzhFnnQuIIFc.png?scale-down-to=2048 2048w, https://framerusercontent.com/images/qulyBNC0G5RZb5GbzhFnnQuIIFc.png 2690w" sizes="(min-width: 810px) 736px, 100vw" src="https://framerusercontent.com/images/qulyBNC0G5RZb5GbzhFnnQuIIFc.png?scale-down-to=2048" alt="Three explorations of multi-select checkboxes with a bulk action menu."></a>
                         </div>
                         <figcaption>The multi-select exploration.</figcaption>
                     </figure>
+<p>Instead, three actions, for the whole course and for each module:</p>
+<ul>
+<li><strong>Publish all modules and items</strong> publishes everything.</li>
+<li><strong>Publish all modules</strong> publishes the modules only, so students see the course outline before the assignments.</li>
+<li><strong>Unpublish all</strong> unpublishes everything.</li>
+</ul>
+<figure>
+                        <div class="shots stack-narrow" style="--cols: 2; --cols-narrow: 1; --ratio: 1.6446">
+                            <a class="zoom" href="https://framerusercontent.com/images/d4UU2Wd6dBWhbWEggMuiMWWNL8.png" style="--own: 1.6446"><img width="2036" height="1238" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/d4UU2Wd6dBWhbWEggMuiMWWNL8.png?scale-down-to=512 512w, https://framerusercontent.com/images/d4UU2Wd6dBWhbWEggMuiMWWNL8.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/d4UU2Wd6dBWhbWEggMuiMWWNL8.png 2036w" sizes="(min-width: 810px) 368px, 100vw" src="https://framerusercontent.com/images/d4UU2Wd6dBWhbWEggMuiMWWNL8.png?scale-down-to=1024" alt="Modules page with the Publish All menu at course level."></a>
+                            <a class="zoom" href="https://framerusercontent.com/images/15IBPWlM5IQZsfSdS5je4bsI0Zk.png" style="--own: 1.6446"><img width="2036" height="1238" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/15IBPWlM5IQZsfSdS5je4bsI0Zk.png?scale-down-to=512 512w, https://framerusercontent.com/images/15IBPWlM5IQZsfSdS5je4bsI0Zk.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/15IBPWlM5IQZsfSdS5je4bsI0Zk.png 2036w" sizes="(min-width: 810px) 368px, 100vw" src="https://framerusercontent.com/images/15IBPWlM5IQZsfSdS5je4bsI0Zk.png?scale-down-to=1024" alt="Modules page with the publish menu on a single module."></a>
+                        </div>
+                        <figcaption>The menu at course level and on a single module.</figcaption>
+                    </figure>
+<figure>
+                        <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.4859">
+                            <a class="zoom" href="https://framerusercontent.com/images/SlEliGr8MxR0xYejbk7vhZjOdk.gif" style="--own: 1.4859"><img width="740" height="498" loading="lazy" decoding="async" src="https://framerusercontent.com/images/SlEliGr8MxR0xYejbk7vhZjOdk.gif" alt="Recording of a module published with one menu action."></a>
+                        </div>
+                        <figcaption>Publishing a module and its items in one action.</figcaption>
+                    </figure>
                 </div>
             </section>
-
-            <section class="section" aria-labelledby="results">
-                <h2 id="results">Results</h2>
+            <section class="section" aria-labelledby="edge-cases">
+                <h2 id="edge-cases">Designing for a background job</h2>
                 <div class="body">
-                    <dl class="numbers">
-                        <div><dt>Clicks, 98% fewer</dt><dd>120 to 2</dd></div>
-                        <div><dt>Seconds, 95% less time</dt><dd>120 to 5</dd></div>
-                    </dl>
-                    <p>Product leadership released it quickly because it was high impact for little effort. It didn't drive revenue, but it showed instructors that we had listened.</p>
-                    <blockquote><p>Great improvement! Love it. Sometimes you want to bring in content from somewhere else, but might not want the whole module published.</p></blockquote>
+<p>Publishing a large course runs in the background, so the design has a progress dialog and a completion alert.</p>
+<figure>
+                        <div class="shots stack-narrow" style="--cols: 2; --cols-narrow: 1; --ratio: 1.6446">
+                            <a class="zoom" href="https://framerusercontent.com/images/lfKc1se9IqwpRAgGjYmCVIA08.png" style="--own: 1.6446"><img width="2036" height="1238" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/lfKc1se9IqwpRAgGjYmCVIA08.png?scale-down-to=512 512w, https://framerusercontent.com/images/lfKc1se9IqwpRAgGjYmCVIA08.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/lfKc1se9IqwpRAgGjYmCVIA08.png 2036w" sizes="(min-width: 810px) 368px, 100vw" src="https://framerusercontent.com/images/lfKc1se9IqwpRAgGjYmCVIA08.png?scale-down-to=1024" alt="Progress dialog shown while items are being published."></a>
+                            <a class="zoom" href="https://framerusercontent.com/images/Lo4qVyCtR4XWRZNueT5MYUgJNzE.png" style="--own: 1.6446"><img width="2036" height="1238" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/Lo4qVyCtR4XWRZNueT5MYUgJNzE.png?scale-down-to=512 512w, https://framerusercontent.com/images/Lo4qVyCtR4XWRZNueT5MYUgJNzE.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/Lo4qVyCtR4XWRZNueT5MYUgJNzE.png 2036w" sizes="(min-width: 810px) 368px, 100vw" src="https://framerusercontent.com/images/Lo4qVyCtR4XWRZNueT5MYUgJNzE.png?scale-down-to=1024" alt="Modules page after publishing, with a completion alert."></a>
+                        </div>
+                        <figcaption>Progress while the job runs, and the alert when it finishes.</figcaption>
+                    </figure>
+<p>With several editors in one course, I mapped what happens when:</p>
+<ul>
+<li>the browser tab is closed while the job is running;</li>
+<li>another editor opens the Modules page during the job, or already had it open;</li>
+<li>one editor cancels the job while another is watching its progress;</li>
+<li>two editors start the job at once;</li>
+<li>an item's content cannot be changed.</li>
+</ul>
+<figure>
+                        <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.4321">
+                            <a class="zoom" href="https://framerusercontent.com/images/3eGSEqjWZ26exvTrcQq8jDmVyyw.png" style="--own: 1.4321"><img width="3288" height="2296" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/3eGSEqjWZ26exvTrcQq8jDmVyyw.png?scale-down-to=512 512w, https://framerusercontent.com/images/3eGSEqjWZ26exvTrcQq8jDmVyyw.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/3eGSEqjWZ26exvTrcQq8jDmVyyw.png?scale-down-to=2048 2048w, https://framerusercontent.com/images/3eGSEqjWZ26exvTrcQq8jDmVyyw.png 3288w" sizes="(min-width: 810px) 736px, 100vw" src="https://framerusercontent.com/images/3eGSEqjWZ26exvTrcQq8jDmVyyw.png?scale-down-to=2048" alt="Annotated screens covering error states and concurrent editors."></a>
+                        </div>
+                        <figcaption>Error states and concurrent-editor cases.</figcaption>
+                    </figure>
+                </div>
+            </section>
+            <section class="section" aria-labelledby="results">
+                <h2 id="results">Outcome</h2>
+                <div class="body">
+<dl class="numbers">
+<div><dt>Clicks, 98% fewer</dt><dd>120 to 2</dd></div>
+<div><dt>Seconds, 95% less time</dt><dd>120 to 5</dd></div>
+</dl>
+<ul>
+<li><strong>Counted for:</strong> publishing every item in a 120-item course. The 120-second baseline is an estimate from observed click time. The 5 seconds is the instructor's two clicks; the job then runs in the background for as long as the course needs.</li>
+<li><strong>Not covered:</strong> a hand-picked set of items. Those are still published one at a time.</li>
+<li><strong>Delivery:</strong> product leadership released it quickly, as high impact for little effort.</li>
+<li><strong>Not measured:</strong> usage. I would compare bulk actions against single-item publishing.</li>
+</ul>
+<blockquote><p>Great improvement! Love it. Sometimes you want to bring in content from somewhere else, but might not want the whole module published.</p></blockquote>
                 </div>
             </section>
             </div>
@@ -179,7 +192,7 @@
 
         <nav class="next" aria-label="More case studies">
             <div class="wrap">
-                <a class="forward" href="./canvas-course-pacing"><span>Next</span> Course Pacing Redesign <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg></a>
+                <a class="forward" href="./zynga-poker-handclarity"><span>Next</span> Zynga Poker: Hand Clarity <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg></a>
                 <a class="back" href="./#work">All work</a>
             </div>
         </nav>

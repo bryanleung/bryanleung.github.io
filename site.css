@@ -352,6 +352,21 @@ h3 a:focus-visible { outline: none; }
 .more svg { transition: transform 0.3s var(--ease); }
 .project:hover .more svg { transform: translateX(4px); }
 
+.result + .result { margin-top: 10px; }
+
+/* Supporting work: two smaller cards side by side. */
+.minor { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(32px, 5vw, 64px); }
+.minor .project { grid-template-columns: minmax(0, 1fr); align-content: start; }
+
+/* About */
+.about .group-head { padding-top: clamp(32px, 4vw, 48px); border-top: 1px solid var(--ink); }
+.about-body { max-width: 38em; margin-top: 28px; font-size: 1.1875rem; line-height: 1.6; }
+.about-body > * + * { margin-top: 1em; }
+.about-body ul { padding-left: 1.15em; list-style: disc; }
+.about-body li + li { margin-top: 0.35em; }
+.about-body li::marker { color: var(--ink-soft); }
+.about .actions { margin-top: 28px; }
+
 footer .wrap {
   display: flex;
   flex-wrap: wrap;
@@ -367,6 +382,8 @@ footer a:hover { color: var(--ink); }
 
 @media (max-width: 809px) {
   .project { grid-template-columns: minmax(0, 1fr); }
+  .minor { grid-template-columns: minmax(0, 1fr); }
+  .about-body { font-size: inherit; line-height: inherit; }
   .masthead { padding-block: 16px; }
   .masthead nav ul { display: none; }
 }
@@ -416,6 +433,11 @@ h2 {
 .facts dt { font-size: 0.9375rem; color: var(--ink-soft); }
 .facts dd { font-weight: 500; line-height: 1.4; }
 
+/* Summary: the case in five lines, label beside answer. */
+.summary { display: grid; gap: 16px; }
+.summary div { display: grid; grid-template-columns: 8.5em minmax(0, 1fr); column-gap: 24px; }
+.summary dt { font-weight: 500; color: var(--ink-soft); }
+
 .case-hero { padding-bottom: clamp(40px, 6vw, 72px); }
 
 /* Headings sit in a left rail; text and figures share one column and one
@@ -437,6 +459,8 @@ h2 {
 .body > figure + h3 { margin-top: 56px; }
 .body > h3 + figure { margin-top: 16px; }
 .body ul { padding-left: 1.15em; list-style: disc; }
+.body ol { margin-block: 0; padding-left: 1.3em; }
+.body ol li { padding-left: 0.2em; }
 .body li + li { margin-top: 0.35em; }
 .body li::marker { color: var(--ink-soft); }
 .body p a { color: var(--accent); font-weight: 500; }
@@ -542,6 +566,7 @@ tbody th { font-weight: 500; }
 @media (max-width: 809px) {
   .section { display: block; }
   .section > h2 { margin-bottom: 20px; }
+  .summary div { display: block; }
   .body { font-size: inherit; line-height: inherit; }
   .shots { grid-template-columns: repeat(var(--cols-narrow, 1), minmax(0, 1fr)); gap: 8px; }
   /* Stacked one per row, each image takes its own shape. */
