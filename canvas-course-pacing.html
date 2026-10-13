@@ -13,17 +13,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Course Pacing Redesign · Bryan Leung</title>
-    <meta name="description" content="I redesigned Course Pacing so instructors can set a pace for each section and each student, not only for the whole course.">
+    <meta name="description" content="Course Pacing could only set one pace for a whole course, and usage was about 1%. I redesigned it so instructors can set a pace for each section and each student.">
     <link href="https://framerusercontent.com/images/99o0xGOEfZotkYzWe1YIcqlI.png" rel="icon" media="(prefers-color-scheme: light)">
     <link href="https://framerusercontent.com/images/LGMKjWlTTfHSZ8lfmcI9t43rL0.png" rel="icon" media="(prefers-color-scheme: dark)">
     <link rel="apple-touch-icon" href="https://framerusercontent.com/images/SbstrRfnXC1gsLsJ9mINoHRhh4Y.png">
 
     <meta property="og:type" content="article">
     <meta property="og:title" content="Course Pacing Redesign · Bryan Leung">
-    <meta property="og:description" content="I redesigned Course Pacing so instructors can set a pace for each section and each student, not only for the whole course.">
+    <meta property="og:description" content="Course Pacing could only set one pace for a whole course, and usage was about 1%. I redesigned it so instructors can set a pace for each section and each student.">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Course Pacing Redesign · Bryan Leung">
-    <meta name="twitter:description" content="I redesigned Course Pacing so instructors can set a pace for each section and each student, not only for the whole course.">
+    <meta name="twitter:description" content="Course Pacing could only set one pace for a whole course, and usage was about 1%. I redesigned it so instructors can set a pace for each section and each student.">
     <meta name="robots" content="max-image-preview:large">
 
     <script>
@@ -63,10 +63,10 @@
         <article>
             <header class="wrap case-head">
                 <h1>Course Pacing Redesign</h1>
-                <p class="lede">I redesigned Course Pacing so instructors can set a pace for each section and each student, not only for the whole course.</p>
+                <p class="lede">Course Pacing could only set one pace for a whole course, and usage was about 1%. I redesigned it so instructors can set a pace for each section and each student.</p>
                 <dl class="facts">
                     <div><dt>Product</dt><dd>Canvas LMS</dd></div>
-                    <div><dt>Role</dt><dd>Senior Designer</dd></div>
+                    <div><dt>Role</dt><dd>Senior Product Designer</dd></div>
                     <div><dt>Team</dt><dd>1 product manager, 6 engineers</dd></div>
                     <div><dt>Scope</dt><dd>Design, research</dd></div>
                     <div><dt>Year</dt><dd>2023</dd></div>
@@ -86,7 +86,7 @@
                 <h2 id="summary">Summary</h2>
                 <div class="body">
 <dl class="summary">
-<div><dt>Problem</dt><dd>Course Pacing could only pace a whole course. Instructors said that made it unusable, and usage was very low.</dd></div>
+<div><dt>Problem</dt><dd>Course Pacing could only pace a whole course. Instructors said that made it unusable, and usage was about 1%, counting anyone who only opened it.</dd></div>
 <div><dt>Role</dt><dd>Only designer, with one product manager and six engineers. Design, research and support through the build.</dd></div>
 <div><dt>Solution</dt><dd>Sections and Students tabs, a full-screen view for each pace, blackout dates and pending changes.</dd></div>
 <div><dt>Result</dt><dd>Released to beta. Instructors were glad to set custom paces. We set no clear measure of success.</dd></div>
@@ -97,8 +97,10 @@
                 <h2 id="the-problem">The problem</h2>
                 <div class="body">
 <p>In a rolling-enrollment course, students start on different dates, so every due date differs by student. Instructors entered them by hand, and again for every extension.</p>
+<p>A few major US universities run courses this way. Some have more than 50,000 students, and they are large accounts for Instructure.</p>
 <p>Course Pacing calculates the dates from a pace. Its first version set one pace for the whole course.</p>
 <blockquote><p>The feature is essentially useless to me unless I can set paces for my students individually.</p></blockquote>
+<p>Usage was about 1%, and that was measured by views. Some of those instructors only opened the feature and closed it again.</p>
 <p>What made it hard:</p>
 <ul>
 <li><strong>Scale.</strong> The dropdown for switching between sections and students stops working past about 25 students.</li>
@@ -118,7 +120,7 @@
                 <h2 id="design-decisions">Design decisions</h2>
                 <div class="body">
 <h3>Tabs in place of a dropdown</h3>
-<p>I <a href="https://www.figma.com/design/hwEOGLjXxmW7sERv8ymNrQ/%E2%9C%85-%5BDelivered%5D-Course-Pacing---Bryan?node-id=713%3A101533&amp;t=vEYJImQsljrN7WTL-1" target="_blank" rel="noopener">explored several directions</a> and chose the one that fit our time and technical constraints. Sections and Students each get a tab, so a large course is a list to scan.</p>
+<p>I <a href="https://www.figma.com/design/hwEOGLjXxmW7sERv8ymNrQ/%E2%9C%85-%5BDelivered%5D-Course-Pacing---Bryan?node-id=713%3A101533&amp;t=vEYJImQsljrN7WTL-1" target="_blank" rel="noopener">explored several directions</a> and chose the one that fit our time and technical constraints. <span>One direction kept the dropdown and added drill-downs for choosing a student. It lost because it clearly would not work in a course with thousands of students.</span> Sections and Students each get a tab, so a large course is a list to scan.</p>
 <figure>
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.6446">
                             <a class="zoom" href="https://framerusercontent.com/images/3OyyMJP4OHXwUp4dUnGoNOSRQ.png" style="--own: 1.6446"><img width="2036" height="1238" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/3OyyMJP4OHXwUp4dUnGoNOSRQ.png?scale-down-to=512 512w, https://framerusercontent.com/images/3OyyMJP4OHXwUp4dUnGoNOSRQ.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/3OyyMJP4OHXwUp4dUnGoNOSRQ.png 2036w" sizes="(min-width: 810px) 736px, 100vw" src="https://framerusercontent.com/images/3OyyMJP4OHXwUp4dUnGoNOSRQ.png?scale-down-to=1024" alt="Redesigned Course Pacing page with Sections and Students tabs."></a>
@@ -136,6 +138,7 @@
 <h3>A page that says where you are</h3>
 <p>A title, a one-line description, and more prominent stats and default pace. The original had no title.</p>
 <h3>Added in the same release</h3>
+<p>Both came from faculty feedback that the product manager gathered on customer calls.</p>
 <ul>
 <li>Blackout dates, so nothing falls due inside a set date range.</li>
 <li>A way to view and reset pending changes.</li>
@@ -174,7 +177,8 @@
                 <div class="body">
 <ul>
 <li>I would agree on the success measure first, and count section and student paces separately from course paces. Without that, I can't put a number on the result.</li>
-<li>Adjusting the duration of individual items is still inefficient. I wanted to redesign it and met significant resistance.</li>
+<li>Adjusting the duration of individual items is still inefficient. I wanted to redesign it. The engineers resisted, because untangling the existing code would have taken too long.</li>
+<li>I think that argument is weaker now. AI tools can read an unfamiliar codebase quickly, so today I would start from the design and work down, not from what the old code allows.</li>
 </ul>
                 </div>
             </section>

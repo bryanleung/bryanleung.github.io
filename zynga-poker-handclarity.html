@@ -66,7 +66,7 @@
                 <p class="lede">Players thought they had won hands they lost. I redesigned how the table shows a winning hand.</p>
                 <dl class="facts">
                     <div><dt>Employer</dt><dd>Zynga</dd></div>
-                    <div><dt>Role</dt><dd>Principal Designer</dd></div>
+                    <div><dt>Role</dt><dd>Principal UX Designer</dd></div>
                     <div><dt>Team</dt><dd>1 product manager, 1 engineer</dd></div>
                     <div><dt>Scope</dt><dd>Visual exploration, asset creation, implementation</dd></div>
                     <div><dt>Year</dt><dd>2019</dd></div>
@@ -87,7 +87,7 @@
                 <div class="body">
 <dl class="summary">
 <div><dt>Problem</dt><dd>Players believed they had won and still lost. They asked for refunds and left 1-star reviews calling the game rigged.</dd></div>
-<div><dt>Role</dt><dd>Designer, with one product manager and one engineer. Visual exploration, assets and implementation.</dd></div>
+<div><dt>Role</dt><dd>Principal UX designer, with one product manager and one engineer. Visual exploration, assets and implementation.</dd></div>
 <div><dt>Solution</dt><dd>Winning cards glow, the rest dim, a stronger banner names the hand, and a kicker card explains ties.</dd></div>
 <div><dt>Result</dt><dd>App Store rating back to 4.6, refund calls down 10%. Other experiments ran at the same time.</dd></div>
 </dl>
@@ -97,6 +97,7 @@
                 <h2 id="the-challenge">The problem</h2>
                 <div class="body">
 <p>Lower ratings mean fewer new installs. We tracked the App Store rating, what reviews said, and customer service calls.</p>
+<p>I don't have the number of refund calls. They were frequent enough that the product team was asked to look into them.</p>
 <p>Three causes of the confusion:</p>
 <ul>
 <li><strong>Too fast.</strong> The pause between rounds was too short to confirm who had won.</li>
@@ -108,7 +109,7 @@
             <section class="section" aria-labelledby="ideas">
                 <h2 id="ideas">Choosing what to fix</h2>
                 <div class="body">
-<p>The team narrowed the ideas to what we could act on right away:</p>
+<p>I proposed five ideas, chosen for simplicity, engineering feasibility and speed of implementation.</p>
 <ul>
 <li>Lengthen the pause between hands.</li>
 <li>Reposition the winner's hole cards so they are easier to see.</li>
@@ -116,7 +117,7 @@
 <li>Dim the community cards that aren't part of the winning hand.</li>
 <li>Add stronger visual indicators to the winning hand.</li>
 </ul>
-<p>We wanted the longer pause and dropped it: too much technical complexity. The visual changes were quick to build and release.</p>
+<p>I wanted the longer pause. The engineers judged it too technically complex, so it was dropped. The visual changes were quick to build and release.</p>
 <figure>
                         <div class="shots stack-narrow" style="--cols: 3; --cols-narrow: 1; --ratio: 1.7766">
                             <a class="zoom" href="https://framerusercontent.com/images/RnEJNrZSCsLNUMnVPVtfcvIhToI.png" style="--own: 1.7766"><img width="1137" height="640" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/RnEJNrZSCsLNUMnVPVtfcvIhToI.png?scale-down-to=512 512w, https://framerusercontent.com/images/RnEJNrZSCsLNUMnVPVtfcvIhToI.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/RnEJNrZSCsLNUMnVPVtfcvIhToI.png 1137w" sizes="(min-width: 810px) 245px, 100vw" src="https://framerusercontent.com/images/RnEJNrZSCsLNUMnVPVtfcvIhToI.png?scale-down-to=1024" alt="Table exploration with the winning hand labeled."></a>
@@ -190,6 +191,8 @@
                         </div>
                         <figcaption>The winning banner is more decorated and stands out from the table.</figcaption>
                     </figure>
+<h3>Side pots</h3>
+<p>Each player who receives a side pot gets a labeled tag underneath.</p>
 <h3>New: the kicker card</h3>
 <p>When two players hold the same hand, the next-highest hole card decides the winner. Showing that card in the banner teaches the rule.</p>
 <figure>

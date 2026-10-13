@@ -66,7 +66,7 @@
                 <p class="lede">One engineer and I cut publishing a 120-item course from 120 clicks to 2, in a hackathon week.</p>
                 <dl class="facts">
                     <div><dt>Product</dt><dd>Canvas LMS</dd></div>
-                    <div><dt>Role</dt><dd>Designer</dd></div>
+                    <div><dt>Role</dt><dd>Senior Product Designer</dd></div>
                     <div><dt>Team</dt><dd>1 engineer</dd></div>
                     <div><dt>Timeline</dt><dd>Hackathon week</dd></div>
                     <div><dt>Year</dt><dd>2024</dd></div>
@@ -87,7 +87,7 @@
                 <div class="body">
 <dl class="summary">
 <div><dt>Problem</dt><dd>Instructors could publish course items only one at a time. A semester course has 80 to 120.</dd></div>
-<div><dt>Role</dt><dd>Designer, paired with one engineer for a hackathon week.</dd></div>
+<div><dt>Role</dt><dd>Senior product designer, paired with one engineer for a hackathon week.</dd></div>
 <div><dt>Solution</dt><dd>Bulk publish actions for a whole course or module, with progress and error states.</dd></div>
 <div><dt>Result</dt><dd>120 clicks to 2. Released soon after.</dd></div>
 </dl>
@@ -97,6 +97,7 @@
                 <h2 id="the-problem">The problem</h2>
                 <div class="body">
 <p>Every module and item had its own publish button. That was the only way.</p>
+<p>I picked it for the hackathon because it was low-hanging fruit, a small change for a large gain in usability.</p>
 <blockquote><p>It is quite a long list of assignments that I do not all want to be published when I publish the course.</p></blockquote>
 <figure>
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.5560">
@@ -104,7 +105,7 @@
                         </div>
                         <figcaption>One publish button per item was the only way.</figcaption>
                     </figure>
-<p>I watched a handful of test participants: <strong>0.75 to 1 second</strong> per click. A 120-item course is 90 to 120 seconds, before scrolling.</p>
+<p>I timed about four colleagues at the company, and each click took <strong>0.75 to 1 second</strong>. A 120-item course is 90 to 120 seconds, before scrolling.</p>
 <figure>
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.4859">
                             <a class="zoom" href="https://framerusercontent.com/images/qN4scrPbopwaHFDI2VrP5eVQiKM.gif" style="--own: 1.4859"><img width="740" height="498" loading="lazy" decoding="async" src="https://framerusercontent.com/images/qN4scrPbopwaHFDI2VrP5eVQiKM.gif" alt="Recording of items being published one click at a time."></a>
@@ -116,7 +117,7 @@
             <section class="section" aria-labelledby="the-solution">
                 <h2 id="the-solution">A menu, not multi-select</h2>
                 <div class="body">
-<p>The usual pattern is a checkbox on every item plus an action menu. We dropped it: far more engineering, and it put publish where instructors didn't expect it.</p>
+<p>The usual pattern is a checkbox on every item plus an action menu. I dropped it. Instructors would still click every item, so it would be about as slow as before, and it put publish where they didn't expect it. The engineer added that changing the list item UI was a much larger scope.</p>
 <figure>
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 4.4536">
                             <a class="zoom" href="https://framerusercontent.com/images/qulyBNC0G5RZb5GbzhFnnQuIIFc.png" style="--own: 4.4536"><img width="2690" height="604" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/qulyBNC0G5RZb5GbzhFnnQuIIFc.png?scale-down-to=512 512w, https://framerusercontent.com/images/qulyBNC0G5RZb5GbzhFnnQuIIFc.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/qulyBNC0G5RZb5GbzhFnnQuIIFc.png?scale-down-to=2048 2048w, https://framerusercontent.com/images/qulyBNC0G5RZb5GbzhFnnQuIIFc.png 2690w" sizes="(min-width: 810px) 736px, 100vw" src="https://framerusercontent.com/images/qulyBNC0G5RZb5GbzhFnnQuIIFc.png?scale-down-to=2048" alt="Three explorations of multi-select checkboxes with a bulk action menu."></a>
