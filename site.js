@@ -113,3 +113,106 @@ document.querySelector('.theme').addEventListener('click', function () {
     links[current].focus();
   });
 })();
+
+// Case study table of contents, built from each section's h2.
+(function () {
+  var sections = [].slice.call(document.querySelectorAll('.section > h2[id]'));
+  var masthead = document.querySelector('.masthead');
+  if (sections.length < 3 || !masthead) return;
+  var root = document.documentElement;
+  root.classList.add('has-toc');
+
+  var BACK = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 8H2M7 3 2 8l5 5"/></svg>';
+
+  // A plain list of section links, built once for the rail and once for the menu.
+  function buildList() {
+    var nav = document.createElement('nav');
+    nav.setAttribute('aria-label', 'Sections');
+    var list = document.createElement('ol');
+    list.className = 'toc-list';
+    var links = sections.map(function (h) {
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.href = '#' + h.id;
+      a.textContent = h.textContent;
+      li.appendChild(a); list.appendChild(li);
+      return a;
+    });
+    nav.appendChild(list);
+    return { nav: nav, links: links };
+  }
+
+  // Desktop rail: name, the way back, the sections, the theme switch.
+  var rail = document.createElement('aside');
+  rail.className = 'toc-rail';
+  rail.setAttribute('aria-label', 'Case study navigation');
+  var brand = masthead.querySelector('.brand').cloneNode(true);
+  var back = document.createElement('a');
+  back.className = 'toc-back'; back.href = './#work'; back.innerHTML = BACK + '<span>All work</span>';
+  var desk = buildList();
+  var theme = masthead.querySelector('.theme');
+  var themeCopy = theme.cloneNode(true);
+  themeCopy.addEventListener('click', function () { theme.click(); });
+  rail.append(brand, back, desk.nav, themeCopy);
+  document.body.appendChild(rail);
+
+  // Mobile: menu button in the masthead opens a card over a blurred page.
+  var toggle = document.createElement('button');
+  toggle.className = 'toc-toggle'; toggle.type = 'button';
+  toggle.setAttribute('aria-label', 'Open sections menu');
+  toggle.setAttribute('aria-expanded', 'false');
+  toggle.setAttribute('aria-controls', 'toc-pop');
+  toggle.innerHTML = '<svg class="open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M8 17h12"/></svg><svg class="close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>';
+  masthead.querySelector('nav').appendChild(toggle);
+  var pop = document.createElement('div');
+  pop.className = 'toc-pop'; pop.id = 'toc-pop';
+  var mob = buildList();
+  var popBack = back.cloneNode(true);
+  pop.append(mob.nav, popBack);
+  var scrim = document.createElement('div');
+  scrim.className = 'toc-scrim';
+  document.body.append(scrim, pop);
+
+  var open = false;
+  function setOpen(v) {
+    open = v;
+    toggle.setAttribute('aria-expanded', String(v));
+    toggle.setAttribute('aria-label', v ? 'Close sections menu' : 'Open sections menu');
+    if (v) {
+      root.classList.add('toc-open');
+      requestAnimationFrame(function () { root.classList.add('toc-shown'); });
+      var cur = pop.querySelector('[aria-current]') || pop.querySelector('a');
+      if (cur) cur.focus({ preventScroll: true });
+    } else {
+      root.classList.remove('toc-shown');
+      setTimeout(function () { if (!open) root.classList.remove('toc-open'); }, 250);
+    }
+  }
+  toggle.addEventListener('click', function () { setOpen(!open); });
+  scrim.addEventListener('click', function () { setOpen(false); });
+  pop.addEventListener('click', function (e) { if (e.target.closest('a')) setOpen(false); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && open) { setOpen(false); toggle.focus(); }
+  });
+
+  // The current section is the last one whose top has passed 30% of the screen.
+  function paint() {
+    var line = window.innerHeight * 0.3, k = -1;
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].parentElement.getBoundingClientRect().top <= line) k = i;
+    }
+    // At the very bottom, a short last section can never reach the line.
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) k = sections.length - 1;
+    [desk, mob].forEach(function (r) {
+      r.links.forEach(function (a, j) {
+        if (j === k) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+      });
+    });
+  }
+
+  var queued = false;
+  function queue() { if (!queued) { queued = true; requestAnimationFrame(function () { queued = false; paint(); }); } }
+  window.addEventListener('scroll', queue, { passive: true });
+  window.addEventListener('resize', queue);
+  paint();
+})();

@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Offering Batch Entry</title>
+<meta name="description" content="Working prototype of a batch offering entry screen. Sample data only.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Figtree:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#F7F4EF; --field:#FFFFFF; --panel:#FFFFFF; --panel-2:#FBF9F6; --line:#E7E2DA; --divider:#EFEBE4; --raise:#EEF2F8;
+  --accent-soft:#E4EAF4; --accent-line:#A3BBEA; --field-line:#D2CDC6; --accent:#34528A; --accent-text:#2A4270;
+  --muted:#626A7A; --text-2:#4A5163; --text:#232B3E; --text-strong:#161C2B; --on-accent:#FFFFFF;
+  --ok:#2E7D57; --err:#B3432B; --err-line:#E7B8AB; --err-soft:#FBEDE9;
+  color-scheme: light;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body { font-family: 'Figtree', 'Noto Sans TC', system-ui, sans-serif; background: var(--bg); color: var(--text); }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+a { color: var(--text-2); text-decoration: none; }
+a:hover { color: var(--text-strong); }
+svg { flex: none; }
+.sr { position: absolute; left: -9999px; }
+.num { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; }
+::selection { background: var(--accent-soft); color: var(--text-strong); }
+input { caret-color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+.app { display: flex; height: 100vh; min-height: 640px; }
+.sb { --panel:#1B2438; --line:#2A3550; --field-line:#46526C; --muted:#A9B3C6; --text-2:#D2D8E4; --text-strong:#FFFFFF; --accent-soft:#34528A; --accent-text:#FFFFFF; --raise:#263454;
+  display: flex; flex-direction: column; gap: 24px; flex: none; width: 232px; padding: 20px 16px; background: var(--panel); border-right: 1px solid var(--line); }
+.sb-brand { display: flex; align-items: center; gap: 12px; min-height: 48px; }
+.sb-logo { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 10px; color: var(--muted); border: 1px dashed var(--field-line); }
+.sb-name { font-size: 15px; font-weight: 600; line-height: 1.3; color: var(--text-strong); }
+.sb nav { display: flex; flex-direction: column; gap: 4px; flex-grow: 1; }
+.sb-a { display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 12px; border-radius: 10px; font-size: 15px; color: var(--text-2); font-weight: 500; }
+.sb-a:hover { background: var(--raise); color: var(--text-strong); }
+.sb-a[aria-current] { background: var(--accent-soft); color: var(--accent-text); font-weight: 600; }
+.sb-me { display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 12px; }
+.sb-me:hover { background: var(--raise); }
+.avatar { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 18px; background: var(--accent-soft); color: var(--accent-text); font-size: 13px; font-weight: 600; flex: none; }
+
+main { flex: 1 1 0; min-width: 0; overflow-y: auto; }
+.pg { height: 100%; padding: 20px 28px 28px; display: flex; flex-direction: column; gap: 20px; }
+.head { flex: none; display: flex; align-items: center; gap: 16px; min-height: 44px; flex-wrap: wrap; row-gap: 8px; }
+.back { display: flex; align-items: center; gap: 6px; height: 44px; font-size: 14px; }
+.ttl { display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 8px; border: 0; border-radius: 8px; background: transparent; }
+.ttl:hover { background: var(--raise); }
+.ttl .pen { opacity: 0; color: var(--muted); transition: opacity .15s; }
+.ttl:hover .pen, .ttl:focus-visible .pen { opacity: 1; }
+.ttl.name { margin-left: -8px; color: var(--text-strong); font-size: 17px; font-weight: 600; cursor: text; }
+.ttl.date { color: var(--muted); font-size: 14px; }
+.inl { height: 40px; padding: 0 10px; background: var(--field); border: 1px solid var(--accent); border-radius: 8px; color: var(--text-strong); outline: 0; box-shadow: 0 0 0 3px var(--accent-soft); }
+.grow { flex-grow: 1; }
+.count { font-size: 14px; color: var(--muted); }
+.odo { display: flex; align-items: flex-start; height: 1.2em; overflow: hidden; font-size: 20px; font-weight: 500; line-height: 1.2em; color: var(--text-strong); }
+.odo > span { display: inline-block; height: 1.2em; overflow: hidden; }
+.odo .strip { display: block; white-space: pre-line; transition: transform .6s cubic-bezier(.2,.8,.2,1); }
+.status { display: flex; align-items: center; gap: 6px; min-width: 150px; padding-right: 8px; font-size: 13px; color: var(--ok); }
+.status.wait { color: var(--muted); }
+.spin { animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .odo .strip { transition: none; } .spin { animation: none; } }
+
+.go { display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px; border: 0; border-radius: 10px; font-size: 14px; font-weight: 600; white-space: nowrap; background: var(--accent); color: var(--on-accent); }
+.go:hover { background: var(--accent-text); }
+.go:disabled { background: var(--line); color: var(--muted); cursor: not-allowed; }
+.btn { height: 36px; padding: 0 12px; border: 1px solid var(--field-line); border-radius: 8px; background: transparent; color: var(--text); font-size: 13px; }
+.btn:hover { background: var(--line); }
+.btn.soft { border-color: var(--accent-line); background: var(--accent-soft); color: var(--accent-text); font-weight: 500; }
+.btn.del { border-color: var(--err-line); color: var(--err); }
+.btn.del:hover { background: var(--err-soft); }
+.f { height: 38px; min-width: 0; width: 100%; padding: 0 10px; background: var(--field); border: 1px solid var(--field-line); border-radius: 8px; color: var(--text-strong); font-size: 14px; outline: 0; }
+.f:focus { border-color: var(--accent); }
+
+.entry { flex: none; display: flex; flex-direction: column; background: var(--panel); border: 1px solid var(--accent); border-radius: 14px; overflow: hidden; }
+.entry label.q { display: flex; align-items: center; gap: 14px; height: 64px; padding: 0 12px 0 20px; }
+.entry input.q { flex-grow: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--text-strong); font-size: 19px; }
+.entry input.q::placeholder { color: #8A909C; }
+.preview { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .8fr) minmax(0, 1.2fr); border-top: 1px solid var(--line); background: var(--panel-2); }
+.preview > div { display: flex; flex-direction: column; gap: 4px; padding: 14px 20px 16px; min-height: 84px; min-width: 0; }
+.preview > div + div { border-left: 1px solid var(--line); }
+.lbl { font-size: 12px; color: var(--muted); }
+.sub { font-size: 13px; color: var(--muted); }
+.who { font-size: 20px; font-weight: 600; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-strong); }
+.who.idle { color: var(--muted); font-weight: 400; }
+.who.bad { color: var(--err); }
+.amt { font-size: 22px; font-weight: 500; line-height: 1.15; color: var(--text-strong); }
+.amt.idle { color: var(--muted); }
+.fl { display: flex; align-items: baseline; gap: 8px; font-size: 15px; }
+.fl .n { color: var(--text-strong); font-weight: 500; }
+.fl .n.idle { color: var(--muted); font-weight: 400; }
+.fl .tag { font-size: 12px; color: var(--muted); flex-grow: 1; }
+.fl .a { font-size: 14px; color: var(--text-strong); }
+.note { font-size: 13px; font-weight: 600; color: var(--muted); }
+.note.ok { color: var(--ok); } .note.bad { color: var(--err); }
+.picks { display: flex; flex-wrap: wrap; gap: 6px; padding-top: 4px; }
+.picks .btn { height: 32px; }
+.adding { display: flex; gap: 6px; padding-top: 4px; }
+.adding .f { height: 34px; }
+.adding .go, .adding .btn { height: 34px; font-size: 13px; padding: 0 12px; }
+
+.hints { flex: none; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: -8px; padding: 0 4px; font-size: 13px; color: var(--muted); }
+.key { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-2); padding: 2px 6px; border: 1px solid var(--field-line); border-radius: 5px; background: var(--panel); }
+.hints .key:not(:first-child) { margin-left: 12px; }
+
+.list { display: flex; flex-direction: column; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; overflow-y: auto; flex-grow: 1; min-height: 240px; scrollbar-width: thin; scrollbar-color: var(--field-line) transparent; }
+.cols { display: grid; grid-template-columns: 40px minmax(0, 1fr) 130px 170px 100px; gap: 12px; align-items: center; }
+.lh { position: sticky; top: 0; z-index: 1; flex: none; padding: 10px 20px; font-size: 12px; color: var(--muted); background: var(--panel); border-bottom: 1px solid var(--line); }
+.r { display: flex; flex-direction: column; flex: none; width: 100%; padding: 0 20px; border: 0; border-bottom: 1px solid var(--divider); text-align: left; background: transparent; }
+.r:hover { background: var(--raise); }
+.r.split { padding-bottom: 10px; }
+.r.fresh { background: var(--accent-soft); }
+.r .cols { height: 44px; }
+.r .cols.ln { height: 24px; }
+.r .no { font-size: 13px; color: var(--muted); }
+.r .nm { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+.r .nm b { font-weight: 400; font-size: 15px; color: var(--text-strong); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.r .env { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); }
+.r .env.new { font-family: inherit; color: var(--accent-text); background: var(--accent-soft); padding: 1px 6px; border-radius: 5px; white-space: nowrap; }
+.r .t2 { font-size: 14px; color: var(--text-2); }
+.r .ra { font-size: 14px; text-align: right; color: var(--text-strong); }
+.r .ln .t2 { font-size: 13px; }
+.r .ln .ra { font-size: 13px; color: var(--muted); }
+.ed { display: flex; flex-direction: column; gap: 12px; padding: 14px 20px 16px; background: var(--raise); box-shadow: inset 0 0 0 1px var(--accent); flex: none; }
+.ed .top { display: grid; grid-template-columns: 28px minmax(0, 1fr) 120px 110px 120px; gap: 8px; align-items: center; }
+.ed .lines { display: flex; flex-direction: column; gap: 6px; padding-left: 36px; }
+.ed .line { display: grid; grid-template-columns: minmax(0, 1fr) 120px 38px; gap: 8px; align-items: center; }
+.ed .x { display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; padding: 0; color: var(--muted); }
+.ed .acts { display: flex; align-items: center; gap: 8px; padding-left: 36px; flex-wrap: wrap; }
+.ed .acts .go { height: 36px; font-size: 13px; border-radius: 8px; }
+.bal { flex-grow: 1; font-size: 13px; font-weight: 600; color: var(--ok); }
+.bal.bad { color: var(--err); }
+.empty { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; flex-grow: 1; padding: 40px 24px; text-align: center; }
+.empty h2 { margin: 0; font-size: 17px; font-weight: 600; color: var(--text-strong); }
+.empty p { margin: 0; max-width: 440px; font-size: 14px; line-height: 1.5; color: var(--muted); }
+
+.scrim { position: fixed; inset: 0; z-index: 20; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(15, 12, 24, .55); }
+.dlg { display: flex; flex-direction: column; width: 480px; max-width: 100%; max-height: 100%; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); overflow: hidden; }
+.dlg h2 { margin: 0; font-size: 18px; font-weight: 600; color: var(--text-strong); }
+.stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; padding: 0 24px 18px; }
+.stats div { display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; border-radius: 10px; background: var(--panel-2); }
+.stats b { font-family: 'JetBrains Mono', monospace; font-size: 20px; font-weight: 500; color: var(--text-strong); }
+.ftab { display: flex; flex-direction: column; padding: 0 24px; overflow-y: auto; border-top: 1px solid var(--divider); }
+.ftab > div { display: grid; grid-template-columns: minmax(0, 1fr) 90px 120px; gap: 12px; padding: 10px 0; border-top: 1px solid var(--divider); font-size: 14px; }
+.ftab > div:first-child { border-top: 0; padding: 12px 0 8px; font-size: 12px; color: var(--muted); }
+.ftab .rt { text-align: right; }
+.ftab .tot { grid-template-columns: minmax(0, 1fr) 120px; border-top-color: var(--line); font-weight: 600; color: var(--text-strong); padding-bottom: 16px; }
+.dlg .foot { display: flex; align-items: center; gap: 12px; padding: 16px 24px 20px; border-top: 1px solid var(--divider); flex-wrap: wrap; }
+.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 30; display: flex; align-items: center; gap: 8px; padding: 12px 18px; border-radius: 12px; background: var(--text-strong); color: #fff; font-size: 14px; font-weight: 500; transition: opacity .3s; white-space: nowrap; }
+.toast[hidden] { display: flex; opacity: 0; pointer-events: none; }
+.demo { position: fixed; right: 16px; bottom: 16px; z-index: 10; display: flex; align-items: center; gap: 10px; padding: 8px 8px 8px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); font-size: 13px; color: var(--muted); box-shadow: 0 4px 16px rgba(22, 28, 43, .08); }
+.demo .btn { height: 32px; }
+
+@media (max-width: 1100px) {
+  .sb { width: 76px; padding: 16px 12px; align-items: center; }
+  .sb-name, .sb-t, .sb-x { display: none; }
+  .sb-a { justify-content: center; width: 52px; padding: 0; }
+  .sb-me { border: 0; padding: 0; justify-content: center; }
+  .pg { padding: 20px 24px 28px; }
+  .cols { grid-template-columns: 40px minmax(0, 1fr) 112px 100px; }
+  .cols > :nth-child(3) { display: none; }
+  .ed .top { grid-template-columns: 28px minmax(0, 1fr) 110px 110px; }
+  .ed .top > :nth-child(4) { display: none; }
+}
+@media (max-width: 680px) {
+  .app { flex-direction: column-reverse; height: auto; min-height: 100vh; }
+  .sb { position: sticky; bottom: 0; z-index: 15; flex-direction: row; justify-content: space-around; align-items: center; width: auto; height: 64px; padding: 0 4px; gap: 0; border-right: 0; border-top: 1px solid var(--line); }
+  .sb-brand, .sb-me { display: none; }
+  .sb nav { flex-direction: row; justify-content: space-around; }
+  main { overflow: visible; }
+  .pg { height: auto; padding: 16px; gap: 16px; }
+  .preview { grid-template-columns: minmax(0, 1fr); }
+  .preview > div + div { border-left: 0; border-top: 1px solid var(--line); }
+  .preview > div { min-height: 0; padding: 12px 16px; }
+  .entry input.q { font-size: 16px; }
+  .entry label.q { padding: 0 8px 0 14px; }
+  .hints { display: none; }
+  .status { min-width: 0; }
+  .cols { grid-template-columns: minmax(0, 1fr) auto; }
+  .cols > :nth-child(1), .cols > :nth-child(3), .cols > :nth-child(4) { display: none; }
+  .r, .lh { padding-left: 14px; padding-right: 14px; }
+  .list { min-height: 360px; flex-grow: 0; }
+  .ed .top { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .ed .top > :nth-child(1) { display: none; }
+  .ed .top > :nth-child(2) { grid-column: 1 / -1; }
+  .ed .top > :nth-child(4) { display: flex; }
+  .ed .lines, .ed .acts { padding-left: 0; }
+  .demo { left: 16px; right: 16px; bottom: 76px; justify-content: space-between; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sb">
+    <div class="sb-brand">
+      <div class="sb-logo" title="Church logo"><svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2.5" width="12" height="11" rx="1.5"/><circle cx="5.75" cy="6.25" r="1.25"/><path d="m2.5 11.5 3.5-3 2.5 2 2-1.75 3 2.75"/></svg></div>
+      <span class="sb-name">Sample Community Church</span>
+    </div>
+    <nav aria-label="Main">
+      <a class="sb-a" href="#members" data-noop><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="5.5" r="2.5"/><path d="M1.5 13.5c0-2.5 2-4 4.5-4s4.5 1.5 4.5 4"/><path d="M11 3.2a2.5 2.5 0 0 1 0 4.6M12.5 9.8c1.3.6 2 1.9 2 3.7"/></svg><span class="sb-t">Members</span></a>
+      <a class="sb-a" href="#offerings" aria-current="page" data-noop><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3.5" width="12" height="9" rx="1.5"/><path d="m2.5 4.5 5.5 4.5 5.5-4.5"/></svg><span class="sb-t">Offerings</span></a>
+    </nav>
+    <a class="sb-me" href="#account" data-noop>
+      <span class="avatar">GC</span>
+      <span class="sb-x" style="display:flex;flex-direction:column;gap:1px;min-width:0;flex-grow:1"><span style="font-size:14px;font-weight:600;color:var(--text-strong)">Grace Chen</span><span style="font-size:12px;color:var(--muted)">My account</span></span>
+    </a>
+  </aside>
+
+  <main>
+    <div class="pg">
+      <div class="head">
+        <a class="back" href="#offerings" data-noop><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg>Offerings</a>
+        <span id="name-slot"></span>
+        <span id="date-slot"></span>
+        <span class="grow"></span>
+        <span class="num count" id="count"></span>
+        <span class="sr" aria-live="polite" id="total-live"></span>
+        <span class="num odo" aria-hidden="true" id="odo">$</span>
+        <span role="status" class="status" id="status"></span>
+        <button class="go" type="button" id="submit">Submit batch</button>
+      </div>
+
+      <div class="entry">
+        <label class="q">
+          <span class="sr">Next offering</span>
+          <input class="num q" id="q" placeholder="e.g. grace chen 100 general 75 missions 25" autocomplete="off" spellcheck="false">
+          <button class="go" type="button" id="record">Record
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 3v5a2 2 0 0 1-2 2H4"/><path d="M7 7l-3 3 3 3"/></svg>
+          </button>
+        </label>
+        <div class="preview" aria-live="polite" id="preview"></div>
+      </div>
+
+      <div class="hints">
+        <span class="key">Enter</span> to record
+        <span class="key">@missions</span> makes Missions the default fund
+        <span class="key">anon</span> for a gift with no name
+        <span class="key">Up</span> to edit the last entry
+      </div>
+
+      <div class="list" id="list"></div>
+    </div>
+  </main>
+</div>
+<div id="dialog"></div>
+<div class="toast" id="toast" hidden role="status"></div>
+<div class="demo" id="demo"><span>Prototype with sample data. Nothing is saved.</span><button class="btn" type="button" id="reset">Reset</button></div>
+
+<script>
+(function () {
+  const FUNDS = ['General Fund', 'Missions', 'Building Fund', 'Benevolence']
+  const METHODS = ['Cash', 'Check', 'Card', 'Online']
+  const BASE_PEOPLE = [
+    { env: '0412', name: 'Grace Chen 陳恩慈' }, { env: '0356', name: 'Grace Liu 劉雅恩' },
+    { env: '0388', name: 'David & Mei Lin Wu' }, { env: '0217', name: 'Samuel Ortega' },
+    { env: '0144', name: 'Joseph Tan 陳約瑟' }, { env: '0620', name: 'Hannah Park' },
+    { env: '0503', name: 'Esther Lam 林以斯帖' }, { env: '0275', name: 'Peter Ng' },
+  ]
+  const MORE = [['0702', 'Anna Ho 何安娜'], ['0703', 'Ben Lau 劉本'], ['0704', 'Christine Yip 葉嘉欣'], ['0705', 'Michael Kwok 郭明'], ['0706', 'Rebecca Lin 林慧'], ['0707', 'Timothy Cheung 張提摩太'], ['0708', 'Sarah Lee'], ['0709', 'James Ho 何雅各'], ['0710', 'Priya Nair'], ['0711', 'Jonathan Fung 馮約拿單'], ['0388', 'David & Mei Lin Wu'], ['0275', 'Peter Ng']]
+  let people
+
+  const $ = sel => document.querySelector(sel)
+  const esc = v => String(v).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]))
+  const money = n => '$' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  const sum = lines => lines.reduce((a, l) => a + (parseFloat(l.amt) || 0), 0)
+  const pad = n => String(n).padStart(3, '0')
+  const PEN = '<svg class="pen" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 2.5 13.5 5 6 12.5 3 13l.5-3z"/></svg>'
+
+  let s, saveTimer
+  function seed() {
+    people = BASE_PEOPLE.slice()
+    MORE.forEach(([env, name]) => { if (!people.some(p => p.env === env)) people.push({ env, name }) })
+    const g = (fund, amt) => [{ fund, amt }]
+    const common = [
+      { no: 35, env: '0356', name: 'Grace Liu 劉雅恩', method: 'Check', check: '2231', lines: g('General Fund', 80) },
+      { no: 34, env: '0503', name: 'Esther Lam 林以斯帖', method: 'Check', check: '3310', lines: g('General Fund', 100) },
+      { no: 33, env: '0620', name: 'Hannah Park', method: 'Cash', check: '', lines: g('General Fund', 60) },
+      { no: 32, env: '0217', name: 'Samuel Ortega', method: 'Cash', check: '', lines: g('Missions', 40) },
+    ]
+    const amts = [100, 50, 200, 20, 300, 75, 150, 40, 500, 60, 250, 120, 80, 35, 1000, 45, 200, 100, 60, 150, 25, 300, 90, 100, 500, 70, 40, 200, 110, 30]
+    amts.push(5812 - amts.reduce((a, x) => a + x, 0))
+    const methods = ['Cash', 'Check', 'Online', 'Check', 'Cash', 'Check']
+    const older = amts.map((amt, i) => {
+      const who = MORE[i % MORE.length], method = methods[i % methods.length]
+      const lines = i % 9 === 4 && amt >= 200 ? [{ fund: 'General Fund', amt: amt - 100 }, { fund: 'Missions', amt: 100 }]
+        : [{ fund: i % 7 === 3 ? 'Missions' : (i % 11 === 6 ? 'Building Fund' : (i % 13 === 8 ? 'Benevolence' : 'General Fund')), amt }]
+      return { no: i + 1, env: who[0], name: who[1], method, check: method === 'Check' ? String(2000 + i * 37) : '', lines }
+    }).reverse()
+    const joseph = { no: 36, env: '0144', name: 'Joseph Tan 陳約瑟', method: 'Check', check: '881', lines: [{ fund: 'Building Fund', amt: 300 }, { fund: 'General Fund', amt: 200 }] }
+    const empty = new URLSearchParams(location.search).has('empty')
+    s = {
+      q: '', stickyFund: 'General Fund', stickyMethod: 'Check',
+      rows: empty ? [] : [joseph].concat(common).concat(older),
+      edit: null, added: [], adding: null,
+      batchName: 'English Worship', batchDate: '2026-09-27', nameDraft: null, dateDraft: null,
+      saveState: 'saved', everSaved: false, submitOpen: false,
+    }
+  }
+
+  // ── Parsing the one-line entry ──────────────────────
+  function parse(q) {
+    const funds = { general: 'General Fund', missions: 'Missions', building: 'Building Fund', benevolence: 'Benevolence' }
+    const methods = { cash: 'Cash', card: 'Card', online: 'Online', chk: 'Check', check: 'Check' }
+    const w = q.trim().toLowerCase().replace(/\+/g, ' ').split(/\s+/).filter(Boolean)
+    const out = { method: null, check: null, person: null, sticky: {}, items: [], hits: [], rest: [] }
+    const rest = []
+    for (let i = 0; i < w.length; i++) {
+      let t = w[i]
+      if (t[0] === '@') { t = t.slice(1); if (funds[t]) out.sticky.fund = funds[t]; if (methods[t]) out.sticky.method = methods[t]; continue }
+      if (methods[t]) { out.method = methods[t]; if (out.method === 'Check' && /^\d+$/.test(w[i + 1] || '')) out.check = w[++i]; continue }
+      if (funds[t]) { out.items.push({ f: funds[t] }); continue }
+      if (t === 'anon' || t === 'anonymous') { out.person = { env: '', name: 'Anonymous', anon: true }; continue }
+      const env = people.find(p => p.env && p.env === t.replace('#', ''))
+      if (env) { out.person = env; continue }
+      if (/^\$?\d+(\.\d{1,2})?$/.test(t)) { out.items.push({ n: parseFloat(t.replace('$', '')) }); continue }
+      rest.push(t)
+    }
+    if (!out.person && rest.length) {
+      const hits = people.concat(s.added).filter(p => rest.every(r => p.name.toLowerCase().indexOf(r) >= 0))
+      out.person = hits.length === 1 ? hits[0] : null
+      out.ambiguous = hits.length > 1
+      out.hits = hits; out.rest = rest
+    }
+    const lines = []; let total = null
+    const it = out.items
+    const isN = x => x && x.n !== undefined
+    const off = isN(it[0]) && isN(it[1]) ? 1 : 0
+    const tail = it.slice(off)
+    const amountFirst = tail.length >= 4 && tail.length % 2 === 0 && tail.every((x, i) => i % 2 === 0 ? isN(x) : !!x.f)
+    if (amountFirst) {
+      for (let i = 0; i < tail.length; i += 2) lines.push({ fund: tail[i + 1].f, amt: tail[i].n, explicit: true })
+      if (off) total = it[0].n
+    }
+    for (let i = 0; !amountFirst && i < it.length; i++) {
+      if (it[i].f) {
+        const nx = it[i + 1]
+        if (nx && nx.n !== undefined) { lines.push({ fund: it[i].f, amt: nx.n, explicit: true }); i++ }
+        else lines.push({ fund: it[i].f, amt: null })
+      } else if (total === null) total = it[i].n
+    }
+    const known = lines.reduce((a, l) => a + (l.amt || 0), 0)
+    if (total === null && lines.length && lines.every(l => l.amt !== null)) total = known
+    out.total = total
+    if (total !== null) {
+      let rem = total - known
+      const open = lines.find(l => l.amt === null)
+      if (open) { open.amt = Math.max(rem, 0); open.rest = true; rem = 0 }
+      lines.filter(l => l.amt === null).forEach(l => { l.amt = 0 })
+      if (rem > 0.001) {
+        const fund = out.sticky.fund || s.stickyFund
+        const same = lines.find(l => l.fund === fund)
+        if (same) same.amt += rem; else lines.push({ fund, amt: rem, rest: true, carried: true })
+      }
+      out.over = rem < -0.001 ? -rem : 0
+    }
+    out.lines = lines.reduce((acc, l) => { const m = acc.find(x => x.fund === l.fund); if (m) { m.amt += l.amt; m.rest = m.rest && l.rest } else acc.push(l); return acc }, [])
+      .filter(l => l.amt > 0.001 || lines.length === 1)
+    return out
+  }
+
+  function commit() {
+    const p = parse(s.q)
+    if (p.sticky.fund) s.stickyFund = p.sticky.fund
+    if (p.sticky.method) s.stickyMethod = p.sticky.method
+    if (p.person && p.total !== null && !p.over) {
+      const no = s.rows.reduce((m, r) => Math.max(m, r.no), 0) + 1
+      s.rows = [{ no, env: p.person.env, name: p.person.name, anon: !!p.person.anon, isNew: !!p.person.isNew, method: p.method || s.stickyMethod, check: p.check || '', lines: p.lines.map(l => ({ fund: l.fund, amt: l.amt })), fresh: true }]
+        .concat(s.rows.map(r => ({ ...r, fresh: false })))
+      setQ('')
+      markSaving()
+      $('#list').scrollTop = 0
+    } else if (p.sticky.fund || p.sticky.method) setQ('')
+    render()
+  }
+  function setQ(v) { s.q = v; $('#q').value = v }
+  function markSaving() {
+    s.saveState = 'saving'; s.everSaved = true
+    clearTimeout(saveTimer)
+    saveTimer = setTimeout(() => { s.saveState = 'saved'; renderHead() }, 900)
+  }
+  const fmtDate = iso => {
+    const dt = new Date(iso + 'T12:00:00')
+    if (isNaN(dt)) return iso
+    return ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][dt.getDay()] + ', ' + ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][dt.getMonth()] + ' ' + dt.getDate() + (dt.getFullYear() !== 2026 ? ', ' + dt.getFullYear() : '')
+  }
+  const title = ws => ws.map(x => x.charAt(0).toUpperCase() + x.slice(1)).join(' ')
+  const totalOf = () => s.rows.reduce((a, r) => a + sum(r.lines), 0)
+
+  // ── Header: name, date, rolling total, save status ──
+  const odoSlots = []
+  function buildOdo() {
+    const el = $('#odo')
+    const add = (html, kind) => { const b = document.createElement('span'); b.innerHTML = `<span class="strip">${html}</span>`; el.appendChild(b); odoSlots.push({ b, kind }) }
+    const strip = '0\n1\n2\n3\n4\n5\n6\n7\n8\n9'
+    for (let i = 0; i < 7; i++) { add(strip, 'd'); if (i === 0 || i === 3) add(',', 'l') }
+    add('.', 'l'); add(strip, 'd'); add(strip, 'd')
+  }
+  function setOdo(total) {
+    const cents = Math.round(total * 100)
+    const ip = String(Math.floor(cents / 100)).padStart(7, '0'), fp = String(cents % 100).padStart(2, '0')
+    const firstSig = Math.min(ip.search(/[1-9]/) < 0 ? 6 : ip.search(/[1-9]/), 6)
+    const chars = []
+    for (let i = 0; i < 7; i++) { chars.push([ip[i], i < firstSig]); if (i === 0 || i === 3) chars.push([',', i < firstSig]) }
+    chars.push(['.', false], [fp[0], false], [fp[1], false])
+    chars.forEach(([ch, hidden], i) => {
+      const slot = odoSlots[i]
+      slot.b.style.width = hidden ? '0' : (slot.kind === 'd' ? '0.6em' : 'auto')
+      if (slot.kind === 'd') slot.b.firstChild.style.transform = `translateY(-${parseInt(ch, 10) * 1.2}em)`
+    })
+  }
+
+  function renderHead() {
+    const count = s.rows.length
+    $('#name-slot').innerHTML = s.nameDraft === null
+      ? `<button class="ttl name" type="button" data-act="edit-name" aria-label="Rename batch, currently ${esc(s.batchName)}">${esc(s.batchName)}${PEN}</button>`
+      : `<input class="inl" data-k="name" value="${esc(s.nameDraft)}" aria-label="Batch name" style="width:260px;font-size:17px;font-weight:600">`
+    $('#date-slot').innerHTML = s.dateDraft === null
+      ? `<button class="ttl date" type="button" data-act="edit-date" aria-label="Change batch date, currently ${fmtDate(s.batchDate)}">${fmtDate(s.batchDate)}${PEN}</button>`
+      : `<input class="inl" type="date" data-k="date" value="${esc(s.dateDraft)}" aria-label="Batch date" style="width:170px;font-size:14px">`
+    $('#count').textContent = count === 1 ? '1 entry' : count + ' entries'
+    $('#total-live').textContent = 'Batch total ' + money(totalOf())
+    setOdo(totalOf())
+    const waiting = s.saveState === 'saving' || (count === 0 && !s.everSaved)
+    const st = $('#status')
+    st.className = 'status' + (waiting ? ' wait' : '')
+    st.innerHTML = s.saveState === 'saving'
+      ? '<svg class="spin" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M8 2a6 6 0 1 1-6 6"/></svg>Saving…'
+      : (count === 0 && !s.everSaved ? 'Nothing to save yet' : '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3.5 8.5 3 3 6-7"/></svg>All changes saved')
+    $('#submit').disabled = !count
+  }
+
+  // ── Live preview under the entry line ───────────────
+  function renderPreview() {
+    const p = parse(s.q)
+    const has = !!s.q.trim()
+    const unknown = !p.person && !p.ambiguous && p.rest.length > 0
+    let who = '<span class="who idle">Type a name or envelope no.</span>', whoSub = ''
+    if (p.person) { who = `<span class="who">${esc(p.person.name)}</span>`; whoSub = p.person.anon ? 'Not linked to a member' : (p.person.isNew ? 'New member · finish their profile later' : 'Envelope ' + p.person.env) }
+    else if (p.ambiguous) { who = `<span class="who bad">${p.hits.length} members match “${esc(p.rest.join(' '))}”</span>`; whoSub = 'Pick one below, or type more of the name.' }
+    else if (p.rest.length) { who = `<span class="who bad">No member named “${esc(p.rest.join(' '))}”</span>`; whoSub = s.adding ? 'New member' : '' }
+    let extra = ''
+    if (unknown && !s.adding) extra = `<div class="picks"><button class="btn soft" type="button" data-act="start-add">Add “${esc(title(p.rest))}” as a new member</button><button class="btn" type="button" data-act="anon">Record as anonymous</button></div>`
+    if (unknown && s.adding) extra = `<div class="adding"><label style="display:flex;flex-grow:1;min-width:0"><span class="sr">New member name</span><input class="f" data-k="add-name" value="${esc(s.adding.name)}"></label><button class="go" type="button" data-act="confirm-add">Add member</button><button class="btn" type="button" data-act="cancel-add">Cancel</button></div>`
+    if (p.ambiguous) extra = `<div class="picks">${p.hits.map(h => `<button class="btn soft" type="button" data-act="pick" data-env="${esc(h.env)}">${esc(h.name)} · ${esc(h.env)}</button>`).join('')}</div>`
+
+    const method = p.method || p.sticky.method || s.stickyMethod
+    let funds, note = '', noteCls = ''
+    if (p.total !== null) {
+      funds = p.lines.map(l => `<div class="fl"><span class="n">${esc(l.fund)}</span><span class="tag">${l.carried ? 'default' : (l.rest && p.lines.length > 1 ? 'remainder' : '')}</span><span class="num a">${money(l.amt)}</span></div>`).join('')
+      if (p.over) { note = `Funds add up to ${money(p.over)} more than the amount. Lower a fund or raise the amount.`; noteCls = 'bad' }
+      else if (p.lines.length > 1) { note = `Funds add up to ${money(p.total)}`; noteCls = 'ok' }
+    } else funds = `<div class="fl"><span class="n idle">${esc(p.sticky.fund || s.stickyFund)}</span><span class="tag">default</span><span class="num a"></span></div>`
+
+    $('#preview').innerHTML = `
+      <div><span class="lbl">Giver</span>${who}<span class="sub">${esc(whoSub)}</span>${extra}</div>
+      <div><span class="lbl">Amount</span><span class="num amt ${p.total !== null ? '' : 'idle'}">${p.total !== null ? money(p.total) : '$0.00'}</span><span class="sub">${esc(method + (p.check ? ' ' + p.check : '') + (has && p.method ? '' : ' · default'))}</span></div>
+      <div><span class="lbl">Funds</span>${funds}<span class="note ${noteCls}">${esc(note)}</span></div>`
+    $('#record').disabled = !(p.person && p.total !== null && !p.over)
+  }
+
+  // ── Entries list and inline edit ────────────────────
+  const balance = d => (parseFloat(d.total) || 0) - sum(d.lines)
+  const balText = d => {
+    const bal = balance(d)
+    if (Math.abs(bal) < 0.001) return d.lines.length > 1 ? 'Funds add up to ' + money(parseFloat(d.total) || 0) : ''
+    return bal > 0 ? money(bal) + ' still needs a fund' : 'Funds are ' + money(-bal) + ' more than the amount. Lower a fund or raise the amount.'
+  }
+  function editHtml(r) {
+    const d = s.edit, even = Math.abs(balance(d)) < 0.001
+    const opts = BASE_PEOPLE.map(p => [p.env, p.name + ' · ' + p.env])
+    if (!opts.some(o => o[0] === d.env) && d.env !== 'anon' && d.env.indexOf('new:') !== 0) { const p = people.find(x => x.env === d.env); if (p) opts.push([p.env, p.name + ' · ' + p.env]) }
+    opts.push(['anon', 'Anonymous'])
+    if (d.env.indexOf('new:') === 0) opts.push([d.env, d.env.slice(4) + ' · new member'])
+    return `<div class="ed" data-edit>
+      <div class="top">
+        <span class="num" style="font-size:13px;color:var(--accent)">${pad(r.no)}</span>
+        <label style="display:flex;min-width:0"><span class="sr">Giver</span><select class="f" data-k="e-env">${opts.map(([v, l]) => `<option value="${esc(v)}" ${v === d.env ? 'selected' : ''}>${esc(l)}</option>`).join('')}</select></label>
+        <label style="display:flex"><span class="sr">Method</span><select class="f" data-k="e-method">${METHODS.map(m => `<option ${m === d.method ? 'selected' : ''}>${m}</option>`).join('')}</select></label>
+        <label style="display:flex"><span class="sr">Check number</span><input class="f num" data-k="e-check" value="${esc(d.check)}" placeholder="Check no." style="font-size:13px"></label>
+        <label style="display:flex"><span class="sr">Amount</span><input class="f num" data-k="e-total" value="${esc(d.total)}" inputmode="decimal" style="text-align:right;font-size:13px"></label>
+      </div>
+      <div class="lines">${d.lines.map((l, i) => `
+        <div class="line">
+          <label style="display:flex"><span class="sr">Fund</span><select class="f" data-k="e-fund" data-i="${i}">${FUNDS.map(f => `<option ${f === l.fund ? 'selected' : ''}>${f}</option>`).join('')}</select></label>
+          <label style="display:flex"><span class="sr">Amount for this fund</span><input class="f num" data-k="e-amt" data-i="${i}" value="${esc(l.amt)}" inputmode="decimal" style="text-align:right;font-size:13px"></label>
+          <button class="btn x" type="button" data-act="e-remove-line" data-i="${i}" aria-label="Remove this fund"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 3l10 10M13 3 3 13"/></svg></button>
+        </div>`).join('')}</div>
+      <div class="acts">
+        <button class="btn" type="button" data-act="e-add-line" style="color:var(--accent-text)">Add a fund</button>
+        <span class="bal ${even ? '' : 'bad'}">${esc(balText(d))}</span>
+        <button class="btn del" type="button" data-act="e-delete">Delete entry</button>
+        <button class="btn" type="button" data-act="e-cancel">Cancel</button>
+        <button class="go" type="button" data-act="e-save" ${even ? '' : 'disabled'}>Save</button>
+      </div>
+    </div>`
+  }
+  function rowHtml(r) {
+    if (s.edit && s.edit.no === r.no) return editHtml(r)
+    const split = r.lines.length > 1
+    return `<button class="r ${split ? 'split' : ''} ${r.fresh ? 'fresh' : ''}" type="button" data-act="open" data-no="${r.no}" aria-label="Edit entry ${pad(r.no)}">
+      <span class="cols">
+        <span class="num no">${pad(r.no)}</span>
+        <span class="nm"><b>${esc(r.name)}</b><span class="env ${r.isNew ? 'new' : ''}">${r.isNew ? 'new member' : esc(r.env)}</span></span>
+        <span class="t2">${esc(r.method + (r.check ? ' ' + r.check : ''))}</span>
+        <span class="t2">${split ? r.lines.length + ' funds' : esc(r.lines[0].fund)}</span>
+        <span class="num ra">${money(sum(r.lines))}</span>
+      </span>
+      ${split ? r.lines.map(l => `<span class="cols ln"><span></span><span></span><span></span><span class="t2">${esc(l.fund)}</span><span class="num ra">${money(l.amt)}</span></span>`).join('') : ''}
+    </button>`
+  }
+  function renderList() {
+    const head = '<div class="lh cols"><span>No.</span><span>Giver</span><span>Method</span><span>Fund</span><span style="text-align:right">Amount</span></div>'
+    $('#list').innerHTML = head + (s.rows.length ? s.rows.map(rowHtml).join('') : `
+      <div class="empty">
+        <h2>No entries in this batch yet</h2>
+        <p>Type a giver’s name, an amount and a fund in the box above, then press Enter. Each entry appears here, newest first. You can submit the batch once it has at least one entry.</p>
+        <button class="btn" type="button" data-act="example" style="display:flex;align-items:center;gap:10px;height:44px;margin-top:6px;padding:0 14px;border-radius:10px;font-size:14px">Fill in an example<span class="num" style="font-size:13px;color:var(--muted)">grace chen 100 chk 1047 general</span></button>
+      </div>`)
+  }
+  function startEdit(r) {
+    s.edit = { no: r.no, env: r.anon ? 'anon' : (r.isNew ? 'new:' + r.name : r.env), method: r.method, check: r.check, total: sum(r.lines).toFixed(2), lines: r.lines.map(l => ({ fund: l.fund, amt: l.amt.toFixed(2) })) }
+    renderList()
+    const f = $('[data-edit] [data-k="e-total"]'); f.focus(); f.select()
+  }
+  function saveEdit() {
+    const d = s.edit
+    if (!d || Math.abs(balance(d)) > 0.001) return
+    const person = d.env === 'anon' ? { env: '', name: 'Anonymous', anon: true } : (d.env.indexOf('new:') === 0 ? { env: '', name: d.env.slice(4), isNew: true } : people.find(p => p.env === d.env))
+    s.rows = s.rows.map(r => r.no !== d.no ? r : { ...r, env: person.env, name: person.name, anon: !!person.anon, isNew: !!person.isNew, method: d.method, check: d.method === 'Check' ? d.check : '', lines: d.lines.filter(l => parseFloat(l.amt) > 0).map(l => ({ fund: l.fund, amt: parseFloat(l.amt) })), fresh: false })
+    s.edit = null
+    markSaving(); render(); $('#q').focus()
+  }
+
+  // ── Submit dialog ───────────────────────────────────
+  function renderDialog() {
+    if (!s.submitOpen) { $('#dialog').innerHTML = ''; return }
+    const donors = new Set(), by = {}
+    let anon = 0
+    s.rows.forEach(r => {
+      if (r.anon) anon++; else donors.add(r.env || 'n:' + r.name)
+      r.lines.forEach(l => { const b = by[l.fund] || (by[l.fund] = { amt: 0, gifts: 0 }); b.amt += parseFloat(l.amt) || 0; b.gifts++ })
+    })
+    const fundRows = Object.keys(by).sort((a, b) => by[b].amt - by[a].amt)
+    $('#dialog').innerHTML = `<div class="scrim" data-act="scrim">
+      <div class="dlg" role="dialog" aria-modal="true" aria-labelledby="sb-title">
+        <div style="display:flex;flex-direction:column;gap:4px;padding:22px 24px 16px">
+          <h2 id="sb-title">Submit this batch?</h2>
+          <span style="font-size:14px;color:var(--muted)">${esc(s.batchName)} · ${fmtDate(s.batchDate)}</span>
+        </div>
+        <div class="stats">
+          <div><span class="lbl">Donors</span><b>${donors.size}</b></div>
+          <div><span class="lbl">Entries</span><b>${s.rows.length}</b></div>
+          <div><span class="lbl">Total</span><b>${money(totalOf())}</b></div>
+        </div>
+        ${anon ? `<span style="padding:0 24px 14px;font-size:13px;color:var(--muted)">Plus ${anon} anonymous gift${anon === 1 ? '' : 's'}, not counted as donors.</span>` : ''}
+        <div class="ftab">
+          <div><span>Fund</span><span class="rt">Gifts</span><span class="rt">Amount</span></div>
+          ${fundRows.map(f => `<div><span style="color:var(--text-strong);font-weight:500">${esc(f)}</span><span class="num rt" style="color:var(--muted)">${by[f].gifts}</span><span class="num rt" style="color:var(--text-strong)">${money(by[f].amt)}</span></div>`).join('')}
+          <div class="tot"><span>Total</span><span class="num rt">${money(totalOf())}</span></div>
+        </div>
+        <div class="foot">
+          <span style="flex-grow:1;font-size:13px;color:var(--muted)">You can still reopen a submitted batch to fix an entry.</span>
+          <button class="btn" type="button" data-act="close-submit" style="height:44px;padding:0 16px;border-radius:10px;font-size:14px">Keep entering</button>
+          <button class="go" type="button" data-act="confirm-submit">Submit batch</button>
+        </div>
+      </div></div>`
+    $('[data-act="confirm-submit"]').focus()
+  }
+
+  function render() { renderHead(); renderPreview(); renderList(); renderDialog() }
+
+  // ── Events ─────────────────────────────────────────
+  const q = $('#q')
+  q.addEventListener('input', () => { s.q = q.value; s.adding = null; renderPreview() })
+  q.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); commit() }
+    if (e.key === 'ArrowUp' && !s.q && s.rows.length) { e.preventDefault(); startEdit(s.rows[0]) }
+  })
+  $('#record').addEventListener('click', () => { commit(); q.focus() })
+  $('#submit').addEventListener('click', () => { s.submitOpen = true; s.edit = null; renderList(); renderDialog() })
+
+  const others = p => s.q.trim().split(/\s+/).filter(t => p.rest.indexOf(t.toLowerCase()) < 0).join(' ')
+  function confirmAdd() {
+    const name = (s.adding ? s.adding.name : '').trim()
+    if (!name) return
+    const p = parse(s.q)
+    s.added = s.added.concat([{ env: '', name, isNew: true }])
+    s.adding = null
+    setQ((name.toLowerCase() + ' ' + others(p)).trim())
+    renderPreview(); q.focus()
+  }
+  const closeSubmit = () => { s.submitOpen = false; renderDialog(); q.focus() }
+
+  document.addEventListener('click', e => {
+    if (e.target.closest('[data-noop]')) { e.preventDefault(); return }
+    const t = e.target.closest('[data-act]')
+    if (!t) return
+    const act = t.dataset.act
+    if (act === 'scrim') { if (e.target === t) closeSubmit(); return }
+    if (act === 'edit-name') { s.nameDraft = s.batchName; renderHead(); const f = $('[data-k="name"]'); f.focus(); f.select() }
+    if (act === 'edit-date') { s.dateDraft = s.batchDate; renderHead(); $('[data-k="date"]').focus() }
+    if (act === 'start-add') { s.adding = { name: title(parse(s.q).rest) }; renderPreview(); const f = $('[data-k="add-name"]'); f.focus(); f.select() }
+    if (act === 'cancel-add') { s.adding = null; renderPreview(); q.focus() }
+    if (act === 'confirm-add') confirmAdd()
+    if (act === 'anon') { setQ(('anon ' + others(parse(s.q))).trim()); s.adding = null; renderPreview(); q.focus() }
+    if (act === 'pick') { setQ(t.dataset.env + ' ' + others(parse(s.q))); renderPreview(); q.focus() }
+    if (act === 'example') { setQ('grace chen 100 chk 1047 general'); renderPreview(); q.focus() }
+    if (act === 'open') startEdit(s.rows.find(r => r.no === Number(t.dataset.no)))
+    if (act === 'e-add-line') { const d = s.edit, r0 = balance(d); d.lines.push({ fund: d.lines.some(l => l.fund === 'Missions') ? 'Building Fund' : 'Missions', amt: (r0 > 0 ? r0 : 0).toFixed(2) }); renderList() }
+    if (act === 'e-remove-line') { if (s.edit.lines.length > 1) s.edit.lines.splice(Number(t.dataset.i), 1); renderList() }
+    if (act === 'e-cancel') { s.edit = null; renderList(); q.focus() }
+    if (act === 'e-save') saveEdit()
+    if (act === 'e-delete') { const no = s.edit.no; s.edit = null; s.rows = s.rows.filter(r => r.no !== no); markSaving(); render(); q.focus() }
+    if (act === 'close-submit') closeSubmit()
+    if (act === 'confirm-submit') { const n = s.rows.length, tot = money(totalOf()); closeSubmit(); toast(`Batch submitted · ${n} entries · ${tot}`) }
+  })
+
+  // Edit-form fields update state in place, so typing keeps focus.
+  function refreshBalance() {
+    const d = s.edit, even = Math.abs(balance(d)) < 0.001
+    const el = $('[data-edit] .bal')
+    el.className = 'bal' + (even ? '' : ' bad')
+    el.textContent = balText(d)
+    $('[data-act="e-save"]').disabled = !even
+  }
+  document.addEventListener('input', e => {
+    const k = e.target.dataset.k
+    if (!k) return
+    const v = e.target.value
+    if (k === 'add-name') s.adding = { name: v }
+    if (k === 'name') s.nameDraft = v
+    if (k === 'date') s.dateDraft = v
+    if (k === 'e-check') s.edit.check = v
+    if (k === 'e-total') { s.edit.total = v; if (s.edit.lines.length === 1) { s.edit.lines[0].amt = v; $('[data-edit] [data-k="e-amt"]').value = v } refreshBalance() }
+    if (k === 'e-amt') { s.edit.lines[Number(e.target.dataset.i)].amt = v; if (s.edit.lines.length === 1) { s.edit.total = v; $('[data-edit] [data-k="e-total"]').value = v } refreshBalance() }
+  })
+  document.addEventListener('change', e => {
+    const k = e.target.dataset.k, v = e.target.value
+    if (k === 'e-env') s.edit.env = v
+    if (k === 'e-method') s.edit.method = v
+    if (k === 'e-fund') s.edit.lines[Number(e.target.dataset.i)].fund = v
+  })
+  function commitName() {
+    if (s.nameDraft === null) return
+    const v = s.nameDraft.trim(), changed = v && v !== s.batchName
+    s.batchName = v || s.batchName; s.nameDraft = null
+    if (changed) markSaving()
+    renderHead()
+  }
+  function commitDate() {
+    if (s.dateDraft === null) return
+    const d = s.dateDraft, changed = d && d !== s.batchDate
+    s.batchDate = d || s.batchDate; s.dateDraft = null
+    if (changed) markSaving()
+    renderHead()
+  }
+  document.addEventListener('focusout', e => {
+    if (e.target.dataset.k === 'name') setTimeout(commitName)
+    if (e.target.dataset.k === 'date') setTimeout(commitDate)
+  })
+  document.addEventListener('keydown', e => {
+    const k = e.target.dataset && e.target.dataset.k
+    if (k === 'name') { if (e.key === 'Enter') { e.preventDefault(); commitName(); q.focus() } if (e.key === 'Escape') { s.nameDraft = null; renderHead(); q.focus() } }
+    if (k === 'date') { if (e.key === 'Enter') { e.preventDefault(); commitDate(); q.focus() } if (e.key === 'Escape') { s.dateDraft = null; renderHead(); q.focus() } }
+    if (k === 'add-name') { if (e.key === 'Enter') { e.preventDefault(); confirmAdd() } if (e.key === 'Escape') { s.adding = null; renderPreview(); q.focus() } }
+    if (e.target.closest && e.target.closest('[data-edit]')) {
+      if (e.key === 'Enter' && e.target.tagName !== 'BUTTON') { e.preventDefault(); saveEdit() }
+      if (e.key === 'Escape') { e.preventDefault(); s.edit = null; renderList(); q.focus() }
+    }
+    if (s.submitOpen && e.key === 'Escape') closeSubmit()
+  })
+
+  let tt
+  function toast(msg) { const t = $('#toast'); t.textContent = msg; t.hidden = false; clearTimeout(tt); tt = setTimeout(() => (t.hidden = true), 2800) }
+
+  $('#reset').addEventListener('click', () => { seed(); setQ(''); render(); q.focus() })
+  buildOdo()
+  seed()
+  render()
+  q.focus()
+})()
+</script>
+</body>
+</html>

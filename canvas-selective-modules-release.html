@@ -36,7 +36,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;1,8..60,400&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="site.css">
 </head>
 <body>
@@ -87,8 +87,7 @@
                 <div class="body">
 <dl class="summary">
 <div><dt>Problem</dt><dd>Assigning one material to one student took about 15 clicks across three pages. Instructors avoided it.</dd></div>
-<div><dt>Role</dt><dd>Only designer, with one product manager and six engineers. Design, research and team workshops.</dd></div>
-<div><dt>Solution</dt><dd>Make the module assignable, so everything inside inherits the assignment.</dd></div>
+<div><dt>Solution</dt><dd>Make the module assignable, so everything inside inherits it.</dd></div>
 <div><dt>Result</dt><dd>Ten materials: 150 clicks to 6. A count of steps, not usage data.</dd></div>
 </dl>
                 </div>
@@ -97,7 +96,7 @@
                 <h2 id="the-problem">The problem</h2>
                 <div class="body">
 <p>Instructors want to give different students different material: harder practice for an advanced student, or content hidden from a group it doesn't suit.</p>
-<p>Canvas allowed it one material at a time: about <strong>15 clicks</strong> across three pages, then Back twice to start the next. Ten materials meant 150 clicks.</p>
+<p>Canvas allowed it one material at a time, at about <strong>15 clicks</strong> across three pages each. Ten materials meant 150 clicks.</p>
 <blockquote><p>It would be great if I could give Modules unique gating rules specific to individual students or groups or sections within the course, similar to how I can create unique assignment due dates for different students and sections.</p></blockquote>
 <figure>
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 2.5969">
@@ -111,15 +110,15 @@
                         </div>
                         <figcaption>The old flow: three pages to reach Assign To, then back out again for the next material.</figcaption>
                     </figure>
-<p>The harder problem sat underneath. Once a module can be assigned, an item inside it can still be assigned on its own. Which setting wins had to be decided before the screens.</p>
+<p>The harder problem was underneath. An item inside an assigned module can still be assigned on its own, so which setting wins had to be decided before the screens.</p>
                 </div>
             </section>
             <section class="section" aria-labelledby="two-approaches">
                 <h2 id="two-approaches">Two approaches, tested</h2>
                 <div class="body">
-<p>I ran brainstorming workshops first, to build the team's empathy for instructors and agree on the problem. Then I prototyped two ways to assign a material.</p>
+<p>I first ran workshops so the team agreed on the instructors' problem. Then I prototyped two ways to assign a material.</p>
 <ul>
-<li><strong>Permission modal.</strong> A new pattern modeled on sharing permissions. My preference: the existing interface felt clunky.</li>
+<li><strong>Permission modal.</strong> A new pattern modeled on sharing permissions, and my preference, because the existing interface felt clunky.</li>
 <li><strong>Assign To tray.</strong> The existing component, extended. Safer to build and already familiar.</li>
 </ul>
 <figure>
@@ -129,7 +128,7 @@
                         </div>
                         <figcaption>Permission modal (left) and Assign To tray (right).</figcaption>
                     </figure>
-<p>I tested both in Maze through the Canvas Community. Each participant got one prototype at random and the same task: assign an assignment to a student.</p>
+<p>I tested both in Maze with Canvas Community members. Each got one prototype at random and the same task, assigning an assignment to a student.</p>
 <figure>
                         <div class="table-scroll">
                         <table>
@@ -148,7 +147,7 @@
 <li>It also had more misclicks, and with 25 and 29 participants a seven-point gap isn't conclusive.</li>
 <li>The team expected the tray to win. The test didn't contradict that, and didn't prove it.</li>
 </ul>
-<p>The pattern I preferred showed no advantage to justify its cost. I recommended the tray because it is an existing design system pattern. Its accessibility was already worked out, and it needed no one-off components. The engineers confirmed it was cheaper to build.</p>
+<p>My preferred pattern showed no advantage worth its cost. I recommended the tray, an existing design system pattern with accessibility already worked out and no one-off components. The engineers confirmed it was cheaper to build.</p>
                 </div>
             </section>
             <section class="section" aria-labelledby="design-decisions">
@@ -195,8 +194,8 @@
                         <figcaption>Assign To from the Modules page and the Summary page.</figcaption>
                     </figure>
 <h3>Rules before screens</h3>
-<p>The interface changes are small on purpose, so instructors have nothing new to learn. Most of the work was in the rules, such as whether assigning to a section overrides a setting made for one student in it. I listed the edge cases and proposed how to handle each. The product manager, the engineers and I worked through them together. Where there was no evidence, it was a judgment call.</p>
-<p>The main rule is that an item's own assignment wins over its module's. If an instructor goes that far in to change one item by hand, the change matters and should be respected. The alternative was for the module to override its items. I proposed the rule, and the product manager and the engineering manager agreed.</p>
+<p>The interface changes are small on purpose, so instructors have nothing new to learn. Most of the work was in the rules, such as whether assigning a section overrides a setting for one student in it. I listed the edge cases with a proposal for each, and worked through them with the product manager and engineers. Where there was no evidence, we made a judgment call.</p>
+<p>The main rule is that an item's own assignment wins over its module's. An instructor who changes one item by hand meant it, so that change is respected. I proposed this over the alternative, the module overriding its items, and the product manager and engineering manager agreed.</p>
 <figure>
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.5503">
                             <a class="zoom" href="https://framerusercontent.com/images/N5Uv6Z3vxtHu9uig3IcI3ASfBkw.png" style="--own: 1.5503"><img width="2048" height="1321" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/N5Uv6Z3vxtHu9uig3IcI3ASfBkw.png?scale-down-to=512 512w, https://framerusercontent.com/images/N5Uv6Z3vxtHu9uig3IcI3ASfBkw.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/N5Uv6Z3vxtHu9uig3IcI3ASfBkw.png 2048w" sizes="(min-width: 810px) 736px, 100vw" src="https://framerusercontent.com/images/N5Uv6Z3vxtHu9uig3IcI3ASfBkw.png?scale-down-to=1024" alt="Chart of assignment rules across modules, sections and individual students."></a>
@@ -215,7 +214,7 @@
 <ul>
 <li><strong>Before:</strong> about 15 clicks per material, ten times.</li>
 <li><strong>After:</strong> six clicks to assign one module holding all ten, to the same students.</li>
-<li><strong>Not measured:</strong> usage. The feature shipped after I left Instructure, so I don't have the data. I would track the share of courses that assign a module to specific students or sections.</li>
+<li><strong>Not measured:</strong> usage. It shipped after I left Instructure. I would track the share of courses that assign a module to specific students or sections.</li>
 </ul>
 <p>From instructors, before the feature was enabled:</p>
 <blockquote><p>I can't wait to see this feature enabled! I have been hoping for a feature like this since I started using Canvas back in 2020.</p></blockquote>

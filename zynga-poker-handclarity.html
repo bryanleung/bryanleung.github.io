@@ -36,7 +36,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;1,8..60,400&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="site.css">
 </head>
 <body>
@@ -87,7 +87,6 @@
                 <div class="body">
 <dl class="summary">
 <div><dt>Problem</dt><dd>Players believed they had won and still lost. They asked for refunds and left 1-star reviews calling the game rigged.</dd></div>
-<div><dt>Role</dt><dd>Principal UX designer, with one product manager and one engineer. Visual exploration, assets and implementation.</dd></div>
 <div><dt>Solution</dt><dd>Winning cards glow, the rest dim, a stronger banner names the hand, and a kicker card explains ties.</dd></div>
 <div><dt>Result</dt><dd>App Store rating back to 4.6, refund calls down 10%. Other experiments ran at the same time.</dd></div>
 </dl>
@@ -97,8 +96,8 @@
                 <h2 id="the-challenge">The problem</h2>
                 <div class="body">
 <p>Lower ratings mean fewer new installs. We tracked the App Store rating, what reviews said, and customer service calls.</p>
-<p>I don't have the number of refund calls. They were frequent enough that the product team was asked to look into them.</p>
-<p>Three causes of the confusion:</p>
+<p>I don't have the refund call count, only that it was high enough for the product team to be asked to look into it.</p>
+<p>The confusion had three causes.</p>
 <ul>
 <li><strong>Too fast.</strong> The pause between rounds was too short to confirm who had won.</li>
 <li><strong>Side pots.</strong> Side pots and their payouts are hard to understand and hard to show clearly.</li>
@@ -109,7 +108,7 @@
             <section class="section" aria-labelledby="ideas">
                 <h2 id="ideas">Choosing what to fix</h2>
                 <div class="body">
-<p>I proposed five ideas, chosen for simplicity, engineering feasibility and speed of implementation.</p>
+<p>I proposed five ideas that were simple, feasible and quick to build.</p>
 <ul>
 <li>Lengthen the pause between hands.</li>
 <li>Reposition the winner's hole cards so they are easier to see.</li>
@@ -117,7 +116,7 @@
 <li>Dim the community cards that aren't part of the winning hand.</li>
 <li>Add stronger visual indicators to the winning hand.</li>
 </ul>
-<p>I wanted the longer pause. The engineers judged it too technically complex, so it was dropped. The visual changes were quick to build and release.</p>
+<p>I wanted the longer pause, but the engineers judged it too complex, so it was dropped. The visual changes were quick to release.</p>
 <figure>
                         <div class="shots stack-narrow" style="--cols: 3; --cols-narrow: 1; --ratio: 1.7766">
                             <a class="zoom" href="https://framerusercontent.com/images/RnEJNrZSCsLNUMnVPVtfcvIhToI.png" style="--own: 1.7766"><img width="1137" height="640" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/RnEJNrZSCsLNUMnVPVtfcvIhToI.png?scale-down-to=512 512w, https://framerusercontent.com/images/RnEJNrZSCsLNUMnVPVtfcvIhToI.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/RnEJNrZSCsLNUMnVPVtfcvIhToI.png 1137w" sizes="(min-width: 810px) 245px, 100vw" src="https://framerusercontent.com/images/RnEJNrZSCsLNUMnVPVtfcvIhToI.png?scale-down-to=1024" alt="Table exploration with the winning hand labeled."></a>
@@ -134,7 +133,7 @@
                 <h2 id="exploration">Exploration</h2>
                 <div class="body">
 <h3>An animated reveal</h3>
-<p>Hypothesis: an animated reveal pulls the eye to the center of the screen, where the winning cards sit. It also adds time between hands.</p>
+<p>The hypothesis was that an animated reveal pulls the eye to the winning cards at the center of the screen, and adds time between hands.</p>
 <figure>
                         <div class="shots" style="--cols: 4; --cols-narrow: 2; --ratio: 1.7739">
                             <a class="zoom" href="https://framerusercontent.com/images/sEmxw3P51YvkdXFjDn21s8fHsuM.png" style="--own: 1.7739"><img width="2668" height="1504" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/sEmxw3P51YvkdXFjDn21s8fHsuM.png?scale-down-to=512 512w, https://framerusercontent.com/images/sEmxw3P51YvkdXFjDn21s8fHsuM.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/sEmxw3P51YvkdXFjDn21s8fHsuM.png?scale-down-to=2048 2048w, https://framerusercontent.com/images/sEmxw3P51YvkdXFjDn21s8fHsuM.png 2668w" sizes="(min-width: 810px) 184px, 50vw" src="https://framerusercontent.com/images/sEmxw3P51YvkdXFjDn21s8fHsuM.png?scale-down-to=2048" alt="Hole card reveal variations."></a>
@@ -193,7 +192,7 @@
                     </figure>
 <h3>Side pots</h3>
 <p>Each player who receives a side pot gets a labeled tag underneath.</p>
-<h3>New: the kicker card</h3>
+<h3>The kicker card</h3>
 <p>When two players hold the same hand, the next-highest hole card decides the winner. Showing that card in the banner teaches the rule.</p>
 <figure>
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.7766">

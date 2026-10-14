@@ -36,7 +36,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;1,8..60,400&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="site.css">
 </head>
 <body>
@@ -63,10 +63,10 @@
         <article>
             <header class="wrap case-head">
                 <h1>QuintAce Communities</h1>
-                <p class="lede">A community feature for a poker app, from PRD to dev-complete on staging in under a week, where two to three months would be usual. The team's first feature built with AI-assisted tools.</p>
+                <p class="lede">A community feature for a poker app, from PRD to dev-complete on staging in under a week, where two to three months is usual. The team's first feature built with AI tools.</p>
                 <dl class="facts">
                     <div><dt>Product</dt><dd>QuintAce</dd></div>
-                    <div><dt>Role</dt><dd>Sr. Product Designer</dd></div>
+                    <div><dt>Role</dt><dd>Senior Product Designer</dd></div>
                     <div><dt>Scope</dt><dd>Design direction, final design</dd></div>
                     <div><dt>Timeline</dt><dd>Under a week</dd></div>
                     <div><dt>Year</dt><dd>2026</dd></div>
@@ -86,8 +86,8 @@
                 <h2 id="summary">Summary</h2>
                 <div class="body">
 <dl class="summary">
-<div><dt>Goal</dt><dd>Increase social play, and give sponsors (professional poker players) a place to earn from exclusive lessons and training. Players create a community, play at its tables, post to a message board and compete on a leaderboard.</dd></div>
-<div><dt>Experiment</dt><dd>The team's first feature built with AI-assisted tools, mainly Claude Code, and a learning step in adopting them. Use AI at each stage, from PRD to build, and see how fast a whole feature could reach staging.</dd></div>
+<div><dt>Goal</dt><dd>Increase social play, and give sponsors (professional poker players) a place to earn from lessons and training.</dd></div>
+<div><dt>Experiment</dt><dd>The team's first feature built with AI tools, mainly Claude Code, to see how fast a whole feature could reach staging.</dd></div>
 <div><dt>Role</dt><dd>The product and design teams chose the direction from six AI-generated explorations. I set the lobby's priorities and finished the design in our design system.</dd></div>
 <div><dt>Result</dt><dd>Dev-complete on staging in under a week, against a usual estimate of two to three months. There is no usage data, because QuintAce has no active players yet.</dd></div>
 </dl>
@@ -96,7 +96,6 @@
             <section class="section" aria-labelledby="the-brief">
                 <h2 id="the-brief">The brief</h2>
                 <div class="body">
-<p>The business aim was more social play, and a home for sponsors. Sponsors are professional poker players, and a community gives them a place to earn from exclusive lessons and training.</p>
 <p>QuintAce's Compete mode already had public Leagues. Communities add a player-run layer on top:</p>
 <ul>
 <li>Create a community, or discover and join one.</li>
@@ -104,7 +103,7 @@
 <li>Post to a message board and comment.</li>
 <li>Compete on a weekly community leaderboard.</li>
 </ul>
-<p>It was also a test. This was the first feature the team built with AI-assisted tools, and a learning step in adopting them. No success metric was set for the feature itself. The question was how far AI could shorten the path from an idea to working software.</p>
+<p>It was also a test of how far AI could shorten the path from an idea to working software. No success metric was set for the feature itself.</p>
                 </div>
             </section>
             <section class="section" aria-labelledby="the-week">
@@ -122,7 +121,7 @@
             <section class="section" aria-labelledby="exploring">
                 <h2 id="exploring">Exploring with AI</h2>
                 <div class="body">
-<p>The six layouts answer one question in different ways: how should Leagues and Communities share a lobby?</p>
+<p>The six layouts each answer one question, how Leagues and Communities should share a lobby.</p>
                     <figure>
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.7246">
                             <a class="zoom" href="img/quintace/explore-a-mode-picker.webp" style="--own: 1.7246"><img width="1440" height="835" loading="lazy" decoding="async" src="img/quintace/explore-a-mode-picker.webp" alt="Lo-fi wireframe: a mode picker with one card for Public Leagues and one for Communities."></a>
@@ -136,13 +135,13 @@
                         </div>
                         <figcaption>Dual Panel shows both side by side. Table Cards mixes every table into one filtered list.</figcaption>
                     </figure>
-<p>The other three were a bottom drawer, a side navigation and a carousel. What AI gave me here was range: six structurally different options to compare before any polish.</p>
+<p>The other three were a bottom drawer, a side navigation and a carousel. AI gave me range, six structurally different options to compare before any polish.</p>
                 </div>
             </section>
             <section class="section" aria-labelledby="direction">
                 <h2 id="direction">The chosen direction</h2>
                 <div class="body">
-<p>The product and design teams reviewed the six layouts together and judged one the most intuitive. Building on it, I split the feature in two. The Compete lobby gets a Communities tab beside Leagues and Friends, and it is only for getting to a table: tables on the left, the live table in the middle, the community and its leaderboard on the right. Everything else about a community lives in its own Communities tab.</p>
+<p>Building on the layout the teams chose, I split the feature in two. In the Compete lobby, a Communities tab beside Leagues and Friends is only for getting to a table, with tables on the left, the live table in the middle and the leaderboard on the right. Everything else about a community lives in its own Communities tab.</p>
                     <figure>
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.4141">
                             <a class="zoom" href="img/quintace/sessions-desktop.webp" style="--own: 1.4141"><img width="1448" height="1024" loading="lazy" decoding="async" src="img/quintace/sessions-desktop.webp" alt="Communities lobby with the weekly sessions panel open, showing total big blinds, rank points and hands."></a>
@@ -157,7 +156,7 @@
                 <div class="body">
 <p>This is where a community lives between games. One button, Play at Community Tables, leads back to the lobby.</p>
 <h3>Overview</h3>
-<p>A welcome from the creator, a hand of the week picked by Quint (the app's AI coach) from community play, and a stream of member progress: league promotions, leaderboard wins and badges.</p>
+<p>A welcome from the creator, a hand of the week picked by Quint (the app's AI coach) from community play, and member progress such as league promotions, leaderboard wins and badges.</p>
                     <figure>
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.4141">
                             <a class="zoom" href="img/quintace/overview-desktop.webp" style="--own: 1.4141"><img width="1448" height="1024" loading="lazy" decoding="async" src="img/quintace/overview-desktop.webp" alt="Community Overview: a welcome message, hand of the week and members progress, beside the member list and weekly leaderboard."></a>
@@ -193,7 +192,7 @@
                 <h2 id="decisions">Decisions made by hand</h2>
                 <div class="body">
 <h3>Switching communities</h3>
-<p>I compared a dropdown with a horizontal list. Shown upfront, the list makes it obvious that you can switch communities. A dropdown hides that. The trade-off: players can join three communities today, and if that limit grows, the dropdown will scale better.</p>
+<p>I compared a dropdown with a horizontal list. The list shows upfront that you can switch communities, where a dropdown hides it. The trade-off is scale. Players can join three communities today, and a dropdown would handle more.</p>
                     <figure>
                         <div class="shots stack-narrow" style="--cols: 2; --cols-narrow: 1; --ratio: 1.4141">
                             <a class="zoom" href="img/quintace/switcher-dropdown.webp" style="--own: 1.4141"><img width="1448" height="1024" loading="lazy" decoding="async" src="img/quintace/switcher-dropdown.webp" alt="Option A: a dropdown above the table for switching communities."></a>
@@ -256,7 +255,7 @@
 <ul>
 <li><strong>What AI did:</strong> drafted the PRD (Claude Code) and produced the layout options (a text-to-Figma skill).</li>
 <li><strong>What I did:</strong> set the priorities, built the final screens in the design system, and defined the edge states and responsive specs. The direction was chosen together with the product team.</li>
-<li><strong>Not measured:</strong> anything about players. QuintAce has no active players yet, so there is no usage data. The sponsors have been onboarded by the marketing team. Dev-complete on staging is not a release.</li>
+<li><strong>Not measured:</strong> anything about players, because QuintAce has no active players yet. Sponsors have been onboarded by marketing. Dev-complete on staging is not a release.</li>
 </ul>
                 </div>
             </section>
@@ -275,7 +274,7 @@
 
         <nav class="next" aria-label="More case studies">
             <div class="wrap">
-                <a class="forward" href="./canvas-course-pacing"><span>Next</span> Course Pacing Redesign <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg></a>
+                <a class="forward" href="./church-offerings"><span>Next</span> Church Offering Entry <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg></a>
                 <a class="back" href="./#work">All work</a>
             </div>
         </nav>
