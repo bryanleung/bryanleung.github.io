@@ -345,16 +345,26 @@ h3 a:focus-visible { outline: none; }
 }
 
 .result { max-width: 26em; margin-top: 12px; color: var(--ink-soft); text-wrap: pretty; }
-.result:has(strong) {
-  margin-top: 14px;
-  padding-top: 14px;
+/* Results as tags under a divider: the figure bold, its meaning plain. */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 26em;
+  margin-top: 16px;
+  padding-top: 16px;
   border-top: 1px solid var(--rule);
-  font-family: var(--display);
-  font-size: 1.1875rem;
-  line-height: 1.35;
-  color: var(--ink);
 }
-.result strong { font-weight: 600; }
+.tags li {
+  padding: 3px 10px;
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--ink-soft);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+.tags strong { font-weight: 700; color: var(--ink); }
+.group.tint .tags li { background: var(--ground); }
 
 .more {
   display: inline-flex;
@@ -368,7 +378,6 @@ h3 a:focus-visible { outline: none; }
 .more svg { transition: transform 0.3s var(--ease); }
 .project:hover .more svg { transform: translateX(4px); }
 
-.result + .result:not(:has(strong)) { margin-top: 10px; }
 
 /* Supporting work: two smaller cards side by side. */
 .minor { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(32px, 5vw, 64px); }
