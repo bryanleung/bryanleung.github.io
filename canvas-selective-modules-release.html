@@ -116,10 +116,10 @@
             <section class="section" aria-labelledby="two-approaches">
                 <h2 id="two-approaches">Two approaches, tested</h2>
                 <div class="body">
-<p>I first ran workshops so the team agreed on the instructors' problem. Then I prototyped two ways to assign a material.</p>
+<p>I started with workshops for the product manager and engineers. I presented the problem statement and facilitated while everyone sketched ideas, so the team agreed on the instructors' problem before we picked a solution. Then I prototyped two ways to assign a material.</p>
 <ul>
-<li><strong>Permission modal.</strong> A new pattern modeled on sharing permissions, and my preference, because the existing interface felt clunky.</li>
-<li><strong>Assign To tray.</strong> The existing component, extended. Safer to build and already familiar.</li>
+<li><strong>Permission modal.</strong> A new pattern modeled on sharing permissions.</li>
+<li><strong>Assign To tray.</strong> The existing component, extended. Another designer pointed out that a different part of Canvas already used it.</li>
 </ul>
 <figure>
                         <div class="shots" style="--cols: 2; --cols-narrow: 2; --ratio: 0.6772">
@@ -128,7 +128,7 @@
                         </div>
                         <figcaption>Permission modal (left) and Assign To tray (right).</figcaption>
                     </figure>
-<p>I tested both in Maze with Canvas Community members. Each got one prototype at random and the same task, assigning an assignment to a student.</p>
+<p>I wrote the test and built it in Maze, and the product manager posted it to the Canvas Community. One link sent each tester to one prototype at random. Both groups got the same task in the same words, assigning an assignment to a student.</p>
 <figure>
                         <div class="table-scroll">
                         <table>
@@ -139,7 +139,7 @@
                             </tbody>
                         </table>
                         </div>
-                        <figcaption>Results for the same task on each prototype, as reported by Maze.</figcaption>
+                        <figcaption>Results for the same task on each prototype, as reported by Maze. Maze calculated the rates, so they don't convert to whole testers.</figcaption>
                     </figure>
 <h3>How I read the results</h3>
 <ul>
@@ -147,7 +147,12 @@
 <li>It also had more misclicks, and with 25 and 29 participants a seven-point gap isn't conclusive.</li>
 <li>The team expected the tray to win. The test didn't contradict that, and didn't prove it.</li>
 </ul>
-<p>My preferred pattern showed no advantage worth its cost. I recommended the tray, an existing design system pattern with accessibility already worked out and no one-off components. The engineers confirmed it was cheaper to build.</p>
+<p>I had no strong preference going in, so the test was one input among several. I recommended the tray for three reasons.</p>
+<ul>
+<li>It keeps the Modules page in view while you assign. A modal would cover it.</li>
+<li>It is an existing design system pattern, with accessibility already worked out.</li>
+<li>The engineering manager estimated the modal at about one more sprint of work.</li>
+</ul>
                 </div>
             </section>
             <section class="section" aria-labelledby="design-decisions">
@@ -226,6 +231,7 @@
                 <div class="body">
 <ul>
 <li>I would set the sample size and the decision bar before the test, so the result could settle the question.</li>
+<li>I didn't look into where the tray's extra misclicks happened, so I can't say whether they meant confusion or exploring. Next time I would review the click maps before deciding.</li>
 <li>Parent and child assignments create many edge cases. I expect we missed a few.</li>
 <li>A Modules page showing who is assigned to what was out of scope. I think it is the next problem to solve.</li>
 </ul>

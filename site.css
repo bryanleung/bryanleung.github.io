@@ -382,6 +382,7 @@ h3 a:focus-visible { outline: none; }
 /* Supporting work: two smaller cards side by side. */
 .minor { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(32px, 5vw, 64px); }
 .minor .project { grid-template-columns: minmax(0, 1fr); align-content: start; }
+@media (min-width: 810px) { .minor.three { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
 /* About */
 .about .group-head { padding-top: clamp(32px, 4vw, 48px); border-top: 1px solid var(--ink); }

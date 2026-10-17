@@ -63,7 +63,7 @@
         <article>
             <header class="wrap case-head">
                 <h1>Zynga Poker: Hand Clarity</h1>
-                <p class="lede">Players thought they had won hands they lost. I redesigned how the table shows a winning hand.</p>
+                <p class="lede">Players thought they had won hands they lost. I redesigned how the table shows who won and why.</p>
                 <dl class="facts">
                     <div><dt>Employer</dt><dd>Zynga</dd></div>
                     <div><dt>Role</dt><dd>Principal UX Designer</dd></div>
@@ -87,17 +87,17 @@
                 <div class="body">
 <dl class="summary">
 <div><dt>Problem</dt><dd>Players believed they had won and still lost. They asked for refunds and left 1-star reviews calling the game rigged.</dd></div>
-<div><dt>Solution</dt><dd>Winning cards glow, the rest dim, a stronger banner names the hand, and a kicker card explains ties.</dd></div>
-<div><dt>Result</dt><dd>App Store rating back to 4.6, refund calls down 10%. Other experiments ran at the same time.</dd></div>
+<div><dt>Hypothesis</dt><dd>The table showed who won, but not why. Showing why would make a correct result look correct.</dd></div>
+<div><dt>Solution</dt><dd>A kicker card in the banner explains ties. Winning cards glow, the rest dim, and a stronger banner names the hand.</dd></div>
+<div><dt>Result</dt><dd>Shipped to all players at once, alongside other changes. Its effect wasn't measured on its own.</dd></div>
 </dl>
                 </div>
             </section>
             <section class="section" aria-labelledby="the-challenge">
                 <h2 id="the-challenge">The problem</h2>
                 <div class="body">
-<p>Lower ratings mean fewer new installs. We tracked the App Store rating, what reviews said, and customer service calls.</p>
-<p>I don't have the refund call count, only that it was high enough for the product team to be asked to look into it.</p>
-<p>The confusion had three causes.</p>
+<p>Players called the game rigged in 1-star reviews and asked customer service for refunds. Lower ratings mean fewer new installs, so the product team was asked to look into it. I don't have the call count.</p>
+<p>The causes came from the team's experience with the game, and mine from years on it, rather than a formal study.</p>
 <ul>
 <li><strong>Too fast.</strong> The pause between rounds was too short to confirm who had won.</li>
 <li><strong>Side pots.</strong> Side pots and their payouts are hard to understand and hard to show clearly.</li>
@@ -105,10 +105,11 @@
 </ul>
                 </div>
             </section>
-            <section class="section" aria-labelledby="ideas">
-                <h2 id="ideas">Choosing what to fix</h2>
+            <section class="section" aria-labelledby="hypothesis">
+                <h2 id="hypothesis">The hypothesis</h2>
                 <div class="body">
-<p>I proposed five ideas that were simple, feasible and quick to build.</p>
+<p>The table showed who won, but never why. When two players held the same hand, nothing on screen explained the result, so a correct result could look rigged. If the table showed why a hand won, players would have less reason to doubt it.</p>
+<p>I proposed five changes that were simple and quick to build.</p>
 <ul>
 <li>Lengthen the pause between hands.</li>
 <li>Reposition the winner's hole cards so they are easier to see.</li>
@@ -127,48 +128,28 @@
                         </div>
                         <figcaption>Explorations at the table.</figcaption>
                     </figure>
-                </div>
-            </section>
-            <section class="section" aria-labelledby="exploration">
-                <h2 id="exploration">Exploration</h2>
-                <div class="body">
-<h3>An animated reveal</h3>
-<p>The hypothesis was that an animated reveal pulls the eye to the winning cards at the center of the screen, and adds time between hands.</p>
-<figure>
-                        <div class="shots" style="--cols: 4; --cols-narrow: 2; --ratio: 1.7739">
-                            <a class="zoom" href="https://framerusercontent.com/images/sEmxw3P51YvkdXFjDn21s8fHsuM.png" style="--own: 1.7739"><img width="2668" height="1504" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/sEmxw3P51YvkdXFjDn21s8fHsuM.png?scale-down-to=512 512w, https://framerusercontent.com/images/sEmxw3P51YvkdXFjDn21s8fHsuM.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/sEmxw3P51YvkdXFjDn21s8fHsuM.png?scale-down-to=2048 2048w, https://framerusercontent.com/images/sEmxw3P51YvkdXFjDn21s8fHsuM.png 2668w" sizes="(min-width: 810px) 184px, 50vw" src="https://framerusercontent.com/images/sEmxw3P51YvkdXFjDn21s8fHsuM.png?scale-down-to=2048" alt="Hole card reveal variations."></a>
-                            <a class="zoom" href="https://framerusercontent.com/images/WtAy2c3DbZVrVJK5F4VKHQ2vGd0.png" style="--own: 1.7739"><img width="2668" height="1504" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/WtAy2c3DbZVrVJK5F4VKHQ2vGd0.png?scale-down-to=512 512w, https://framerusercontent.com/images/WtAy2c3DbZVrVJK5F4VKHQ2vGd0.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/WtAy2c3DbZVrVJK5F4VKHQ2vGd0.png?scale-down-to=2048 2048w, https://framerusercontent.com/images/WtAy2c3DbZVrVJK5F4VKHQ2vGd0.png 2668w" sizes="(min-width: 810px) 184px, 50vw" src="https://framerusercontent.com/images/WtAy2c3DbZVrVJK5F4VKHQ2vGd0.png?scale-down-to=2048" alt="Side pot and split pot winner variations."></a>
-                            <a class="zoom" href="https://framerusercontent.com/images/qpuHXmfpngiLnRJSUfj1oPoKxIw.png" style="--own: 1.7739"><img width="2668" height="1504" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/qpuHXmfpngiLnRJSUfj1oPoKxIw.png?scale-down-to=512 512w, https://framerusercontent.com/images/qpuHXmfpngiLnRJSUfj1oPoKxIw.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/qpuHXmfpngiLnRJSUfj1oPoKxIw.png?scale-down-to=2048 2048w, https://framerusercontent.com/images/qpuHXmfpngiLnRJSUfj1oPoKxIw.png 2668w" sizes="(min-width: 810px) 184px, 50vw" src="https://framerusercontent.com/images/qpuHXmfpngiLnRJSUfj1oPoKxIw.png?scale-down-to=2048" alt="Border color variations."></a>
-                            <a class="zoom" href="https://framerusercontent.com/images/FmxRZkVxM1ARoSTTvTaqENZCaA.png" style="--own: 1.7739"><img width="2668" height="1504" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/FmxRZkVxM1ARoSTTvTaqENZCaA.png?scale-down-to=512 512w, https://framerusercontent.com/images/FmxRZkVxM1ARoSTTvTaqENZCaA.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/FmxRZkVxM1ARoSTTvTaqENZCaA.png?scale-down-to=2048 2048w, https://framerusercontent.com/images/FmxRZkVxM1ARoSTTvTaqENZCaA.png 2668w" sizes="(min-width: 810px) 184px, 50vw" src="https://framerusercontent.com/images/FmxRZkVxM1ARoSTTvTaqENZCaA.png?scale-down-to=2048" alt="Community card reveal variations."></a>
-                        </div>
-                        <figcaption>Hole cards, side pots, border colors and community cards.</figcaption>
-                    </figure>
-<h3>When small fixes weren't enough</h3>
-<p>With every component adjusted, the result still wasn't clear enough. So I pushed the banner further, then explored its colors.</p>
-<figure>
-                        <div class="shots stack-narrow" style="--cols: 2; --cols-narrow: 1; --ratio: 1.7766">
-                            <a class="zoom" href="https://framerusercontent.com/images/tQoX2Qo83HhtsnRTecRjVnxBeA.png" style="--own: 1.7766"><img width="1137" height="640" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/tQoX2Qo83HhtsnRTecRjVnxBeA.png?scale-down-to=512 512w, https://framerusercontent.com/images/tQoX2Qo83HhtsnRTecRjVnxBeA.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/tQoX2Qo83HhtsnRTecRjVnxBeA.png 1137w" sizes="(min-width: 810px) 368px, 100vw" src="https://framerusercontent.com/images/tQoX2Qo83HhtsnRTecRjVnxBeA.png?scale-down-to=1024" alt="Table with the adjusted cards and a small hand label."></a>
-                            <a class="zoom" href="https://framerusercontent.com/images/Dyf7qbVVnRpSxGCTw6aK9Mj5Lw.png" style="--own: 1.7766"><img width="2274" height="1280" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/Dyf7qbVVnRpSxGCTw6aK9Mj5Lw.png?scale-down-to=512 512w, https://framerusercontent.com/images/Dyf7qbVVnRpSxGCTw6aK9Mj5Lw.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/Dyf7qbVVnRpSxGCTw6aK9Mj5Lw.png?scale-down-to=2048 2048w, https://framerusercontent.com/images/Dyf7qbVVnRpSxGCTw6aK9Mj5Lw.png 2274w" sizes="(min-width: 810px) 368px, 100vw" src="https://framerusercontent.com/images/Dyf7qbVVnRpSxGCTw6aK9Mj5Lw.png?scale-down-to=2048" alt="Table with all adjusted components combined."></a>
-                        </div>
-                        <figcaption>All the adjusted components together, before the banner was reworked.</figcaption>
-                    </figure>
+<p>Adjusting each part on its own still wasn't clear enough, so I pushed the banner further.</p>
 <figure>
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.5833">
                             <a class="zoom" href="https://framerusercontent.com/images/VoxOlMYrdF9TfSQoJ2A8XQrb50.png" style="--own: 1.5833"><img width="1976" height="1248" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/VoxOlMYrdF9TfSQoJ2A8XQrb50.png?scale-down-to=512 512w, https://framerusercontent.com/images/VoxOlMYrdF9TfSQoJ2A8XQrb50.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/VoxOlMYrdF9TfSQoJ2A8XQrb50.png 1976w" sizes="(min-width: 810px) 736px, 100vw" src="https://framerusercontent.com/images/VoxOlMYrdF9TfSQoJ2A8XQrb50.png?scale-down-to=1024" alt="Grid of winning banner layout variations."></a>
                         </div>
                         <figcaption>Banner layouts.</figcaption>
                     </figure>
-<figure>
-                        <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.7429">
-                            <a class="zoom" href="img/image76.gif" style="--own: 1.7429"><img width="800" height="459" loading="lazy" decoding="async" src="img/image76.gif" alt="Recording cycling through banner color options at the table."></a>
-                        </div>
-                        <figcaption>Banner color options.</figcaption>
-                    </figure>
                 </div>
             </section>
             <section class="section" aria-labelledby="before-and-after">
                 <h2 id="before-and-after">The final design</h2>
                 <div class="body">
+<h3>The kicker card</h3>
+<p>The biggest single change. When two players hold the same hand, the next-highest card decides the winner. Before, nothing showed that card, so it wasn't clear why one hand beat the other. Showing it in the banner explains the result and teaches the rule.</p>
+<figure>
+                        <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.7766">
+                            <a class="zoom" href="https://framerusercontent.com/images/6B4NVsStjkXfbww1Dl3vwwz2i0.png" style="--own: 1.7766"><img width="2274" height="1280" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/6B4NVsStjkXfbww1Dl3vwwz2i0.png?scale-down-to=512 512w, https://framerusercontent.com/images/6B4NVsStjkXfbww1Dl3vwwz2i0.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/6B4NVsStjkXfbww1Dl3vwwz2i0.png?scale-down-to=2048 2048w, https://framerusercontent.com/images/6B4NVsStjkXfbww1Dl3vwwz2i0.png 2274w" sizes="(min-width: 810px) 736px, 100vw" src="https://framerusercontent.com/images/6B4NVsStjkXfbww1Dl3vwwz2i0.png?scale-down-to=2048" alt="Final table design with the winning banner and kicker card."></a>
+                        </div>
+                        <figcaption>The final design, with the kicker card in the banner.</figcaption>
+                    </figure>
+<h3>Supporting changes</h3>
+<p>The rest make the winning hand easier to see at a glance. Each player who receives a side pot also gets a labeled tag underneath.</p>
 <figure>
                         <div class="shots" style="--cols: 2; --cols-narrow: 2; --ratio: 0.9980">
                             <a class="zoom" href="https://framerusercontent.com/images/u0QEAzOtyW0PyRs9raEx1mCAQ14.png" style="--own: 0.9980"><img width="974" height="976" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/u0QEAzOtyW0PyRs9raEx1mCAQ14.png?scale-down-to=512 512w, https://framerusercontent.com/images/u0QEAzOtyW0PyRs9raEx1mCAQ14.png 974w" sizes="(min-width: 810px) 368px, 50vw" src="https://framerusercontent.com/images/u0QEAzOtyW0PyRs9raEx1mCAQ14.png?scale-down-to=512" alt="Before: tilted hole cards above the winner label."></a>
@@ -190,28 +171,14 @@
                         </div>
                         <figcaption>The winning banner is more decorated and stands out from the table.</figcaption>
                     </figure>
-<h3>Side pots</h3>
-<p>Each player who receives a side pot gets a labeled tag underneath.</p>
-<h3>The kicker card</h3>
-<p>When two players hold the same hand, the next-highest hole card decides the winner. Showing that card in the banner teaches the rule.</p>
-<figure>
-                        <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.7766">
-                            <a class="zoom" href="https://framerusercontent.com/images/6B4NVsStjkXfbww1Dl3vwwz2i0.png" style="--own: 1.7766"><img width="2274" height="1280" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/6B4NVsStjkXfbww1Dl3vwwz2i0.png?scale-down-to=512 512w, https://framerusercontent.com/images/6B4NVsStjkXfbww1Dl3vwwz2i0.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/6B4NVsStjkXfbww1Dl3vwwz2i0.png?scale-down-to=2048 2048w, https://framerusercontent.com/images/6B4NVsStjkXfbww1Dl3vwwz2i0.png 2274w" sizes="(min-width: 810px) 736px, 100vw" src="https://framerusercontent.com/images/6B4NVsStjkXfbww1Dl3vwwz2i0.png?scale-down-to=2048" alt="Final table design with the winning banner and kicker card."></a>
-                        </div>
-                        <figcaption>The final design, with the kicker card in the banner.</figcaption>
-                    </figure>
                 </div>
             </section>
             <section class="section" aria-labelledby="results">
                 <h2 id="results">Outcome</h2>
                 <div class="body">
-<dl class="numbers">
-<div><dt>App Store rating, restored</dt><dd>4.6</dd></div>
-<div><dt>Fewer chip-refund calls</dt><dd>10%</dd></div>
-</dl>
 <ul>
-<li>Reviews rarely mention incorrect hands any more.</li>
-<li>Other experiments were running at the same time, so it is hard to attribute any change in business metrics to this update.</li>
+<li>Shipped to all players at once.</li>
+<li>Other features changed at the same time and there was no holdout group, so this update's effect on ratings and refund calls wasn't measured.</li>
 </ul>
                 </div>
             </section>
@@ -219,6 +186,7 @@
                 <h2 id="reflection">Reflection</h2>
                 <div class="body">
 <ul>
+<li>I would size the problem with support and review data before designing, instead of relying on our sense of it.</li>
 <li>A holdout group on the old table would have separated this change from the others.</li>
 <li>The pause between hands is the one cause we couldn't address directly.</li>
 </ul>

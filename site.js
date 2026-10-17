@@ -216,3 +216,21 @@ document.querySelector('.theme').addEventListener('click', function () {
   window.addEventListener('resize', queue);
   paint();
 })();
+
+// ?for=ai or ?for=lead reorders the homepage work for a role. No parameter keeps the default.
+(function () {
+  var main = document.querySelector('[data-list="main"]');
+  var match = /[?&]for=(ai|lead)\b/.exec(location.search);
+  if (!main || !match) return;
+  var orders = {
+    ai: ['ai', 'smr', 'church', 'pacing', 'bulk'],
+    lead: ['smr', 'lead', 'ai', 'church', 'pacing', 'bulk']
+  };
+  var minor = document.querySelector('[data-list="minor"]');
+  orders[match[1]].forEach(function (k) {
+    main.appendChild(document.querySelector('[data-p="' + k + '"]'));
+  });
+  var count = main.querySelectorAll('.project').length;
+  document.querySelector('[data-count]').textContent = count + ' case studies · ' + (match[1] === 'lead' ? '2022' : '2023') + ' to 2026';
+  if (minor.children.length < 3) minor.classList.remove('three');
+})();

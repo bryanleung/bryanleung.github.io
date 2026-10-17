@@ -88,7 +88,7 @@
 <dl class="summary">
 <div><dt>Problem</dt><dd>It could only pace a whole course. Instructors called that unusable, and usage was about 1%, even counting anyone who only opened it.</dd></div>
 <div><dt>Solution</dt><dd>Sections and Students tabs, a full-screen view for each pace, blackout dates and pending changes.</dd></div>
-<div><dt>Result</dt><dd>Released to beta. Instructors were glad to set custom paces. We set no clear measure of success.</dd></div>
+<div><dt>Result</dt><dd>Released to beta in the middle of a term. Courses using pacing went from under 1% to 1.05% in the first 14 days, too early to tell whether instructors would adopt it.</dd></div>
 </dl>
                 </div>
             </section>
@@ -118,7 +118,7 @@
                 <h2 id="design-decisions">Design decisions</h2>
                 <div class="body">
 <h3>Tabs in place of a dropdown</h3>
-<p>I <a href="https://www.figma.com/design/hwEOGLjXxmW7sERv8ymNrQ/%E2%9C%85-%5BDelivered%5D-Course-Pacing---Bryan?node-id=713%3A101533&amp;t=vEYJImQsljrN7WTL-1" target="_blank" rel="noopener">explored several directions</a> within our time and technical constraints. One kept the dropdown with drill-downs for choosing a student, and lost because it couldn't work in a course with thousands of students. Sections and Students each get a tab instead, so a large course is a list to scan.</p>
+<p>The <a href="https://www.figma.com/design/hwEOGLjXxmW7sERv8ymNrQ/%E2%9C%85-%5BDelivered%5D-Course-Pacing---Bryan?node-id=713%3A101533&amp;t=vEYJImQsljrN7WTL-1" target="_blank" rel="noopener">main alternative I explored</a> kept the dropdown and added drill-downs for choosing a student. It couldn't work in a course with thousands of students. Sections and Students each get a tab instead, so a large course becomes a list to scan.</p>
 <figure>
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.6446">
                             <a class="zoom" href="https://framerusercontent.com/images/3OyyMJP4OHXwUp4dUnGoNOSRQ.png" style="--own: 1.6446"><img width="2036" height="1238" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/3OyyMJP4OHXwUp4dUnGoNOSRQ.png?scale-down-to=512 512w, https://framerusercontent.com/images/3OyyMJP4OHXwUp4dUnGoNOSRQ.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/3OyyMJP4OHXwUp4dUnGoNOSRQ.png 2036w" sizes="(min-width: 810px) 736px, 100vw" src="https://framerusercontent.com/images/3OyyMJP4OHXwUp4dUnGoNOSRQ.png?scale-down-to=1024" alt="Redesigned Course Pacing page with Sections and Students tabs."></a>
@@ -154,7 +154,7 @@
                 <h2 id="validation-and-delivery">Validation and delivery</h2>
                 <div class="body">
 <ul>
-<li><strong>Testing.</strong> Three moderated tests with administrators at US universities, plus surveys. Overall sentiment favored the selected design.</li>
+<li><strong>Testing.</strong> Three moderated sessions with administrators and instructors at US universities, plus surveys. The product manager set the goals and I ran the sessions, asking each person to do real tasks in the prototype, such as creating a pace and setting durations for their students. All three were positive. I didn't read that as a prediction of usage.</li>
 <li><strong>Accessibility.</strong> Reviewed with our accessibility engineers for screen reader and keyboard focus issues.</li>
 <li><strong>Build.</strong> Several sprints. I answered usability and accessibility questions and proposed alternatives when something couldn't be built as designed.</li>
 </ul>
@@ -164,9 +164,10 @@
                 <h2 id="results">Outcome</h2>
                 <div class="body">
 <ul>
-<li>The redesign went to beta together with the new features.</li>
-<li>Instructors were glad to set custom paces for their students.</li>
-<li>We never set a clear measure of success. More paces created was treated as enough.</li>
+<li>The redesign went to beta in the middle of a term, together with the new features, so their effects can't be separated.</li>
+<li>In the first 14 days, courses with pacing turned on went from under 1% to 1.05%, from the product manager's numbers.</li>
+<li>That window couldn't show much. Instructors set up a course's structure before a term starts and rarely change it once it is running. Nobody checked again when the next term began.</li>
+<li>We never set a measure of success before launch.</li>
 </ul>
                 </div>
             </section>
@@ -174,7 +175,7 @@
                 <h2 id="reflection">Reflection</h2>
                 <div class="body">
 <ul>
-<li>I would agree on the success measure first, and count section and student paces separately from course paces. Without that, I can't put a number on the result.</li>
+<li>I would agree on the success measure before launch, count section and student paces separately from course paces, and read the result at the start of the next term, when instructors actually set up their courses.</li>
 <li>Adjusting the duration of individual items is still inefficient. I wanted to redesign it. The engineers resisted, because untangling the existing code would have taken too long.</li>
 <li>That argument is weaker now that AI tools can read an unfamiliar codebase quickly. Today I would start from the design, not from what the old code allows.</li>
 </ul>
