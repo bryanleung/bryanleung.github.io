@@ -76,6 +76,32 @@ body {
   pointer-events: none;
 }
 
+/* Flow grid background (flow-grid.js). Colors and opacity live here so they
+   follow the theme; size and pointer effect are data attributes on the element. */
+.flow {
+  --flow-line: var(--ink);          /* resting line color */
+  --flow-alpha: 0.1;                /* resting line opacity */
+  --flow-alpha-vary: 0.04;          /* how much the opacity ripples, plus or minus */
+  --flow-near: var(--accent);       /* line color next to the pointer */
+  --flow-near-alpha: 0.25;          /* line opacity next to the pointer */
+
+  /* Spans the page width from the top down to the bottom of the hero;
+     flow-grid.js sets the height. The bottom fades out instead of cutting off. */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent);
+  mask-image: linear-gradient(to bottom, #000 70%, transparent);
+}
+.flow canvas { display: block; width: 100%; height: 100%; }
+@media (forced-colors: active) {
+  .flow { display: none; }
+}
+
 ::selection { background: var(--select); color: var(--ink); }
 
 h1, h2, h3, p, dl, dd, ul, figure { margin: 0; }
