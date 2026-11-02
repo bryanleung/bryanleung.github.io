@@ -344,6 +344,222 @@ h1 {
 }
 .project:hover .shot img { transform: scale(1.03); }
 
+/* A cover cut into stacked full-frame layers. The stage takes the hover zoom so every layer zooms as one.
+   A .part shows one rectangle of the cover's parts sprite, so it can move without the pixels behind it.
+   site.js adds .playing while the cover is on screen; until then its animations wait at their first frame. */
+.shot.layered { position: relative; }
+.shot.layered .stage { position: absolute; inset: 0; transition: transform 0.7s var(--ease); }
+.project:hover .shot.layered .stage { transform: scale(1.03); }
+.project:hover .shot.layered img { transform: none; }
+.shot.layered .stage > * { position: absolute; inset: 0; width: 100%; height: 100%; }
+.shot.layered .part {
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  clip-path: inset(var(--t) var(--r) var(--b) var(--l));
+  transform-origin: var(--ox) var(--oy);
+}
+.shot.layered:not(.playing) .stage,
+.shot.layered:not(.playing) .stage * { animation-play-state: paused; }
+
+/* Church Offering Entry: the gift line types itself and reads back as giver, amount and funds, then Record
+   files it as entry 037 at the top of the batch. The camera zooms onto the line, keeps the caret in view,
+   pans to the funds and the Record button, then pulls back to show the new row land.
+   Insets are measured on the cover: the line runs 4.22% to 47.63% across, 46 characters, and the new row
+   is 12.75% of the cover tall, so the list below moves down by that much. */
+.church-cover .part { background-image: url(img/church-offerings/cover/base.webp); }
+.church-cover .newrow, .church-cover .header { opacity: 0; }
+.church-cover .caret {
+  background: #1d1d1f;
+  clip-path: inset(13.11% 52.22% 83.78% 47.63%);
+  opacity: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .church-cover .stage { animation: church-camera 11s infinite; }
+  .church-cover .command { animation: type 11s linear infinite; }
+  .church-cover .caret { animation: caret 11s linear infinite; }
+  .church-cover .giver { animation: read-giver 11s var(--ease) infinite; }
+  .church-cover .amount { animation: read-amount 11s var(--ease) infinite; }
+  .church-cover .funds { animation: read-funds 11s var(--ease) infinite; }
+  .church-cover .record { animation: press 11s ease-out infinite; }
+  .church-cover .list { animation: list-down 11s infinite; }
+  .church-cover .newrow { animation: row-in 11s var(--ease) infinite; }
+  .church-cover .header { animation: count-up 11s ease infinite; }
+  @keyframes church-camera {
+    0%, 2.73% { scale: 1; translate: 0 0; animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); }
+    7.27% { scale: 2.2; translate: 60% 60%; animation-timing-function: linear; }
+    30.91% { scale: 2.2; translate: 11% 60%; animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); }
+    36.36%, 48.18% { scale: 2.2; translate: -60% 60%; animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); }
+    58.18%, 90.91% { scale: 1; translate: 0 0; opacity: 1; }
+    94.55% { scale: 1; translate: 0 0; opacity: 0; }
+    99.09%, 100% { scale: 1; translate: 0 0; opacity: 1; }
+  }
+  @keyframes type {
+    0%, 5.45% { clip-path: inset(0 95.78% 0 0); opacity: 1; animation-timing-function: steps(46, end); }
+    30.91%, 48.18% { clip-path: inset(0 52.37% 0 0); opacity: 1; animation-timing-function: ease; }
+    50.91%, 94.54% { clip-path: inset(0 52.37% 0 0); opacity: 0; animation-timing-function: step-end; }
+    94.55%, 100% { clip-path: inset(0 95.78% 0 0); opacity: 0; }
+  }
+  @keyframes caret {
+    0%, 5.45% { clip-path: inset(13.11% 95.63% 83.78% 4.22%); opacity: 1; animation-timing-function: steps(46, end); }
+    30.91% { clip-path: inset(13.11% 52.22% 83.78% 47.63%); opacity: 1; animation-timing-function: step-end; }
+    34.5% { clip-path: inset(13.11% 52.22% 83.78% 47.63%); opacity: 0; animation-timing-function: step-end; }
+    38.2% { clip-path: inset(13.11% 52.22% 83.78% 47.63%); opacity: 1; animation-timing-function: step-end; }
+    41.8% { clip-path: inset(13.11% 52.22% 83.78% 47.63%); opacity: 0; animation-timing-function: step-end; }
+    45.45% { clip-path: inset(13.11% 52.22% 83.78% 47.63%); opacity: 1; animation-timing-function: step-end; }
+    48.18%, 94.54% { clip-path: inset(13.11% 52.22% 83.78% 47.63%); opacity: 0; animation-timing-function: step-end; }
+    94.55%, 100% { clip-path: inset(13.11% 95.63% 83.78% 4.22%); opacity: 1; }
+  }
+  @keyframes read-giver {
+    0%, 10.91% { opacity: 0; translate: 0 0.6%; }
+    13.64%, 48.18% { opacity: 1; translate: 0 0; }
+    50.91%, 100% { opacity: 0; translate: 0 0; }
+  }
+  @keyframes read-amount {
+    0%, 18.18% { opacity: 0; translate: 0 0.6%; }
+    20.91%, 48.18% { opacity: 1; translate: 0 0; }
+    50.91%, 100% { opacity: 0; translate: 0 0; }
+  }
+  @keyframes read-funds {
+    0%, 30.91% { opacity: 0; translate: 0 0.6%; }
+    33.64%, 48.18% { opacity: 1; translate: 0 0; }
+    50.91%, 100% { opacity: 0; translate: 0 0; }
+  }
+  @keyframes press {
+    0%, 45.45% { scale: 1; filter: none; }
+    46.8% { scale: 0.94; filter: brightness(0.78); }
+    49%, 100% { scale: 1; filter: none; }
+  }
+  @keyframes list-down {
+    0%, 56.36% { translate: 0 0; animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+    61.82%, 94.54% { translate: 0 12.75%; animation-timing-function: step-end; }
+    94.55%, 100% { translate: 0 0; }
+  }
+  @keyframes row-in {
+    0%, 57.27% { opacity: 0; translate: 0 -1.5%; }
+    62.73%, 94.54% { opacity: 1; translate: 0 0; animation-timing-function: step-end; }
+    94.55%, 100% { opacity: 0; translate: 0 0; }
+  }
+  @keyframes count-up {
+    0%, 57.27% { opacity: 0; }
+    59.09%, 94.54% { opacity: 1; animation-timing-function: step-end; }
+    94.55%, 100% { opacity: 0; }
+  }
+}
+
+/* Selective Modules: the item menu drops open, then the three alignments land in Assign To one by one. */
+.smr-cover .part { background-image: url(img/selective-modules/cover/parts.webp); }
+@media (prefers-reduced-motion: no-preference) {
+  .smr-cover .menu { animation: menu-open 8s var(--ease) infinite both; }
+  .smr-cover .chip { animation: chip-in 8s var(--ease) infinite both; animation-delay: calc(var(--i) * 0.5s); }
+  @keyframes menu-open {
+    0%, 8% { opacity: 0; scale: 1 0.82; }
+    14%, 80% { opacity: 1; scale: 1 1; }
+    86%, 100% { opacity: 0; scale: 1 1; }
+  }
+  @keyframes chip-in {
+    0%, 26% { opacity: 0; scale: 0.7; }
+    29% { opacity: 1; scale: 1.06; }
+    32%, 74% { opacity: 1; scale: 1; }
+    79%, 100% { opacity: 0; scale: 1; }
+  }
+}
+
+/* Bulk Publish: the camera zooms in on the first check as it turns green, follows the rows down
+   as each one publishes, then pulls back to the whole page. The published list is one layer whose
+   bottom edge steps down a row at a time, timed to when the camera reaches that row. */
+.bulk-cover .part { background-image: url(img/bulk-publish/cover/parts.webp); }
+@media (prefers-reduced-motion: no-preference) {
+  .bulk-cover .stage { animation: bulk-camera 10s infinite; }
+  .bulk-cover .published { animation: publish 10s infinite both; }
+  @keyframes bulk-camera {
+    0%, 6% { scale: 1; translate: 0 0; animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); }
+    14%, 16% { scale: 1.8; translate: -1.8% 38.16%; animation-timing-function: linear; }
+    58%, 66% { scale: 1.8; translate: -1.8% -36%; animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); }
+    78%, 100% { scale: 1; translate: 0 0; }
+  }
+  @keyframes publish {
+    0% { clip-path: inset(26.66% 24.61% 73.34% 20.25%); opacity: 1; animation-timing-function: step-end; }
+    16% { clip-path: inset(26.66% 24.61% 69.06% 20.25%); animation-timing-function: step-end; }
+    21% { clip-path: inset(26.66% 24.61% 63.65% 20.25%); animation-timing-function: step-end; }
+    26.5% { clip-path: inset(26.66% 24.61% 58.24% 20.25%); animation-timing-function: step-end; }
+    37.6% { clip-path: inset(26.66% 24.61% 47.42% 20.25%); animation-timing-function: step-end; }
+    43.1% { clip-path: inset(26.66% 24.61% 42% 20.25%); animation-timing-function: step-end; }
+    48.6% { clip-path: inset(26.66% 24.61% 36.59% 20.25%); animation-timing-function: step-end; }
+    54.1% { clip-path: inset(26.66% 24.61% 31.18% 20.25%); animation-timing-function: step-end; }
+    57% { clip-path: inset(26.66% 24.61% 24.56% 20.25%); animation-timing-function: step-end; }
+    60% { clip-path: inset(26.66% 24.61% 19.14% 20.25%); animation-timing-function: step-end; }
+    62%, 92% { clip-path: inset(26.66% 24.61% 13.73% 20.25%); opacity: 1; animation-timing-function: ease; }
+    97%, 100% { clip-path: inset(26.66% 24.61% 13.73% 20.25%); opacity: 0; }
+  }
+}
+
+/* Hand Clarity: light runs across each card of the straight flush in order, and its number lights in the banner. */
+.hc-cover .part { background-image: url(img/hand-clarity/cover/base.webp); }
+.hc-cover .stage .shine {
+  inset: var(--t) var(--r) var(--b) var(--l);
+  width: auto;
+  height: auto;
+  clip-path: none;
+  background: linear-gradient(105deg, transparent 38%, rgb(255 255 255 / 0.7) 50%, transparent 62%) 140% 0 / 300% 100% no-repeat;
+  mix-blend-mode: overlay;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hc-cover .shine { animation: shine 8s ease-in-out infinite both; animation-delay: calc(var(--i) * 0.55s); }
+  .hc-cover .box { animation: box 8s var(--ease) infinite both; animation-delay: calc(var(--i) * 0.55s + 0.25s); }
+  @keyframes shine {
+    0%, 6% { background-position: 140% 0; }
+    16%, 100% { background-position: -40% 0; }
+  }
+  @keyframes box {
+    0%, 8% { scale: 1; filter: none; }
+    11% { scale: 1.14; filter: brightness(1.35); }
+    16%, 100% { scale: 1; filter: none; }
+  }
+}
+
+/* Harry Potter: Puzzles & Spells: the gems float on their own, over art that drifts slowly. */
+.hp-cover .part { background-image: url(img/hpps/cover/gems.webp); }
+.hp-cover .stage { scale: 1.05; }
+@media (prefers-reduced-motion: no-preference) {
+  .hp-cover .stage { animation: drift 18s ease-in-out infinite alternate; }
+  .hp-cover .gem { animation: float 3.6s ease-in-out infinite alternate; animation-delay: calc(var(--i) * -0.7s); }
+  @keyframes drift {
+    from { translate: -1.2% 0.6%; }
+    to { translate: 1.2% -0.6%; }
+  }
+  @keyframes float {
+    from { translate: 0 0.6%; rotate: -2deg; }
+    to { translate: 0 -0.9%; rotate: 2deg; }
+  }
+}
+
+/* Zynga Poker: each lobby card lifts in turn, the CLAIM and NEW badges nudge, and Free Spin pulses. */
+.zp-cover .part { background-image: url(img/zynga-poker/cover/base.webp); }
+@media (prefers-reduced-motion: no-preference) {
+  .zp-cover .card { animation: lift 9s var(--ease) infinite both; animation-delay: calc(var(--i) * 0.6s + 0.4s); }
+  .zp-cover .spin { animation: spin-ready 9s var(--ease) infinite both; animation-delay: 4.4s; }
+  .zp-cover .badge { animation: nudge 9s ease-in-out infinite both; animation-delay: calc(var(--i) * 0.6s + 5.4s); }
+  @keyframes lift {
+    0% { scale: 1; filter: none; }
+    5% { scale: 1.03; filter: brightness(1.12); }
+    12%, 100% { scale: 1; filter: none; }
+  }
+  @keyframes spin-ready {
+    0% { scale: 1; filter: none; }
+    5% { scale: 1.06; filter: brightness(1.2); }
+    10% { scale: 1; filter: none; }
+    15% { scale: 1.06; filter: brightness(1.2); }
+    20%, 100% { scale: 1; filter: none; }
+  }
+  @keyframes nudge {
+    0%, 100% { rotate: 0deg; scale: 1; }
+    3% { rotate: -8deg; scale: 1.12; }
+    6% { rotate: 6deg; scale: 1.12; }
+    9% { rotate: -3deg; scale: 1.05; }
+    12% { rotate: 0deg; scale: 1; }
+  }
+}
+
 .meta {
   font-size: 0.8125rem;
   font-weight: 600;

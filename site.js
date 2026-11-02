@@ -232,3 +232,17 @@ document.querySelector('.theme').addEventListener('click', function () {
   });
   if (minor.children.length < 3) minor.classList.remove('three');
 })();
+
+// Animated covers run only while they are on screen, and start from their first frame when they first appear.
+(function () {
+  var covers = document.querySelectorAll('.shot.layered');
+  if (!covers.length) return;
+  if (!('IntersectionObserver' in window)) {
+    covers.forEach(function (c) { c.classList.add('playing'); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { e.target.classList.toggle('playing', e.isIntersecting); });
+  }, { threshold: 0.25 });
+  covers.forEach(function (c) { io.observe(c); });
+})();
