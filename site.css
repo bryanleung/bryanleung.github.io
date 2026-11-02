@@ -315,6 +315,8 @@ h1 {
   text-wrap: balance;
 }
 
+.group-head.small h2 { font-size: clamp(1.625rem, 1.3rem + 1.4vw, 2.25rem); line-height: 1.15; }
+
 .group-head p { color: var(--ink-soft); font-weight: 500; text-wrap: balance; }
 
 .project {

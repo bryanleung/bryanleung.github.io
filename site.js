@@ -230,7 +230,5 @@ document.querySelector('.theme').addEventListener('click', function () {
   orders[match[1]].forEach(function (k) {
     main.appendChild(document.querySelector('[data-p="' + k + '"]'));
   });
-  var count = main.querySelectorAll('.project').length;
-  document.querySelector('[data-count]').textContent = count + ' case studies · ' + (match[1] === 'lead' ? '2022' : '2023') + ' to 2026';
   if (minor.children.length < 3) minor.classList.remove('three');
 })();
