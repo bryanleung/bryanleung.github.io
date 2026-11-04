@@ -14,14 +14,28 @@
     var box = document.createElement('div');
     box.className = 'dusk-skyline';
     box.setAttribute('aria-hidden', 'true');
-    box.innerHTML = svg;
+    // Split the art into one SVG per layer that all share the art definitions, so each layer is
+    // moved with a CSS transform (a GPU slide) instead of repainting the whole skyline every frame.
+    var tmp = document.createElement('div'); tmp.innerHTML = svg;   // HTML parsing puts the art in the SVG namespace
+    var src = tmp.querySelector('svg');
+    var NS = 'http://www.w3.org/2000/svg';
+    var defs = document.createElementNS(NS, 'svg');
+    defs.setAttribute('class', 'sky-defs'); defs.setAttribute('width', '0'); defs.setAttribute('height', '0'); defs.setAttribute('aria-hidden', 'true');
+    var d = src.querySelector('defs'); if (d) defs.appendChild(d);
+    box.appendChild(defs);
+    Object.keys(SPEED).forEach(function (k) {
+      var g = src.querySelector('g.' + k); if (!g) return;
+      var layer = document.createElementNS(NS, 'svg');
+      layer.setAttribute('class', 'sky-layer');
+      layer.setAttribute('viewBox', src.getAttribute('viewBox'));
+      layer.setAttribute('preserveAspectRatio', src.getAttribute('preserveAspectRatio') || 'xMidYMax meet');
+      var gg = g; gg.removeAttribute('transform');
+      layer.appendChild(gg); box.appendChild(layer);
+      layers.push([layer, SPEED[k]]);
+    });
     head.appendChild(box);
     root.classList.add('sky-live');
     if (sky) sky.apply();
-    Object.keys(SPEED).forEach(function (k) {
-      var g = box.querySelector('g.' + k);
-      if (g) layers.push([g, SPEED[k]]);
-    });
     queue();
   }).catch(function () {});
 
@@ -74,9 +88,8 @@
     if (still || !layers.length) return;
     var y = Math.min(window.scrollY || 0, 1400);
     // The art is 3000 units wide and drawn at least 1440px wide: convert screen px to its units.
-    var unit = 3000 / Math.max(root.clientWidth || 1440, 1440);
     for (var i = 0; i < layers.length; i++) {
-      layers[i][0].setAttribute('transform', 'translate(0 ' + (y * layers[i][1] * unit).toFixed(1) + ')');
+      layers[i][0].style.transform = 'translateX(-50%) translate3d(0, ' + (y * layers[i][1]).toFixed(1) + 'px, 0)';
     }
   }
   function queue() { if (!raf) raf = requestAnimationFrame(update); }
