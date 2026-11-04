@@ -36,6 +36,9 @@
       layers.push([layer, SPEED[k]]);
     });
     head.appendChild(box);
+    var fade = document.createElement('div');   // static fade over the moving layers
+    fade.className = 'dusk-fade'; fade.setAttribute('aria-hidden', 'true');
+    head.appendChild(fade);
     root.classList.add('sky-live');
     if (sky) sky.apply();
     queue();

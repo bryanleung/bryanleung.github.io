@@ -246,9 +246,6 @@ footer a { color: #FFFFFF; }
   pointer-events: none;
 }
 .dusk-skyline .sky-layer {
-  /* each layer fades at its own bottom edge: cheaper than one mask over moving layers */
-  -webkit-mask-image: linear-gradient(to bottom, #000 58%, transparent 97%);
-  mask-image: linear-gradient(to bottom, #000 58%, transparent 97%);
   position: absolute;
   left: 50%;
   bottom: 0;
@@ -260,6 +257,17 @@ footer a { color: #FFFFFF; }
   will-change: transform;               /* its own GPU layer: scrolling slides it, no repaint */
 }
 .dusk-skyline .sky-defs { position: absolute; width: 0; height: 0; }
+/* The skyline fades into the page through a static overlay: a copy of the header's sky, clear at the top
+   and solid by the bottom edge, over the same band the old mask used (58% to 97% of the 514px skyline).
+   The layers slide underneath it, so the fade stays one even band and nothing masked has to move. */
+.dusk-fade {
+  position: absolute; left: 50%; width: 100vw; transform: translateX(-50%);
+  top: -120px; bottom: 0; z-index: -1; pointer-events: none;
+  background: var(--sky);
+  -webkit-mask-image: linear-gradient(to bottom, transparent calc(100% - 216px), #000 calc(100% - 15px));
+  mask-image: linear-gradient(to bottom, transparent calc(100% - 216px), #000 calc(100% - 15px));
+}
+@media (min-width: 1100px) { .has-toc .dusk-fade { left: calc(50% - 120px); } }
 .sky-live .case-head::after { display: none; }
 @media (min-width: 1100px) { .has-toc .dusk-skyline { left: calc(50% - 120px); } }
 
