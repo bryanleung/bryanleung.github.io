@@ -5,6 +5,10 @@
 
 
 
+
+
+
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-B4TPJJE07X"></script>
     <script>
@@ -51,16 +55,32 @@ a{color:#FFE3CC}a:hover{color:#FFFFFF}
 .hit:hover .tint,.hit:focus-visible .tint{opacity:0 !important}
 .node .plain{transition:transform 1.2s ease}
 .hit:hover .plain{transform:scale(1.06)}
+.lbl p{text-wrap:balance;text-wrap:pretty}
+.lbl p:first-child{text-wrap:balance}
 .cta{align-self:flex-start;margin-top:10px;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--cta);border-bottom:1px solid var(--cta-line);padding:6px 0;transition:border-color .3s ease}
 .hit:hover .cta,.hit:focus-visible .cta{border-bottom-color:var(--cta)}
 /* Tablet and phone: the zigzag becomes one column. Each stop stacks its cover, then its text, then the
    opened details, over a straight dark path running down the middle. */
 /* Tablet keeps the desktop zigzag and curved path, scaled to fit the narrower screen. */
-@media (min-width:641px) and (max-width:900px){
-.track{zoom:.8}
+/* Tablets and small windows (768–959px) keep the desktop zigzag, drawn smaller so the cards and their labels fit across the screen.
+   Text inside the smaller track is set larger by the same factor, so it still reads at the desktop size
+   (titles 17px, descriptions 16px, links 12px). */
+@media (min-width:768px) and (max-width:959px){
+.track{zoom:.74}
+.lbl{width:270px !important}
+.lbl p:first-child{font-size:22.97px !important}
+.lbl .desc{font-size:21.62px !important}
+.lbl .cta{font-size:16.22px !important}
 }
-/* Phone: one column of cards over a thin path that runs down their left side, behind them. */
-@media (max-width:640px){
+@media (min-width:960px) and (max-width:1099px){
+.track{zoom:.88}
+.lbl p:first-child{font-size:19.32px !important}
+.lbl .desc{font-size:18.18px !important}
+.lbl .cta{font-size:13.64px !important}
+}
+/* Phones and narrow tablets (up to 767px): one column of cards over a thin path down their left side,
+   behind them. Below 768px the zigzag has no room for labels at a readable size. */
+@media (max-width:767px){
 .top{padding-left:20px !important;padding-right:20px !important}
 .hero{height:auto !important;min-height:clamp(520px, calc(100svh - 96px), 1000px);padding:48px 20px 40px !important}
 main{padding-top:48px !important}
@@ -74,7 +94,7 @@ main{padding-top:48px !important}
 .stop .lbl{position:relative !important;left:auto !important;right:auto !important;top:auto !important;width:auto !important;height:auto !important;text-align:left !important;margin-top:16px;padding:0}
 .stop .panel{position:relative !important;left:auto !important;top:auto !important;width:auto !important;max-width:none !important;margin-top:10px}
 }
-@media (max-width:640px){.big{font-size:40px !important}}
+@media (max-width:767px){.big{font-size:40px !important}}
 /* Animated covers, ported from the live homepage. Each cover is stacked full-frame layers; a .part shows one
    rectangle of a sprite so it can move without the pixels behind it. */
 .cv{position:absolute;inset:0;display:block;overflow:hidden}
@@ -196,7 +216,7 @@ main{padding-top:48px !important}
 .mode:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 @media (prefers-reduced-motion: reduce){.mode .knob,.mode svg{transition:none}}
 .foot-sky{position:absolute;left:0;bottom:70px;display:block;width:100%;height:180px}
-@media (max-width:640px){.foot-sky{height:130px}}
+@media (max-width:767px){.foot-sky{height:130px}}
 /* Skyline parallax. Each layer fades out at its own bottom edge (cheaper than one mask over moving layers).
    Where the browser supports scroll-driven animations, CSS moves the layers and the sun with the scroll
    itself, so they never lag a frame behind on phones; elsewhere the script moves them. */
@@ -223,7 +243,7 @@ main{padding-top:48px !important}
 .cue-arrow{animation:cue 2.4s ease-in-out infinite}
 @keyframes cue{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 @media (prefers-reduced-motion: reduce){.cue-arrow{animation:none}}
-@media (max-width:640px){.workcue{top:-92px !important}}
+@media (max-width:767px){.workcue{top:-92px !important}}
 @keyframes fade{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 </style>
 </head>
@@ -1452,24 +1472,24 @@ main{padding-top:48px !important}
       <span style="padding-left: .32em">My work</span>
       <svg class="cue-arrow" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v15 M5 12l7 7 7-7"></path></svg>
     </button>
-    <div class="track" id="work" style="position: relative; height: 2660px">
-      <svg class="trail" width="1" height="2660" aria-hidden="true" style="position: absolute; left: 50%; top: 0; overflow: visible">
+    <div class="track" id="work" style="position: relative; height: 2960px">
+      <svg class="trail" width="1" height="2960" aria-hidden="true" style="position: absolute; left: 50%; top: 0; overflow: visible">
         <defs>
           <!-- The path fades out as it runs down into the footer skyline. -->
-          <linearGradient id="trailFade" gradientUnits="userSpaceOnUse" x1="0" y1="2500" x2="0" y2="2840">
+          <linearGradient id="trailFade" gradientUnits="userSpaceOnUse" x1="0" y1="2800" x2="0" y2="3140">
             <stop offset="0" stop-color="#FFFFFF"></stop><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"></stop>
           </linearGradient>
-          <mask id="trailMask" maskUnits="userSpaceOnUse" x="-600" y="0" width="1200" height="2840">
-            <rect x="-600" y="0" width="1200" height="2840" fill="url(#trailFade)"></rect>
+          <mask id="trailMask" maskUnits="userSpaceOnUse" x="-600" y="0" width="1200" height="3140">
+            <rect x="-600" y="0" width="1200" height="3140" fill="url(#trailFade)"></rect>
           </mask>
         </defs>
-        <path d="M0 140 C4.2 146.7 17.1 166.7 25.4 180 C33.7 193.3 41.9 206.7 49.7 220 C57.6 233.3 65.2 246.7 72.2 260 C79.3 273.3 85.9 286.7 91.9 300 C97.9 313.3 103.4 326.7 108.1 340 C112.8 353.3 116.9 366.7 120.1 380 C123.3 393.3 125.9 406.7 127.5 420 C129.2 433.3 130 446.7 130 460 C130 473.3 129.2 486.7 127.5 500 C125.9 513.3 123.3 526.7 120.1 540 C116.9 553.3 112.8 566.7 108.1 580 C103.4 593.3 97.9 606.7 91.9 620 C85.9 633.3 79.3 646.7 72.2 660 C65.2 673.3 57.6 686.7 49.7 700 C41.9 713.3 33.7 726.7 25.4 740 C17.1 753.3 8.5 766.7 0 780 C-8.5 793.3 -17.1 806.7 -25.4 820 C-33.7 833.3 -41.9 846.7 -49.7 860 C-57.6 873.3 -65.2 886.7 -72.2 900 C-79.3 913.3 -85.9 926.7 -91.9 940 C-97.9 953.3 -103.4 966.7 -108.1 980 C-112.8 993.3 -116.9 1006.7 -120.1 1020 C-123.3 1033.3 -125.9 1046.7 -127.5 1060 C-129.2 1073.3 -130 1086.7 -130 1100 C-130 1113.3 -129.2 1126.7 -127.5 1140 C-125.9 1153.3 -123.3 1166.7 -120.1 1180 C-116.9 1193.3 -112.8 1206.7 -108.1 1220 C-103.4 1233.3 -97.9 1246.7 -91.9 1260 C-85.9 1273.3 -79.3 1286.7 -72.2 1300 C-65.2 1313.3 -57.6 1326.7 -49.7 1340 C-41.9 1353.3 -33.7 1366.7 -25.4 1380 C-17.1 1393.3 -8.5 1406.7 0 1420 C8.5 1433.3 17.1 1446.7 25.4 1460 C33.7 1473.3 41.9 1486.7 49.7 1500 C57.6 1513.3 65.2 1526.7 72.2 1540 C79.3 1553.3 85.9 1566.7 91.9 1580 C97.9 1593.3 103.4 1606.7 108.1 1620 C112.8 1633.3 116.9 1646.7 120.1 1660 C123.3 1673.3 125.9 1686.7 127.5 1700 C129.2 1713.3 130 1726.7 130 1740 C130 1753.3 129.2 1766.7 127.5 1780 C125.9 1793.3 123.3 1806.7 120.1 1820 C116.9 1833.3 112.8 1846.7 108.1 1860 C103.4 1873.3 97.9 1886.7 91.9 1900 C85.9 1913.3 79.3 1926.7 72.2 1940 C65.2 1953.3 57.6 1966.7 49.7 1980 C41.9 1993.3 33.7 2006.7 25.4 2020 C17.1 2033.3 8.5 2046.7 0 2060 C-8.5 2073.3 -17.1 2086.7 -25.4 2100 C-33.7 2113.3 -41.9 2126.7 -49.7 2140 C-57.6 2153.3 -65.2 2166.7 -72.2 2180 C-79.3 2193.3 -85.9 2206.7 -91.9 2220 C-97.9 2233.3 -103.4 2246.7 -108.1 2260 C-112.8 2273.3 -116.9 2286.7 -120.1 2300 C-123.3 2313.3 -125.9 2326.7 -127.5 2340 C-129.2 2353.3 -130 2366.7 -130 2380 C-130 2393.3 -129.2 2406.7 -127.5 2420 C-125.9 2433.3 -123.3 2446.7 -120.1 2460 C-116.9 2473.3 -112.8 2486.7 -108.1 2500 C-103.4 2513.3 -97.9 2526.7 -91.9 2540 C-85.9 2553.3 -79.3 2566.7 -72.2 2580 C-65.2 2593.3 -57.6 2606.7 -49.7 2620 C-41.9 2633.3 -33.7 2646.7 -25.4 2660 C-17.1 2673.3 -8.5 2686.7 0 2700 C8.5 2713.3 17.1 2726.7 25.4 2740 C33.7 2753.3 41.9 2766.7 49.7 2780 C57.6 2793.3 65.2 2806.7 72.2 2820 C79.3 2833.3 88.6 2853.3 91.9 2860" mask="url(#trailMask)" fill="none" stroke="var(--path)" style="stroke: var(--path)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M0 160 C3.8 166.7 15.2 186.7 22.6 200 C30 213.3 37.4 226.7 44.5 240 C51.5 253.3 58.5 266.7 65 280 C71.5 293.3 77.8 306.7 83.6 320 C89.3 333.3 94.7 346.7 99.6 360 C104.4 373.3 108.8 386.7 112.6 400 C116.3 413.3 119.6 426.7 122.2 440 C124.7 453.3 126.7 466.7 128 480 C129.3 493.3 130 506.7 130 520 C130 533.3 129.3 546.7 128 560 C126.7 573.3 124.7 586.7 122.2 600 C119.6 613.3 116.3 626.7 112.6 640 C108.8 653.3 104.4 666.7 99.6 680 C94.7 693.3 89.3 706.7 83.6 720 C77.8 733.3 71.5 746.7 65 760 C58.5 773.3 51.5 786.7 44.5 800 C37.4 813.3 30 826.7 22.6 840 C15.2 853.3 7.5 866.7 0 880 C-7.5 893.3 -15.2 906.7 -22.6 920 C-30 933.3 -37.4 946.7 -44.5 960 C-51.5 973.3 -58.5 986.7 -65 1000 C-71.5 1013.3 -77.8 1026.7 -83.6 1040 C-89.3 1053.3 -94.7 1066.7 -99.6 1080 C-104.4 1093.3 -108.8 1106.7 -112.6 1120 C-116.3 1133.3 -119.6 1146.7 -122.2 1160 C-124.7 1173.3 -126.7 1186.7 -128 1200 C-129.3 1213.3 -130 1226.7 -130 1240 C-130 1253.3 -129.3 1266.7 -128 1280 C-126.7 1293.3 -124.7 1306.7 -122.2 1320 C-119.6 1333.3 -116.3 1346.7 -112.6 1360 C-108.8 1373.3 -104.4 1386.7 -99.6 1400 C-94.7 1413.3 -89.3 1426.7 -83.6 1440 C-77.8 1453.3 -71.5 1466.7 -65 1480 C-58.5 1493.3 -51.5 1506.7 -44.5 1520 C-37.4 1533.3 -30 1546.7 -22.6 1560 C-15.2 1573.3 -7.5 1586.7 0 1600 C7.5 1613.3 15.2 1626.7 22.6 1640 C30 1653.3 37.4 1666.7 44.5 1680 C51.5 1693.3 58.5 1706.7 65 1720 C71.5 1733.3 77.8 1746.7 83.6 1760 C89.3 1773.3 94.7 1786.7 99.6 1800 C104.4 1813.3 108.8 1826.7 112.6 1840 C116.3 1853.3 119.6 1866.7 122.2 1880 C124.7 1893.3 126.7 1906.7 128 1920 C129.3 1933.3 130 1946.7 130 1960 C130 1973.3 129.3 1986.7 128 2000 C126.7 2013.3 124.7 2026.7 122.2 2040 C119.6 2053.3 116.3 2066.7 112.6 2080 C108.8 2093.3 104.4 2106.7 99.6 2120 C94.7 2133.3 89.3 2146.7 83.6 2160 C77.8 2173.3 71.5 2186.7 65 2200 C58.5 2213.3 51.5 2226.7 44.5 2240 C37.4 2253.3 30 2266.7 22.6 2280 C15.2 2293.3 7.5 2306.7 0 2320 C-7.5 2333.3 -15.2 2346.7 -22.6 2360 C-30 2373.3 -37.4 2386.7 -44.5 2400 C-51.5 2413.3 -58.5 2426.7 -65 2440 C-71.5 2453.3 -77.8 2466.7 -83.6 2480 C-89.3 2493.3 -94.7 2506.7 -99.6 2520 C-104.4 2533.3 -108.8 2546.7 -112.6 2560 C-116.3 2573.3 -119.6 2586.7 -122.2 2600 C-124.7 2613.3 -126.7 2626.7 -128 2640 C-129.3 2653.3 -130 2666.7 -130 2680 C-130 2693.3 -129.3 2706.7 -128 2720 C-126.7 2733.3 -124.7 2746.7 -122.2 2760 C-119.6 2773.3 -116.3 2786.7 -112.6 2800 C-108.8 2813.3 -104.4 2826.7 -99.6 2840 C-94.7 2853.3 -89.3 2866.7 -83.6 2880 C-77.8 2893.3 -71.5 2906.7 -65 2920 C-58.5 2933.3 -51.5 2946.7 -44.5 2960 C-37.4 2973.3 -30 2986.7 -22.6 3000 C-15.2 3013.3 -7.5 3026.7 0 3040 C7.5 3053.3 15.2 3066.7 22.6 3080 C30 3093.3 37.4 3106.7 44.5 3120 C51.5 3133.3 61.6 3153.3 65 3160" mask="url(#trailMask)" fill="none" stroke="var(--path)" style="stroke: var(--path)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
         <path d="" fill="none" stroke="rgba(255,241,224,.22)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
       </svg>
       
-        <div class="stop" style="position: absolute; left: calc(50% + 0px); top: 140px; width: 0; height: 0; z-index: 1">
+        <div class="stop" style="position: absolute; left: calc(50% + 0px); top: 160px; width: 0; height: 0; z-index: 1">
           <a class="hit" href="./canvas-selective-modules-release">
-          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -159px; top: -106px; width: 318px; height: 212px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)">
+          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -199px; top: -132.5px; width: 398px; height: 265px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)">
             
             
               <span class="cv smr-cover"><span class="stage">
@@ -1488,17 +1508,17 @@ main{padding-top:48px !important}
             
             <span class="tint" aria-hidden="true" style="position: absolute; inset: 0; background: var(--tint); mix-blend-mode: color; opacity: 0.55"></span>
           </span>
-          <div class="lbl" style="position: absolute; top: -106px; left: 186px; width: 230px; height: 212px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 6px; text-align: left">
+          <div class="lbl" style="position: absolute; top: -132.5px; left: 226px; width: 300px; height: 265px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 6px; text-align: left">
             <p style="margin: 0; font-size: 17px; line-height: 1.25; font-weight: 400; letter-spacing: .04em; color: var(--title)">Selective Modules Release</p>
-            <p class="desc" style="margin: 4px 0 0; font-size: 14px; line-height: 1.5; font-weight: 300; color: var(--desc)">Tailoring material to one student took about 15 clicks per item, so instructors avoided it. I made whole modules assignable.</p>
+            <p class="desc" style="margin: 4px 0 0; font-size: 16px; line-height: 1.55; font-weight: 300; color: var(--desc)">Tailoring material to one student took about 15 clicks per item, so instructors avoided it. I made whole modules assignable.</p>
             <span class="cta" style="align-self: flex-start">Read case study</span>
           </div>
           </a>
         </div>
       
-        <div class="stop" style="position: absolute; left: calc(50% + 130px); top: 460px; width: 0; height: 0; z-index: 1">
+        <div class="stop" style="position: absolute; left: calc(50% + 130px); top: 520px; width: 0; height: 0; z-index: 1">
           <a class="hit" href="./quintace-communities">
-          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -159px; top: -106px; width: 318px; height: 212px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)">
+          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -199px; top: -132.5px; width: 398px; height: 265px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)">
             
               <img class="plain" src="img/quintace/home-desktop.webp" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover">
             
@@ -1511,17 +1531,17 @@ main{padding-top:48px !important}
             
             <span class="tint" aria-hidden="true" style="position: absolute; inset: 0; background: var(--tint); mix-blend-mode: color; opacity: 0.55"></span>
           </span>
-          <div class="lbl" style="position: absolute; top: -106px; right: 186px; width: 230px; height: 212px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 6px; text-align: right">
+          <div class="lbl" style="position: absolute; top: -132.5px; right: 226px; width: 300px; height: 265px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 6px; text-align: right">
             <p style="margin: 0; font-size: 17px; line-height: 1.25; font-weight: 400; letter-spacing: .04em; color: var(--title)">QuintAce Communities</p>
-            <p class="desc" style="margin: 4px 0 0; font-size: 14px; line-height: 1.5; font-weight: 300; color: var(--desc)">Player-run communities for a poker app. I generated six layouts with AI, reworked the one we chose, and finished it in our design system.</p>
+            <p class="desc" style="margin: 4px 0 0; font-size: 16px; line-height: 1.55; font-weight: 300; color: var(--desc)">Player-run communities for a poker app. I generated six layouts with AI, reworked the one we chose, and finished it in our design system.</p>
             <span class="cta" style="align-self: flex-end">Read case study</span>
           </div>
           </a>
         </div>
       
-        <div class="stop" style="position: absolute; left: calc(50% + 0px); top: 780px; width: 0; height: 0; z-index: 1">
+        <div class="stop" style="position: absolute; left: calc(50% + 0px); top: 880px; width: 0; height: 0; z-index: 1">
           <a class="hit" href="./church-offerings">
-          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -159px; top: -106px; width: 318px; height: 212px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)">
+          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -199px; top: -132.5px; width: 398px; height: 265px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)">
             
             
             
@@ -1545,17 +1565,17 @@ main{padding-top:48px !important}
             
             <span class="tint" aria-hidden="true" style="position: absolute; inset: 0; background: var(--tint); mix-blend-mode: color; opacity: 0.55"></span>
           </span>
-          <div class="lbl" style="position: absolute; top: -106px; right: 186px; width: 230px; height: 212px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 6px; text-align: right">
+          <div class="lbl" style="position: absolute; top: -132.5px; right: 226px; width: 300px; height: 265px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 6px; text-align: right">
             <p style="margin: 0; font-size: 17px; line-height: 1.25; font-weight: 400; letter-spacing: .04em; color: var(--title)">Church Offering Entry</p>
-            <p class="desc" style="margin: 4px 0 0; font-size: 14px; line-height: 1.5; font-weight: 300; color: var(--desc)">A church paid $200 a month for slow offering software. I built a replacement and redesigned entry as one typed line per gift.</p>
+            <p class="desc" style="margin: 4px 0 0; font-size: 16px; line-height: 1.55; font-weight: 300; color: var(--desc)">A church paid $200 a month for slow offering software. I built a replacement and redesigned entry as one typed line per gift.</p>
             <span class="cta" style="align-self: flex-end">Read case study</span>
           </div>
           </a>
         </div>
       
-        <div class="stop" style="position: absolute; left: calc(50% + -130px); top: 1100px; width: 0; height: 0; z-index: 1">
+        <div class="stop" style="position: absolute; left: calc(50% + -130px); top: 1240px; width: 0; height: 0; z-index: 1">
           <a class="hit" href="./canvas-course-pacing">
-          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -159px; top: -106px; width: 318px; height: 212px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)">
+          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -199px; top: -132.5px; width: 398px; height: 265px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)">
             
               <img class="plain" src="https://framerusercontent.com/images/VUlSg5py3GczRGDx6RuFXnJpjqM.png" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover">
             
@@ -1568,17 +1588,17 @@ main{padding-top:48px !important}
             
             <span class="tint" aria-hidden="true" style="position: absolute; inset: 0; background: var(--tint); mix-blend-mode: color; opacity: 0.55"></span>
           </span>
-          <div class="lbl" style="position: absolute; top: -106px; left: 186px; width: 230px; height: 212px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 6px; text-align: left">
+          <div class="lbl" style="position: absolute; top: -132.5px; left: 226px; width: 300px; height: 265px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 6px; text-align: left">
             <p style="margin: 0; font-size: 17px; line-height: 1.25; font-weight: 400; letter-spacing: .04em; color: var(--title)">Course Pacing Redesign</p>
-            <p class="desc" style="margin: 4px 0 0; font-size: 14px; line-height: 1.5; font-weight: 300; color: var(--desc)">Course Pacing set one pace for a whole course, and about 1% of courses used it. I redesigned it for sections and individual students.</p>
+            <p class="desc" style="margin: 4px 0 0; font-size: 16px; line-height: 1.55; font-weight: 300; color: var(--desc)">Course Pacing set one pace for a whole course, and about 1% of courses used it. I redesigned it for sections and individual students.</p>
             <span class="cta" style="align-self: flex-start">Read case study</span>
           </div>
           </a>
         </div>
       
-        <div class="stop" style="position: absolute; left: calc(50% + 0px); top: 1420px; width: 0; height: 0; z-index: 1">
+        <div class="stop" style="position: absolute; left: calc(50% + 0px); top: 1600px; width: 0; height: 0; z-index: 1">
           <a class="hit" href="./canvas-bulk-publish">
-          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -159px; top: -106px; width: 318px; height: 212px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)">
+          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -199px; top: -132.5px; width: 398px; height: 265px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)">
             
             
             
@@ -1594,17 +1614,17 @@ main{padding-top:48px !important}
             
             <span class="tint" aria-hidden="true" style="position: absolute; inset: 0; background: var(--tint); mix-blend-mode: color; opacity: 0.55"></span>
           </span>
-          <div class="lbl" style="position: absolute; top: -106px; left: 186px; width: 230px; height: 212px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 6px; text-align: left">
+          <div class="lbl" style="position: absolute; top: -132.5px; left: 226px; width: 300px; height: 265px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 6px; text-align: left">
             <p style="margin: 0; font-size: 17px; line-height: 1.25; font-weight: 400; letter-spacing: .04em; color: var(--title)">Bulk Publish</p>
-            <p class="desc" style="margin: 4px 0 0; font-size: 14px; line-height: 1.5; font-weight: 300; color: var(--desc)">Instructors published 80 to 120 items one click at a time. An engineer and I fixed it in a hackathon week.</p>
+            <p class="desc" style="margin: 4px 0 0; font-size: 16px; line-height: 1.55; font-weight: 300; color: var(--desc)">Instructors published 80 to 120 items one click at a time. An engineer and I fixed it in a hackathon week.</p>
             <span class="cta" style="align-self: flex-start">Read case study</span>
           </div>
           </a>
         </div>
       
-        <div class="stop" style="position: absolute; left: calc(50% + 130px); top: 1740px; width: 0; height: 0; z-index: 1">
+        <div class="stop" style="position: absolute; left: calc(50% + 130px); top: 1960px; width: 0; height: 0; z-index: 1">
           <a class="hit" href="./zynga-poker-handclarity">
-          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -159px; top: -106px; width: 318px; height: 212px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)">
+          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -199px; top: -132.5px; width: 398px; height: 265px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)">
             
             
             
@@ -1629,17 +1649,17 @@ main{padding-top:48px !important}
             
             <span class="tint" aria-hidden="true" style="position: absolute; inset: 0; background: var(--tint); mix-blend-mode: color; opacity: 0.55"></span>
           </span>
-          <div class="lbl" style="position: absolute; top: -106px; right: 186px; width: 230px; height: 212px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 6px; text-align: right">
+          <div class="lbl" style="position: absolute; top: -132.5px; right: 226px; width: 300px; height: 265px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 6px; text-align: right">
             <p style="margin: 0; font-size: 17px; line-height: 1.25; font-weight: 400; letter-spacing: .04em; color: var(--title)">Hand Clarity</p>
-            <p class="desc" style="margin: 4px 0 0; font-size: 14px; line-height: 1.5; font-weight: 300; color: var(--desc)">Players thought they’d won hands they lost, and called the game rigged. I redesigned how the table shows who won and why.</p>
+            <p class="desc" style="margin: 4px 0 0; font-size: 16px; line-height: 1.55; font-weight: 300; color: var(--desc)">Players thought they’d won hands they lost, and called the game rigged. I redesigned how the table shows who won and why.</p>
             <span class="cta" style="align-self: flex-end">Read case study</span>
           </div>
           </a>
         </div>
       
-        <div class="stop" style="position: absolute; left: calc(50% + 0px); top: 2060px; width: 0; height: 0; z-index: 1">
+        <div class="stop" style="position: absolute; left: calc(50% + 0px); top: 2320px; width: 0; height: 0; z-index: 1">
           <a class="hit" href="./zynga-hpps">
-          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -159px; top: -106px; width: 318px; height: 212px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)">
+          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -199px; top: -132.5px; width: 398px; height: 265px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)">
             
             
             
@@ -1661,17 +1681,17 @@ main{padding-top:48px !important}
             
             <span class="tint" aria-hidden="true" style="position: absolute; inset: 0; background: var(--tint); mix-blend-mode: color; opacity: 0.55"></span>
           </span>
-          <div class="lbl" style="position: absolute; top: -106px; right: 186px; width: 230px; height: 212px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 6px; text-align: right">
+          <div class="lbl" style="position: absolute; top: -132.5px; right: 226px; width: 300px; height: 265px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 6px; text-align: right">
             <p style="margin: 0; font-size: 17px; line-height: 1.25; font-weight: 400; letter-spacing: .04em; color: var(--title)">Harry Potter: Puzzles & Spells</p>
-            <p class="desc" style="margin: 4px 0 0; font-size: 14px; line-height: 1.5; font-weight: 300; color: var(--desc)">I managed a designer and led experience design on a match-3 game with about 400k daily players.</p>
+            <p class="desc" style="margin: 4px 0 0; font-size: 16px; line-height: 1.55; font-weight: 300; color: var(--desc)">I managed a designer and led experience design on a match-3 game with about 400k daily players.</p>
             <span class="cta" style="align-self: flex-end">Read case study</span>
           </div>
           </a>
         </div>
       
-        <div class="stop" style="position: absolute; left: calc(50% + -130px); top: 2380px; width: 0; height: 0; z-index: 1">
+        <div class="stop" style="position: absolute; left: calc(50% + -130px); top: 2680px; width: 0; height: 0; z-index: 1">
           <a class="hit" href="./zynga-poker">
-          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -159px; top: -106px; width: 318px; height: 212px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)">
+          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -199px; top: -132.5px; width: 398px; height: 265px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)">
             
             
             
@@ -1695,9 +1715,9 @@ main{padding-top:48px !important}
             
             <span class="tint" aria-hidden="true" style="position: absolute; inset: 0; background: var(--tint); mix-blend-mode: color; opacity: 0.55"></span>
           </span>
-          <div class="lbl" style="position: absolute; top: -106px; left: 186px; width: 230px; height: 212px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 6px; text-align: left">
+          <div class="lbl" style="position: absolute; top: -132.5px; left: 226px; width: 300px; height: 265px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 6px; text-align: left">
             <p style="margin: 0; font-size: 17px; line-height: 1.25; font-weight: 400; letter-spacing: .04em; color: var(--title)">Zynga Poker</p>
-            <p class="desc" style="margin: 4px 0 0; font-size: 14px; line-height: 1.5; font-weight: 300; color: var(--desc)">Leagues, Challenges, the VIP Center and the store, during the move from native iOS to Unity.</p>
+            <p class="desc" style="margin: 4px 0 0; font-size: 16px; line-height: 1.55; font-weight: 300; color: var(--desc)">Leagues, Challenges, the VIP Center and the store, during the move from native iOS to Unity.</p>
             <span class="cta" style="align-self: flex-start">Read case study</span>
           </div>
           </a>
@@ -2803,7 +2823,7 @@ var CASES = ORDER.map(function (id) { return ALL.find(function (c) { return c.id
 // Wide rounded frames so the cover image carries each stop; text sits beside it
 var WAVE = [0, 130, 0, -130, 0, 130, 0, -130];
 var SIDE = ['left', 'right', 'right', 'left', 'left', 'right', 'right', 'left'];
-var TOP = 140, ROW = 320;
+var TOP = 160, ROW = 360;
 // The path is one sine wave down the whole track. The cards sit on it: x = 130·sin(π/2 · (y − TOP) / ROW)
 // gives 0, 130, 0, −130 … at each card's y, which matches WAVE. It starts
 // at the first card's centre (so it begins hidden behind that card) and runs past the last card into the footer, as one smooth curve (Catmull-Rom through samples).
