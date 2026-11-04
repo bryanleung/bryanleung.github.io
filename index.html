@@ -2943,7 +2943,9 @@ function SkyCycle(o) {
       var ma = mo.angles;
       mp = ellipse(mo, p <= 0.5 ? mixN(ma[0], ma[1], span(p, 0.35, 0.5)) : mixN(ma[1], mo.set, span(p, 0.5, 0.9)));
     }
-    place(c.moon, mp, moonO); place(c.moonGlow, mp, moonO * 0.7);
+    // Softer at dusk while the sky is still light, full brightness by midnight.
+    var moonDim = p <= 0.5 ? 0.55 : mixN(0.55, 1, span(p, 0.5, 0.68));
+    place(c.moon, mp, moonO * moonDim); place(c.moonGlow, mp, moonO * moonDim * 0.6);
 
     // Stars: faint at dusk, brightest around midnight, gone by morning.
     if (c.stars) c.stars.style.opacity = p <= 0.5 ? 0.45 * span(p, 0.4, 0.5) : mixN(0.45, 1, span(p, 0.5, 0.7)) * (1 - span(p, 0.78, 0.92));
@@ -2982,7 +2984,7 @@ SkyCycle.isNight = function (name) { return name === 'dusk' || name === 'midnigh
 
 // The visitor's time of day: their saved pick, or else the device setting (light: morning, dark: dusk).
 SkyCycle.saved = function () {
-  try { var v = localStorage.getItem('sky'); if (SkyCycle.TIMES.hasOwnProperty(v)) return v; } catch (e) {}
+  try { var v = localStorage.getItem('sky'); if (SkyCycle.TIMES.hasOwnProperty(v)) return SkyCycle.isNight(v) ? 'dusk' : 'morning'; } catch (e) {}
   return null;
 };
 SkyCycle.preferred = function () {
@@ -3003,21 +3005,13 @@ SkyCycle.watchDevice = function (fn) {
   } catch (e) {}
 };
 
-// Time-of-day picker: one round button showing the current time; it opens a short vertical menu of
-// the four times. Picking one calls onPick(name). The menu's colours come from --pick-ink and
-// --pick-bg where the page sets them, else from --ink and --btn-ink.
+// Day/night toggle: one round button showing the current mode (sun for day, moon for night).
+// Day rests at morning and night at dusk. Clicking it switches and calls onPick(name).
 SkyCycle.picker = function (host, current, onPick) {
   var ICON = {
-    // sunrise: half sun on the horizon with an arrow rising
-    morning: '<path d="M17 18a5 5 0 0 0-10 0"/><path d="M12 2v7M9 6l3-3 3 3"/><path d="M4.22 10.22l1.42 1.42M1 18h2M21 18h2M18.36 11.64l1.42-1.42M23 22H1"/>',
-    // noon: full sun with rays
-    noon: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>',
-    // dusk: half sun on the horizon with an arrow sinking
-    dusk: '<path d="M17 18a5 5 0 0 0-10 0"/><path d="M12 9V2M9 6l3 3 3-3"/><path d="M4.22 10.22l1.42 1.42M1 18h2M21 18h2M18.36 11.64l1.42-1.42M23 22H1"/>',
-    // midnight: crescent moon and a star
-    midnight: '<path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/><path d="M18 2.5v3M16.5 4h3"/>'
+    morning: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>',
+    dusk: '<path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/>'
   };
-  var LABEL = { morning: 'Morning', noon: 'Noon', dusk: 'Dusk', midnight: 'Midnight' };
   var svg = function (n) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICON[n] + '</svg>'; };
   if (!document.getElementById('sky-pick-css')) {
     var css = document.createElement('style'); css.id = 'sky-pick-css';
@@ -3026,45 +3020,21 @@ SkyCycle.picker = function (host, current, onPick) {
       '.sky-pick-btn{display:grid;place-items:center;width:44px;height:44px;padding:0;border-radius:50%;border:1px solid currentColor;background:transparent;color:inherit;cursor:pointer;transition:background-color .2s}' +
       '.sky-pick-btn:hover{background:color-mix(in srgb,currentColor 12%,transparent)}' +
       '.sky-pick svg{width:20px;height:20px;display:block}' +
-      '.sky-pick-menu{position:absolute;top:52px;right:0;z-index:20;display:flex;flex-direction:column;gap:2px;margin:0;padding:6px;list-style:none;border-radius:16px;' +
-        'background:color-mix(in srgb,var(--pick-bg,var(--btn-ink,#fff)) 88%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);' +
-        'box-shadow:0 14px 34px -12px rgba(0,0,0,.35);transform-origin:top right;transition:opacity .18s ease,transform .22s cubic-bezier(.2,.8,.2,1)}' +
-      '.sky-pick-menu[hidden]{display:flex!important;opacity:0;transform:scale(.92) translateY(-4px);pointer-events:none;visibility:hidden}' +
-      '.sky-pick-menu button{display:flex;align-items:center;justify-content:space-between;gap:16px;min-width:148px;height:40px;padding:0 10px 0 14px;border:0;border-radius:11px;' +
-        'background:transparent;color:var(--pick-ink,var(--ink,#222));font:inherit;font-size:14px;letter-spacing:.04em;cursor:pointer;text-align:left}' +
-      '.sky-pick-menu button:hover,.sky-pick-menu button:focus-visible{background:color-mix(in srgb,var(--pick-ink,var(--ink,#222)) 10%,transparent);outline:none}' +
-      '.sky-pick-menu button[aria-checked="true"]{background:var(--pick-ink,var(--ink,#222));color:var(--pick-bg,var(--btn-ink,#fff))}' +
       '.sky-pick-btn:focus-visible{outline:2px solid currentColor;outline-offset:3px}' +
-      '@media (prefers-reduced-motion: reduce){.sky-pick-menu,.sky-pick-btn{transition:none}}';
+      '@media (prefers-reduced-motion: reduce){.sky-pick-btn{transition:none}}';
     document.head.appendChild(css);
   }
-  var id = 'sky-pick-' + Math.random().toString(36).slice(2, 7);
   host.classList.add('sky-pick');
-  host.innerHTML = '<button type="button" class="sky-pick-btn" aria-haspopup="true" aria-expanded="false" aria-controls="' + id + '"></button>' +
-    '<div class="sky-pick-menu" id="' + id + '" role="radiogroup" aria-label="Time of day" hidden>' +
-    SkyCycle.ORDER.map(function (n) { return '<button type="button" role="radio" data-time="' + n + '" aria-checked="false"><span>' + LABEL[n] + '</span>' + svg(n) + '</button>'; }).join('') + '</div>';
-  var btn = host.querySelector('.sky-pick-btn'), menu = host.querySelector('.sky-pick-menu');
-  var items = [].slice.call(menu.querySelectorAll('[data-time]'));
+  host.innerHTML = '<button type="button" class="sky-pick-btn"></button>';
+  var btn = host.querySelector('.sky-pick-btn');
   function show(name) {
-    current = name;
-    btn.innerHTML = svg(name);
-    btn.setAttribute('aria-label', 'Time of day: ' + LABEL[name] + '. Change');
-    btn.title = 'Time of day: ' + LABEL[name];
-    items.forEach(function (b) { b.setAttribute('aria-checked', String(b.getAttribute('data-time') === name)); });
+    current = SkyCycle.isNight(name) ? 'dusk' : 'morning';
+    var night = current === 'dusk';
+    btn.innerHTML = svg(current);
+    btn.setAttribute('aria-label', night ? 'Night mode. Switch to day' : 'Day mode. Switch to night');
+    btn.title = night ? 'Switch to day' : 'Switch to night';
   }
-  function open(v) {
-    menu.hidden = !v; btn.setAttribute('aria-expanded', String(v));
-    if (v) { var cur = menu.querySelector('[aria-checked="true"]') || items[0]; cur.focus({ preventScroll: true }); }
-  }
-  btn.addEventListener('click', function (e) { e.stopPropagation(); open(menu.hidden); });
-  items.forEach(function (b, i) {
-    b.addEventListener('click', function (e) { e.stopPropagation(); var n = b.getAttribute('data-time'); open(false); btn.focus({ preventScroll: true }); show(n); onPick(n); });
-    b.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); items[(i + (e.key === 'ArrowDown' ? 1 : items.length - 1)) % items.length].focus(); }
-    });
-  });
-  document.addEventListener('click', function (e) { if (!menu.hidden && !host.contains(e.target)) open(false); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !menu.hidden) { open(false); btn.focus(); } });
+  btn.addEventListener('click', function (e) { e.stopPropagation(); var n = current === 'dusk' ? 'morning' : 'dusk'; show(n); onPick(n); });
   show(current);
   return { show: show };
 };
@@ -3261,7 +3231,7 @@ class Component extends DCLogic {
       geom: { sun: { cx: 980, cy: 600, rx: 320, ry: 480, angles: [25, 192], rise: -12 }, moon: { cx: 860, cy: 640, rx: 410.9, ry: 585.4, keys: [[0.35, 0], [0.5, 48], [0.72, 68.6], [0.9, 180]] } }
     });
     this.sky.set(this.state.sky);
-    // Time-of-day picker in the header. A pick is remembered and wins over the device setting.
+    // Day/night toggle in the header. A pick is remembered and wins over the device setting.
     var toTime = function (n) {
       self.setState({ sky: n, mode: SkyCycle.isNight(n) ? 'night' : 'day' });
       self.sky.go(n);

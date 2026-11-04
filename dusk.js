@@ -104,7 +104,7 @@
     pickers.forEach(function (p) { p.show(n); });
   };
   toTime(time, false);
-  // One picker in the masthead (phones and tablets) and one pinned top right with the contents rail.
+  // One toggle in the masthead (phones and tablets) and one pinned top right with the contents rail.
   [document.querySelector('.masthead nav'), document.querySelector('.toc-rail')].forEach(function (where) {
     if (!where) return;
     var host = document.createElement('div');
