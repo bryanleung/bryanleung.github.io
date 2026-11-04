@@ -1,0 +1,269 @@
+/* Dusk theme preview for the case study pages, with a night mode and a day mode.
+   Loads after site.css. Night is the homepage's dusk palette and the default.
+   Day is the daylight palette: near-white sky down to pale blue, a red bridge and a
+   coloured city. The site's own theme button switches them (light = day, dark = night). */
+
+/* Night (default): midnight. The sky cycle (dusk.js) animates every token between the
+   four times of day; these static values are what shows before it starts. */
+:root:root:root {
+  --ink: #FFE3CC;
+  --ink-soft: #B9B5E6;
+  --text: #DCD9F7;
+  --ground: #121233;
+  --surface: rgba(255, 255, 255, 0.06);
+  --rule: rgba(255, 255, 255, 0.14);
+  --accent: #FFE3CC;
+  --accent-ink: #121233;
+  --select: #3A3778;
+  --display: "Jost", system-ui, sans-serif;
+  --body: "Jost", system-ui, sans-serif;
+
+  --sky: linear-gradient(180deg, #0D0F2E 0%, #171A47 34%, #252463 58%, #1F1E52 80%, #171740 92%, #121233 100%);
+  --skyline: url("img/dusk/skyline.svg");
+  --sky-ink: #ECEAFF;
+  --sky-ink-soft: #C7C4EE;
+  --sky-rule: rgba(236, 234, 255, 0.25);
+  --rail-body: #ECEAFF;
+  --bar: rgba(18, 18, 51, 0.55);
+  --bar-ink: #ECEAFF;
+  --frame: rgba(236, 234, 255, 0.2);
+  --frame-hover: #FFE3CC;
+  --lift: rgba(0, 0, 20, 0.6);
+  --band: rgba(255, 255, 255, 0.04);
+  --foot-ink: #D6D3F5;
+  --foot-link: #FFFFFF;
+  --f1: #0B0A24; --f2: #15143A; --f3: #201E52; --f4: #2C2968; --f5: #38357C;
+  color-scheme: dark;
+}
+
+/* Day */
+:root:root:root[data-theme="light"] {
+  --ink: #262C5A;
+  --ink-soft: #5A5F8C;
+  --text: #3A4070;
+  --ground: #EEF0F9;
+  --surface: rgba(50, 58, 120, 0.05);
+  --rule: rgba(50, 58, 120, 0.14);
+  --accent: #A8473D;                    /* muted bridge red */
+  --accent-ink: #FFFFFF;
+  --select: #F1D5D0;
+
+  --sky: linear-gradient(180deg, #F8F7FC 0%, #F1F0F9 34%, #E4E6F5 60%, #D9DDF2 80%, #E6E8F6 92%, #EEF0F9 100%);
+  --skyline: url("img/dusk/skyline-day.svg");
+  --sky-ink: #262C5A;
+  --sky-ink-soft: #474D80;
+  --sky-rule: rgba(50, 58, 120, 0.25);
+  --bar: rgba(248, 247, 252, 0.62);
+  --bar-ink: #262C5A;
+  --frame: rgba(50, 58, 120, 0.14);
+  --frame-hover: #A8473D;
+  --lift: rgba(50, 58, 120, 0.2);
+  --band: rgba(50, 58, 120, 0.04);
+  --foot-ink: #262C5A;
+  --foot-link: #262C5A;
+  --rail-body: #262C5A;
+  --f1: #5D67A6; --f2: #7D87C0; --f3: #929BCC; --f4: #A7AFD8; --f5: #BCC3E4;
+  color-scheme: light;
+}
+
+/* Night rests on dusk (overrides the midnight values above). */
+:root:root:root:not([data-theme="light"]) {
+  --sky: linear-gradient(180deg, #F7DCC8 0%, #EFB49C 34%, #B9798B 58%, #6E4170 80%, #3F2F62 92%, #221D3D 100%);
+  --ground: #221D3D;
+  --text: #E9DEEC;
+  --ink: #FFE3CC;
+  --ink-soft: #C9BAD6;
+  --sky-ink: #3B2436;
+  --sky-ink-soft: #5A3A50;
+  --sky-rule: rgba(59,36,54,.35);
+  --rail-body: #FFF1E0;
+  --bar: rgba(34,29,61,.55);
+  --bar-ink: #FFF1E0;
+  --accent: #FFE3CC;
+  --rule: rgba(255,255,255,.16);
+  --surface: rgba(255,255,255,.06);
+  --frame: rgba(255,227,204,.22);
+  --frame-hover: #FFE3CC;
+  --band: rgba(255,255,255,.04);
+  --foot-ink: #E6DDF0;
+  --foot-link: #FFFFFF;
+  --lift: rgba(10,6,24,.6);
+  --f1: #1A1630;
+  --f2: #2A2348;
+  --f3: #3A2F5C;
+  --f4: #4C3D6E;
+  --f5: #5E4B80;
+}
+
+html, body { background: var(--ground); }
+body { overflow-x: clip; font-weight: 400; transition: background-color .4s ease, color .4s ease; }
+.flow { display: none !important; }
+
+h1, h2, h3 { font-family: var(--display); letter-spacing: 0.01em; }
+h1 { font-weight: 300; }
+h2 { font-weight: 400; }
+h3 { font-weight: 500; }
+
+/* The masthead stays pinned while reading: a frosted bar across the full window. */
+.masthead { z-index: 3; background: transparent !important; }
+.masthead::before {
+  content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 100vw; transform: translateX(-50%);
+  background: var(--bar);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  backdrop-filter: blur(14px) saturate(1.2);
+  z-index: -1;
+}
+.masthead .brand, .masthead nav a, .masthead button { color: var(--bar-ink); }
+.masthead nav a:hover { color: var(--bar-ink); opacity: .8; }
+
+/* Day/night toggle: the site's theme button, drawn as the homepage's pill.
+   Sun on the left, moon on the right; the knob sits on the active one. */
+.theme {
+  position: relative;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: space-between;
+  width: 76px !important;
+  height: 40px !important;
+  margin-right: 0 !important;
+  padding: 0 10px !important;
+  border: 1px solid currentColor !important;
+  border-radius: 999px !important;
+  background: none !important;
+}
+.theme svg { position: relative; z-index: 1; display: block !important; width: 18px !important; height: 18px !important; transition: color .3s ease; }
+.theme::before {
+  content: ""; position: absolute; top: 3px; left: 3px; width: 32px; height: 32px; border-radius: 50%;
+  background: currentColor; transition: transform .35s cubic-bezier(.2, .8, .2, 1);
+}
+:root[data-theme="dark"] .theme::before { transform: translateX(36px); }
+:root[data-theme="light"] .theme .sun,
+:root[data-theme="dark"] .theme .moon { color: var(--ground); }
+.toc-rail .theme {                    /* wide screens: the rail's copy moves to the top right corner */
+  position: fixed !important; top: 24px; right: 28px; z-index: 6; color: var(--rail-ink);
+}
+@media (prefers-reduced-motion: reduce) { .theme::before, .theme svg, body { transition: none; } }
+
+/* Case header: sky behind it, skyline along its bottom edge. */
+.case-head {
+  position: relative;
+  isolation: isolate;
+  padding-bottom: 560px;                /* keeps the skyline's tallest tower ~50px below the project details */
+}
+.case-head::before,
+.case-head::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  z-index: -1;
+  pointer-events: none;
+}
+.case-head::before { top: -120px; bottom: 0; background: var(--sky); }
+.case-head::after {
+  bottom: 0;
+  height: 514px;
+  background: var(--skyline) center bottom / max(1440px, 100vw) auto no-repeat;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 58%, transparent 97%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 58%, transparent 97%);
+}
+.case-head h1 { color: var(--sky-ink); }
+.case-head .lede { color: var(--sky-ink-soft); }
+.case-head .facts { border-top-color: var(--sky-rule); }
+.case-head .facts dt { color: var(--sky-ink-soft); }
+.case-head .facts dd { color: var(--sky-ink); }
+
+/* The hero image rises into the skyline, like the cards on the homepage. */
+.case-hero { position: relative; z-index: 1; margin-top: -190px; }
+
+/* Images get the homepage card treatment: rounded, lifted, thin frame. */
+.zoom {
+  border-radius: 14px;
+  border-color: var(--frame);
+  background: var(--surface);
+  box-shadow: 0 30px 50px -20px var(--lift);
+}
+.zoom:hover { border-color: var(--frame-hover); }
+
+.body p a, .body li a { color: var(--accent); }
+blockquote { border-left-color: var(--accent); }
+::selection { background: var(--select); color: var(--ink); }
+
+/* Next case study band, then the skyline above the footer. */
+.next { background: var(--band); }
+/* Footer: the San Francisco skyline standing on a ground band; the email line sits in the band. */
+footer {
+  position: relative;
+  padding-top: 220px;
+  background: var(--ground);
+}
+footer::before {                        /* ground band, full window width */
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 84px; background: var(--f1);
+}
+.foot-sky {                             /* the skyline repeats sideways to fill any width */
+  position: absolute; left: 0; bottom: 78px;
+  display: block; width: 100%; height: 180px;
+  pointer-events: none;
+}
+@media (max-width: 640px) { .foot-sky { height: 130px; } }
+footer .wrap { position: relative; color: rgba(255, 255, 255, 0.85); }
+footer a { color: #FFFFFF; }
+
+/* Rail ink: light over the night body, dark over the sky. Day is light everywhere, so always dark. */
+:root:root:root { --rail-ink: var(--rail-body); }
+:root:root:root.over-sky { --rail-ink: var(--sky-ink); }
+
+/* Wide screens: the contents rail is fixed on the left and the page sits beside it.
+   The sky, skyline, next band and footer art run the full window width behind the rail,
+   and the rail sits on it with no backing. */
+@media (min-width: 1100px) {
+  /* No backing: the rail floats straight on the page. Its ink follows what is behind it
+     (dusk.js adds .over-sky while the light sky is still under the rail). */
+  .has-toc .toc-rail { background: transparent; }
+  .has-toc .toc-rail, .has-toc .toc-rail .brand, .has-toc .toc-rail a { color: var(--rail-ink); transition: color .3s ease; }
+  .has-toc .toc-rail .toc-list a { opacity: .72; }
+  .has-toc .toc-rail .toc-list a:hover, .has-toc .toc-rail .toc-list a[aria-current] { opacity: 1; }
+  /* main starts 240px in, so the full-width layers shift left by half of that */
+  .has-toc .case-head::before, .has-toc .case-head::after { left: calc(50% - 120px); }
+  .has-toc .next { position: relative; }
+  .has-toc .next::before { content: ""; position: absolute; top: 0; bottom: 0; left: -240px; width: 240px; background: var(--band); }
+  .has-toc footer { margin-left: 0; padding-left: 240px; }
+}
+
+/* Live skyline: dusk.js swaps the flat skyline image for the layered one so each layer can
+   drift at its own speed on scroll, like the homepage. Until it loads (or if it can't),
+   the image above stays. */
+.dusk-skyline {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 100vw;
+  height: 514px;
+  transform: translateX(-50%);
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 58%, transparent 97%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 58%, transparent 97%);
+}
+.dusk-skyline svg {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  display: block;
+  width: max(1440px, 100%);
+  height: auto;
+  aspect-ratio: 3000 / 1070;
+  transform: translateX(-50%);
+}
+.sky-live .case-head::after { display: none; }
+@media (min-width: 1100px) { .has-toc .dusk-skyline { left: calc(50% - 120px); } }
+
+/* Sun, moon and stars behind the skyline (added by dusk.js, moved by the sky cycle). */
+.dusk-celestial {
+  position: absolute; left: 50%; top: -120px; bottom: 0; width: 100vw; transform: translateX(-50%);
+  overflow: hidden; z-index: -1; pointer-events: none;
+}
+.dusk-celestial svg { position: absolute; left: 0; bottom: 0; width: 100%; height: 100%; display: block; }
+@media (min-width: 1100px) { .has-toc .dusk-celestial { left: calc(50% - 120px); } }
