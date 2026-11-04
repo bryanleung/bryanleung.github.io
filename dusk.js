@@ -10,6 +10,8 @@
   // far layers lag most. Same speeds as the homepage (screen px per px scrolled).
   var SPEED = { 'sky-far': 0.45, 'sky-mid': 0.34, 'sky-near': 0.24, 'sky-refl': 0.18, 'sky-bridge': 0.1 };
   var layers = [];
+  var cssParallax = false;   // dusk.css moves the layers itself where scroll-driven animations exist
+  try { cssParallax = CSS.supports('animation-timeline: scroll()'); } catch (e) {}
   fetch('img/dusk/skyline-layers.svg').then(function (r) { return r.ok ? r.text() : Promise.reject(); }).then(function (svg) {
     var box = document.createElement('div');
     box.className = 'dusk-skyline';
@@ -26,7 +28,7 @@
     Object.keys(SPEED).forEach(function (k) {
       var g = src.querySelector('g.' + k); if (!g) return;
       var layer = document.createElementNS(NS, 'svg');
-      layer.setAttribute('class', 'sky-layer');
+      layer.setAttribute('class', 'sky-layer ' + k + '-layer');
       layer.setAttribute('viewBox', src.getAttribute('viewBox'));
       layer.setAttribute('preserveAspectRatio', src.getAttribute('preserveAspectRatio') || 'xMidYMax meet');
       var gg = g; gg.removeAttribute('transform');
@@ -85,7 +87,7 @@
     raf = 0;
     var r = head.getBoundingClientRect();
     root.classList.toggle('over-sky', r.top + r.height * 0.5 > 260);
-    if (still || !layers.length) return;
+    if (still || cssParallax || !layers.length) return;
     var y = Math.min(window.scrollY || 0, 1400);
     // The art is 3000 units wide and drawn at least 1440px wide: convert screen px to its units.
     for (var i = 0; i < layers.length; i++) {

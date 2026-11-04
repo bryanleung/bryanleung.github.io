@@ -244,10 +244,11 @@ footer a { color: #FFFFFF; }
   overflow: hidden;
   z-index: -1;
   pointer-events: none;
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 58%, transparent 97%);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 58%, transparent 97%);
 }
 .dusk-skyline .sky-layer {
+  /* each layer fades at its own bottom edge: cheaper than one mask over moving layers */
+  -webkit-mask-image: linear-gradient(to bottom, #000 58%, transparent 97%);
+  mask-image: linear-gradient(to bottom, #000 58%, transparent 97%);
   position: absolute;
   left: 50%;
   bottom: 0;
@@ -269,3 +270,21 @@ footer a { color: #FFFFFF; }
 }
 .dusk-celestial svg { position: absolute; left: 0; bottom: 0; width: 100%; height: 100%; display: block; }
 @media (min-width: 1100px) { .has-toc .dusk-celestial { left: calc(50% - 120px); } }
+
+/* Where scroll-driven animations are supported, CSS moves the skyline layers with the scroll itself,
+   so they never trail a frame behind on phones. dusk.js moves them everywhere else. */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .dusk-skyline .sky-layer { animation: linear both 1ms; animation-timeline: scroll(root); animation-range: 0px 1400px; }
+    .dusk-skyline .sky-far-layer { animation-name: sky-far; }
+    .dusk-skyline .sky-mid-layer { animation-name: sky-mid; }
+    .dusk-skyline .sky-near-layer { animation-name: sky-near; }
+    .dusk-skyline .sky-refl-layer { animation-name: sky-refl; }
+    .dusk-skyline .sky-bridge-layer { animation-name: sky-bridge; }
+    @keyframes sky-far { from { transform: translateX(-50%) translate3d(0, 0, 0); } to { transform: translateX(-50%) translate3d(0, 630px, 0); } }
+    @keyframes sky-mid { from { transform: translateX(-50%) translate3d(0, 0, 0); } to { transform: translateX(-50%) translate3d(0, 476px, 0); } }
+    @keyframes sky-near { from { transform: translateX(-50%) translate3d(0, 0, 0); } to { transform: translateX(-50%) translate3d(0, 336px, 0); } }
+    @keyframes sky-refl { from { transform: translateX(-50%) translate3d(0, 0, 0); } to { transform: translateX(-50%) translate3d(0, 252px, 0); } }
+    @keyframes sky-bridge { from { transform: translateX(-50%) translate3d(0, 0, 0); } to { transform: translateX(-50%) translate3d(0, 140px, 0); } }
+  }
+}
