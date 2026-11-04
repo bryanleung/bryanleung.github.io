@@ -116,33 +116,13 @@ h3 { font-weight: 500; }
 .masthead .brand, .masthead nav a, .masthead button { color: var(--bar-ink); }
 .masthead nav a:hover { color: var(--bar-ink); opacity: .8; }
 
-/* Day/night toggle: the site's theme button, drawn as the homepage's pill.
-   Sun on the left, moon on the right; the knob sits on the active one. */
-.theme {
-  position: relative;
-  display: inline-flex !important;
-  align-items: center;
-  justify-content: space-between;
-  width: 76px !important;
-  height: 40px !important;
-  margin-right: 0 !important;
-  padding: 0 10px !important;
-  border: 1px solid currentColor !important;
-  border-radius: 999px !important;
-  background: none !important;
-}
-.theme svg { position: relative; z-index: 1; display: block !important; width: 18px !important; height: 18px !important; transition: color .3s ease; }
-.theme::before {
-  content: ""; position: absolute; top: 3px; left: 3px; width: 32px; height: 32px; border-radius: 50%;
-  background: currentColor; transition: transform .35s cubic-bezier(.2, .8, .2, 1);
-}
-:root[data-theme="dark"] .theme::before { transform: translateX(36px); }
-:root[data-theme="light"] .theme .sun,
-:root[data-theme="dark"] .theme .moon { color: var(--ground); }
-.toc-rail .theme {                    /* wide screens: the rail's copy moves to the top right corner */
-  position: fixed !important; top: 24px; right: 28px; z-index: 6; color: var(--rail-ink);
-}
-@media (prefers-reduced-motion: reduce) { .theme::before, .theme svg, body { transition: none; } }
+/* Time-of-day picker (built by sky-cycle.js) replaces the site's light/dark button. In the masthead it
+   sits at the right; on wide screens, where the contents rail replaces the masthead, it is pinned to
+   the top right corner. Its menu uses the frosted bar colours so it reads over the sky and the body. */
+.theme { display: none !important; }
+.sky-pick { --pick-ink: var(--bar-ink); --pick-bg: var(--bar); color: var(--bar-ink); }
+.masthead .sky-pick { margin-left: 4px; }
+.toc-rail .sky-pick { position: fixed; top: 24px; right: 28px; z-index: 6; color: var(--rail-ink); }
 
 /* Case header: sky behind it, skyline along its bottom edge. */
 .case-head {

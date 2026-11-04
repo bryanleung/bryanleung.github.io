@@ -31,7 +31,7 @@
       try {
         var t = localStorage.getItem('theme');
         if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
-        else document.documentElement.setAttribute('data-theme', 'dark'); // night by default
+        else document.documentElement.setAttribute('data-theme', matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); // follow the device
       } catch (e) {}
     </script>
 

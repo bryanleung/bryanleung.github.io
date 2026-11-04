@@ -5,11 +5,13 @@
 // which is the same as 0. Colours have four palettes (morning, noon, dusk, midnight); KEY says
 // where on the loop each one is reached, and between them colours blend in straight lines, so
 // nothing pauses. The sun and moon each move at a steady angle along their arcs. The only easing
-// is a gentle start and finish to each run. Interrupting a run turns it around from where it is.
+// is a gentle start and finish to each run.
+// The page rests at one of four times of day: morning, noon, dusk or midnight (SkyCycle.TIMES).
+// Choosing another plays the sky forward around the loop to it.
 function SkyCycle(o) {
   var MORNING = 0, NOON = 1, DUSK = 2, MIDNIGHT = 3;
   var KEY = o.key || [[0, MORNING], [0.21, NOON], [0.425, DUSK], [0.5, DUSK], [0.72, MIDNIGHT], [0.95, MORNING], [1, MORNING]];
-  var p = 0, anim = 0;
+  var ph = 0, anim = 0;   // ph can run past 1 mid-animation; apply wraps it
 
   function parse(c) {
     if (typeof c === 'number') return [c];
@@ -41,13 +43,32 @@ function SkyCycle(o) {
     sky[id] = per;
   });
   var sunFill = prep(['#FFF3DA', '#FFFDF0', '#FFE7CF', '#FFE7CF']);
+  // City life: how strong each effect is at morning, noon, dusk and midnight (see SkyCycle.ambient).
+  var AMB = {
+    'amb-fog': [0.6, 0.08, 0.3, 0.2], 'amb-win': [0, 0, 0.6, 0.95], 'amb-beacon': [0, 0, 0.9, 1], 'amb-light': [0, 0, 0.75, 1],
+    'amb-fog-color': ['#FFFFFF', '#FFFFFF', '#F6D3CB', '#8E8CC8']
+  };
+  var amb = {}; Object.keys(AMB).forEach(function (k) { amb[k] = prep(AMB[k]); });
 
+  function smoothKeys(k, x) {
+    if (x <= k[0][0]) return k[0][1];
+    if (x >= k[k.length - 1][0]) return k[k.length - 1][1];
+    var n = k.length, d = [], m = [], i;
+    for (i = 0; i < n - 1; i++) d.push((k[i + 1][1] - k[i][1]) / (k[i + 1][0] - k[i][0]));
+    m.push(d[0]); for (i = 1; i < n - 1; i++) m.push(d[i - 1] * d[i] <= 0 ? 0 : (d[i - 1] + d[i]) / 2); m.push(d[n - 2]);
+    for (i = 0; i < n - 1; i++) { if (d[i] === 0) { m[i] = m[i + 1] = 0; continue; } var a = m[i] / d[i], b = m[i + 1] / d[i], h = a * a + b * b; if (h > 9) { var t = 3 / Math.sqrt(h); m[i] = t * a * d[i]; m[i + 1] = t * b * d[i]; } }
+    for (i = 0; i < n - 2 && x > k[i + 1][0]; i++);
+    var x0 = k[i][0], x1 = k[i + 1][0], hh = x1 - x0, u = (x - x0) / hh, u2 = u * u, u3 = u2 * u;
+    return (2 * u3 - 3 * u2 + 1) * k[i][1] + (u3 - 2 * u2 + u) * hh * m[i] + (-2 * u3 + 3 * u2) * k[i + 1][1] + (u3 - u2) * hh * m[i + 1];
+  }
   function ellipse(e, deg) { var r = deg * Math.PI / 180; return [e.cx + e.rx * Math.cos(r), e.cy - e.ry * Math.sin(r)]; }
   function place(el, pt, op) { if (!el) return; el.setAttribute('cx', pt[0].toFixed(1)); el.setAttribute('cy', pt[1].toFixed(1)); el.style.opacity = op; }
 
   function apply() {
     var el = o.el(); if (!el) return;
+    var p = ph % 1;
     Object.keys(tokens).forEach(function (k) { el.style.setProperty('--' + k, fmt(blend(tokens[k], p))); });
+    Object.keys(amb).forEach(function (k) { el.style.setProperty('--' + k, fmt(blend(amb[k], p))); });
     grads.forEach(function (g) {
       el.style.setProperty('--' + g.name, 'linear-gradient(180deg,' + g.stops.map(function (s, i) { return fmt(blend(s, p)) + ' ' + g.at[i]; }).join(',') + ')');
     });
@@ -70,10 +91,15 @@ function SkyCycle(o) {
 
     // Moon: rises on the right as the sun sets (0.35 → 0.5, its night-mode spot), then carries on
     // over the top and sets behind the skyline on the left through midnight (0.5 → 0.9).
-    var mo = o.geom.moon, ma = mo.angles, moonAng;
-    moonAng = p <= 0.5 ? mixN(ma[0], ma[1], span(p, 0.35, 0.5)) : mixN(ma[1], mo.set, span(p, 0.5, 0.9));
-    var moonO = p <= 0.5 ? span(p, 0.35, 0.4) : 1 - span(p, 0.86, 0.9);
-    var mp = ellipse(mo, moonAng);
+    var mo = o.geom.moon, moonO = p <= 0.5 ? span(p, 0.35, 0.4) : 1 - span(p, 0.86, 0.9), mp;
+    if (mo.keys) {
+      // An elliptical arc like the sun's. The angle passes through set [phase, degrees] keys (resting clear
+      // of the page text at dusk and midnight) along a smooth monotone curve, so the moon never stops or jerks.
+      mp = ellipse(mo, smoothKeys(mo.keys, p));
+    } else {
+      var ma = mo.angles;
+      mp = ellipse(mo, p <= 0.5 ? mixN(ma[0], ma[1], span(p, 0.35, 0.5)) : mixN(ma[1], mo.set, span(p, 0.5, 0.9)));
+    }
     place(c.moon, mp, moonO); place(c.moonGlow, mp, moonO * 0.7);
 
     // Stars: faint at dusk, brightest around midnight, gone by morning.
@@ -83,26 +109,288 @@ function SkyCycle(o) {
   function still() { try { return matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; } }
 
   return {
-    get t() { return p; },
-    // 0 = day (morning), 1 = night (dusk). Jumps straight there.
-    set: function (mode) { if (anim) cancelAnimationFrame(anim); anim = 0; p = mode ? 0.5 : 0; apply(); },
+    get t() { return ph % 1; },
     apply: apply,
-    // Play to day (0) or night (1). To night: forward to dusk. To day: forward through midnight to
-    // the next morning. If a run is interrupted, the new one turns back from where the sky is.
-    go: function (mode, done) {
+    // Jump straight to a time of day ('morning', 'noon', 'dusk', 'midnight').
+    set: function (name) { if (anim) cancelAnimationFrame(anim); anim = 0; ph = SkyCycle.TIMES[name] || 0; apply(); },
+    // Animate to a time of day, always forward around the loop (dusk to morning runs through midnight).
+    go: function (name, done) {
       if (anim) cancelAnimationFrame(anim);
-      var dest = mode ? 0.5 : (p >= 0.5 ? 1 : 0);
-      var finish = function () { if (dest === 1) p = 0; apply(); if (done) done(); };
-      if (still()) { p = dest; finish(); return; }
-      var from = p, dur = (o.duration || 3600) * Math.abs(dest - from) / 0.5, t0 = 0;
-      if (Math.abs(dest - from) < 0.001) { finish(); return; }
+      var from = ph % 1, dest = SkyCycle.TIMES[name] || 0;
+      if (dest < from - 0.001) dest += 1;
+      var finish = function () { ph = dest % 1; anim = 0; apply(); if (done) done(); };
+      if (still() || dest - from < 0.001) { finish(); return; }
+      var dur = Math.max(900, Math.min(5000, (o.duration || 3600) * (dest - from) / 0.5)), t0 = 0;
       function step(now) {
         if (!t0) t0 = now;
         var k = Math.min(1, (now - t0) / dur);
-        p = from + (dest - from) * (0.5 - Math.cos(Math.PI * k) / 2); apply();
-        if (k < 1) anim = requestAnimationFrame(step); else { anim = 0; finish(); }
+        ph = from + (dest - from) * (0.5 - Math.cos(Math.PI * k) / 2); apply();
+        if (k < 1) anim = requestAnimationFrame(step); else finish();
       }
       anim = requestAnimationFrame(step);
     }
   };
 }
+
+// Where each time of day sits on the loop.
+SkyCycle.TIMES = { morning: 0, noon: 0.21, dusk: 0.5, midnight: 0.72 };
+SkyCycle.ORDER = ['morning', 'noon', 'dusk', 'midnight'];
+SkyCycle.isNight = function (name) { return name === 'dusk' || name === 'midnight'; };
+
+// The visitor's time of day: their saved pick, or else the device setting (light: morning, dark: dusk).
+SkyCycle.saved = function () {
+  try { var v = localStorage.getItem('sky'); if (SkyCycle.TIMES.hasOwnProperty(v)) return v; } catch (e) {}
+  return null;
+};
+SkyCycle.preferred = function () {
+  var v = SkyCycle.saved(); if (v) return v;
+  try { if (matchMedia('(prefers-color-scheme: dark)').matches) return 'dusk'; } catch (e) {}
+  return 'morning';
+};
+SkyCycle.remember = function (name) {
+  try { localStorage.setItem('sky', name); localStorage.setItem('theme', SkyCycle.isNight(name) ? 'dark' : 'light'); } catch (e) {}
+};
+// Call fn(name) when the device switches light/dark while the visitor hasn't picked a time.
+SkyCycle.watchDevice = function (fn) {
+  try {
+    var mq = matchMedia('(prefers-color-scheme: dark)'), last = SkyCycle.preferred();
+    var check = function () { if (SkyCycle.saved()) return; var v = mq.matches ? 'dusk' : 'morning'; if (v !== last) { last = v; fn(v); } };
+    if (mq.addEventListener) mq.addEventListener('change', check); else mq.addListener(check);
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) check(); });
+  } catch (e) {}
+};
+
+// Time-of-day picker: one round button showing the current time; it opens a short vertical menu of
+// the four times. Picking one calls onPick(name). The menu's colours come from --pick-ink and
+// --pick-bg where the page sets them, else from --ink and --btn-ink.
+SkyCycle.picker = function (host, current, onPick) {
+  var ICON = {
+    // sunrise: half sun on the horizon with an arrow rising
+    morning: '<path d="M17 18a5 5 0 0 0-10 0"/><path d="M12 2v7M9 6l3-3 3 3"/><path d="M4.22 10.22l1.42 1.42M1 18h2M21 18h2M18.36 11.64l1.42-1.42M23 22H1"/>',
+    // noon: full sun with rays
+    noon: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>',
+    // dusk: half sun on the horizon with an arrow sinking
+    dusk: '<path d="M17 18a5 5 0 0 0-10 0"/><path d="M12 9V2M9 6l3 3 3-3"/><path d="M4.22 10.22l1.42 1.42M1 18h2M21 18h2M18.36 11.64l1.42-1.42M23 22H1"/>',
+    // midnight: crescent moon and a star
+    midnight: '<path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/><path d="M18 2.5v3M16.5 4h3"/>'
+  };
+  var LABEL = { morning: 'Morning', noon: 'Noon', dusk: 'Dusk', midnight: 'Midnight' };
+  var svg = function (n) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICON[n] + '</svg>'; };
+  if (!document.getElementById('sky-pick-css')) {
+    var css = document.createElement('style'); css.id = 'sky-pick-css';
+    css.textContent =
+      '.sky-pick{position:relative;flex:none}' +
+      '.sky-pick-btn{display:grid;place-items:center;width:44px;height:44px;padding:0;border-radius:50%;border:1px solid currentColor;background:transparent;color:inherit;cursor:pointer;transition:background-color .2s}' +
+      '.sky-pick-btn:hover{background:color-mix(in srgb,currentColor 12%,transparent)}' +
+      '.sky-pick svg{width:20px;height:20px;display:block}' +
+      '.sky-pick-menu{position:absolute;top:52px;right:0;z-index:20;display:flex;flex-direction:column;gap:2px;margin:0;padding:6px;list-style:none;border-radius:16px;' +
+        'background:color-mix(in srgb,var(--pick-bg,var(--btn-ink,#fff)) 88%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);' +
+        'box-shadow:0 14px 34px -12px rgba(0,0,0,.35);transform-origin:top right;transition:opacity .18s ease,transform .22s cubic-bezier(.2,.8,.2,1)}' +
+      '.sky-pick-menu[hidden]{display:flex!important;opacity:0;transform:scale(.92) translateY(-4px);pointer-events:none;visibility:hidden}' +
+      '.sky-pick-menu button{display:flex;align-items:center;justify-content:space-between;gap:16px;min-width:148px;height:40px;padding:0 10px 0 14px;border:0;border-radius:11px;' +
+        'background:transparent;color:var(--pick-ink,var(--ink,#222));font:inherit;font-size:14px;letter-spacing:.04em;cursor:pointer;text-align:left}' +
+      '.sky-pick-menu button:hover,.sky-pick-menu button:focus-visible{background:color-mix(in srgb,var(--pick-ink,var(--ink,#222)) 10%,transparent);outline:none}' +
+      '.sky-pick-menu button[aria-checked="true"]{background:var(--pick-ink,var(--ink,#222));color:var(--pick-bg,var(--btn-ink,#fff))}' +
+      '.sky-pick-btn:focus-visible{outline:2px solid currentColor;outline-offset:3px}' +
+      '@media (prefers-reduced-motion: reduce){.sky-pick-menu,.sky-pick-btn{transition:none}}';
+    document.head.appendChild(css);
+  }
+  var id = 'sky-pick-' + Math.random().toString(36).slice(2, 7);
+  host.classList.add('sky-pick');
+  host.innerHTML = '<button type="button" class="sky-pick-btn" aria-haspopup="true" aria-expanded="false" aria-controls="' + id + '"></button>' +
+    '<div class="sky-pick-menu" id="' + id + '" role="radiogroup" aria-label="Time of day" hidden>' +
+    SkyCycle.ORDER.map(function (n) { return '<button type="button" role="radio" data-time="' + n + '" aria-checked="false"><span>' + LABEL[n] + '</span>' + svg(n) + '</button>'; }).join('') + '</div>';
+  var btn = host.querySelector('.sky-pick-btn'), menu = host.querySelector('.sky-pick-menu');
+  var items = [].slice.call(menu.querySelectorAll('[data-time]'));
+  function show(name) {
+    current = name;
+    btn.innerHTML = svg(name);
+    btn.setAttribute('aria-label', 'Time of day: ' + LABEL[name] + '. Change');
+    btn.title = 'Time of day: ' + LABEL[name];
+    items.forEach(function (b) { b.setAttribute('aria-checked', String(b.getAttribute('data-time') === name)); });
+  }
+  function open(v) {
+    menu.hidden = !v; btn.setAttribute('aria-expanded', String(v));
+    if (v) { var cur = menu.querySelector('[aria-checked="true"]') || items[0]; cur.focus({ preventScroll: true }); }
+  }
+  btn.addEventListener('click', function (e) { e.stopPropagation(); open(menu.hidden); });
+  items.forEach(function (b, i) {
+    b.addEventListener('click', function (e) { e.stopPropagation(); var n = b.getAttribute('data-time'); open(false); btn.focus({ preventScroll: true }); show(n); onPick(n); });
+    b.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); items[(i + (e.key === 'ArrowDown' ? 1 : items.length - 1)) % items.length].focus(); }
+    });
+  });
+  document.addEventListener('click', function (e) { if (!menu.hidden && !host.contains(e.target)) open(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !menu.hidden) { open(false); btn.focus(); } });
+  show(current);
+  return { show: show };
+};
+
+// ---------- City life ----------
+// Small, slow touches on the skyline, each in its own light SVG that rides with its art layer's parallax:
+// fog over the city, the water and the bridge (strongest in the morning), the first lit windows,
+// tower lights and headlights crossing the bridge at dusk, and lit windows, tower lights and twinkling stars at midnight. Strength per time of day comes from the
+// --amb-* variables SkyCycle sets; counts and multipliers come from the settings below.
+SkyCycle.AMB_DEFAULTS = { windows: 36, headlights: 3, fog: 1, bridgeFog: 1, beacons: 1, twinkle: 1, speed: 1 };
+// Positions in the skyline art (3000 x 1070 units, y from 330): the bridge deck, tower and building tops,
+// and points inside the middle and front buildings for lit windows.
+SkyCycle.AMB_GEOM = {"deck":[[120,1166],[560,1184],[960,1207],[1220,1224],[1600,1252],[2000,1287],[2400,1326],[2800,1371],[2980,1393]],"beacons":{"bridge":[[1090,336]],"far":[[2270,505]],"mid":[[2690,494]]},"win":{"near":[[1673,839],[1481,916],[971,996],[1012,971],[2627,951],[2972,968],[2973,905],[2085,995],[1716,805],[1527,837],[1975,955],[1407,905],[1122,956],[2549,942],[2760,965],[1519,888],[2512,981],[2097,956],[1187,989],[2821,930],[1555,917],[2015,914],[1662,794],[1681,921],[1852,992],[1909,986],[2563,879],[1689,977],[1622,991],[2585,835],[1424,992],[2021,964],[2879,913],[1516,769],[2669,990],[1369,931],[2525,822],[2703,937]],"mid":[[2698,876],[2686,718],[2386,838],[2084,951],[1931,911],[1423,940],[2324,803],[2144,867],[2156,741],[2244,830],[2199,813],[1755,728],[1719,832],[2289,716],[1749,793],[1993,936],[2320,956],[1959,797],[1404,849],[2666,776],[1624,829],[1858,863],[1082,928],[1590,926],[1726,656],[2296,893],[2378,913],[1701,726],[2204,861],[2230,755],[2070,859],[2110,751]]}};
+SkyCycle.tweaks = function () {
+  var t = {}; try { t = JSON.parse(localStorage.getItem('amb-tweak') || '{}') || {}; } catch (e) {}
+  var out = {}; Object.keys(SkyCycle.AMB_DEFAULTS).forEach(function (k) { out[k] = typeof t[k] === 'number' ? t[k] : SkyCycle.AMB_DEFAULTS[k]; });
+  return out;
+};
+SkyCycle.ambient = function (box, cfg) {
+  if (!box) return;
+  cfg = cfg || SkyCycle.tweaks();
+  var NS = 'http://www.w3.org/2000/svg', G = SkyCycle.AMB_GEOM, sp = Math.max(0.2, cfg.speed || 1);
+  var seed = 7; function rnd() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+  if (!document.getElementById('sky-amb-css')) {
+    var css = document.createElement('style'); css.id = 'sky-amb-css';
+    css.textContent =
+      '.amb{pointer-events:none}' +
+      '.amb-drift{animation:amb-drift var(--dur) ease-in-out infinite alternate;animation-delay:var(--delay,0s)}' +
+      '@keyframes amb-drift{from{transform:translateX(-90px)}to{transform:translateX(90px)}}' +
+      '.amb-win rect{animation:amb-win var(--dur) ease-in-out infinite;animation-delay:var(--delay)}' +
+      '@keyframes amb-win{0%,40%,60%,100%{opacity:1}48%,52%{opacity:.12}}' +
+      '.amb-beacon{animation:amb-beacon 2.8s infinite;animation-delay:var(--delay)}' +
+      '@keyframes amb-beacon{0%,14%{opacity:1}22%,100%{opacity:.08}}' +
+      '.amb-tw{animation:amb-tw var(--dur) ease-in-out infinite alternate;animation-delay:var(--delay)}' +
+      '@keyframes amb-tw{from{opacity:1}to{opacity:.2}}' +
+      '.amb-paused,.amb-paused *{animation-play-state:paused!important}' +
+      '@media (prefers-reduced-motion: reduce){.amb *,.amb-tw{animation:none!important}}';
+    document.head.appendChild(css);
+  }
+  [].slice.call(box.querySelectorAll('svg.amb')).forEach(function (n) { n.remove(); });
+  var deck = 'M' + G.deck.map(function (q) { return q[0] + ' ' + (q[1] - 6); }).join(' L');
+  var group = function (opVar, k, inner) { return '<g style="opacity:calc(var(' + opVar + ',0) * ' + k + ')">' + inner + '</g>'; };
+  var glowN = 0;
+  var beacon = function (pts) {
+    var id = 'ambGlow' + (glowN++);
+    return '<defs><radialGradient id="' + id + '"><stop offset="0" stop-color="#FF5A48" stop-opacity=".75"></stop>' +
+      '<stop offset=".35" stop-color="#FF4A3A" stop-opacity=".28"></stop><stop offset="1" stop-color="#FF4A3A" stop-opacity="0"></stop></radialGradient></defs>' +
+      pts.map(function (q, i) { var d = 'style="--delay:' + (-i * 0.9).toFixed(1) + 's"';
+        return '<circle class="amb-beacon" cx="' + q[0] + '" cy="' + q[1] + '" r="34" fill="url(#' + id + ')" ' + d + '></circle>' +
+          '<circle class="amb-beacon" cx="' + q[0] + '" cy="' + q[1] + '" r="4.5" fill="#FF6A55" ' + d + '></circle>'; }).join('');
+  };
+  // Soft oval wisps of fog: [cx, cy, rx, ry, drift seconds, opacity].
+  var wisps = function (list) {
+    var id = 'ambWisp' + (glowN++);
+    return '<defs><radialGradient id="' + id + '"><stop offset="0" style="stop-color:var(--amb-fog-color);stop-opacity:.7"></stop>' +
+      '<stop offset=".55" style="stop-color:var(--amb-fog-color);stop-opacity:.3"></stop><stop offset="1" style="stop-color:var(--amb-fog-color);stop-opacity:0"></stop></radialGradient></defs>' +
+      list.map(function (w) { return '<ellipse class="amb-drift" cx="' + w[0] + '" cy="' + w[1] + '" rx="' + w[2] + '" ry="' + w[3] + '" fill="url(#' + id + ')" opacity="' + w[5] + '" style="--dur:' + (w[4] / sp).toFixed(0) + 's;--delay:-' + (w[4] * ((w[0] % 7) / 7)).toFixed(0) + 's"></ellipse>'; }).join('');
+  };
+  var windows = function (pts, n) {
+    var out = ''; for (var i = 0; i < Math.min(n, pts.length); i++) {
+      var q = pts[i]; out += '<rect x="' + (q[0] - 4) + '" y="' + (q[1] - 5) + '" width="8" height="10" rx="1" fill="#FFE3A0" style="--dur:' + ((9 + rnd() * 14) / sp).toFixed(1) + 's;--delay:-' + (rnd() * 20).toFixed(1) + 's"></rect>';
+    } return out;
+  };
+  var fog = function (y, h, dur) {
+    return '<rect class="amb-drift" x="-300" y="' + y + '" width="3600" height="' + h + '" fill="url(#ambFog' + y + ')" style="--dur:' + (dur / sp).toFixed(0) + 's"></rect>' +
+      '<defs><linearGradient id="ambFog' + y + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--amb-fog-color);stop-opacity:0"></stop>' +
+      '<stop offset=".5" style="stop-color:var(--amb-fog-color);stop-opacity:.55"></stop><stop offset="1" style="stop-color:var(--amb-fog-color);stop-opacity:0"></stop></linearGradient></defs>';
+  };
+  // Headlights crossing the bridge: each car is a small bright light carrying a soft warm pool that lights
+  // the deck and the lower cables around it as it passes. Oncoming cars show a red taillight glow instead.
+  var road = 'M' + G.deck.map(function (q) { return q[0] + ' ' + (q[1] - 12); }).join(' L');
+  var headlights = function (n) {
+    var id = 'ambHead' + (glowN++);
+    var out = '<defs><radialGradient id="' + id + 'w"><stop offset="0" stop-color="#FFE9C2" stop-opacity=".6"></stop><stop offset=".4" stop-color="#FFD9A0" stop-opacity=".2"></stop><stop offset="1" stop-color="#FFD9A0" stop-opacity="0"></stop></radialGradient>' +
+      '<radialGradient id="' + id + 'r"><stop offset="0" stop-color="#FF6A55" stop-opacity=".5"></stop><stop offset=".45" stop-color="#FF4A3A" stop-opacity=".14"></stop><stop offset="1" stop-color="#FF4A3A" stop-opacity="0"></stop></radialGradient></defs>';
+    for (var i = 0; i < n; i++) {
+      var back = i % 2 === 1, dur = (22 + rnd() * 14) / sp, tone = back ? 'r' : 'w';
+      // the tall pool sits above the road so it catches the cables and tower legs, the small one hugs the deck
+      out += '<g><ellipse cx="0" cy="-70" rx="210" ry="125" fill="url(#' + id + tone + ')"></ellipse>' +
+        '<ellipse cx="0" cy="-6" rx="70" ry="20" fill="url(#' + id + tone + ')"></ellipse>' +
+        '<circle r="3.2" fill="' + (back ? '#FF7A64' : '#FFF6E2') + '"></circle>' +
+        '<animateMotion dur="' + dur.toFixed(1) + 's" begin="-' + (rnd() * dur).toFixed(1) + 's" repeatCount="indefinite" rotate="auto" path="' + road + '"' +
+        (back ? ' keyPoints="1;0" keyTimes="0;1" calcMode="linear"' : '') + '></animateMotion></g>';
+    }
+    return out;
+  };
+  var nWin = Math.round(cfg.windows), nNear = Math.round(nWin * 0.55), nMid = nWin - nNear;
+  var parts = {
+    'sky-far': group('--amb-fog', cfg.fog, fog(930, 150, 38)) + group('--amb-beacon', cfg.beacons, beacon(G.beacons.far)),
+    'sky-mid': group('--amb-win', 1, '<g class="amb-win">' + windows(G.win.mid, nMid) + '</g>') + group('--amb-beacon', cfg.beacons, beacon(G.beacons.mid)),
+    'sky-near': group('--amb-win', 1, '<g class="amb-win">' + windows(G.win.near, nNear) + '</g>'),
+    'sky-refl': group('--amb-fog', cfg.fog, fog(1090, 120, 46)),
+    // Layered fog over the bridge: wisps at three heights drift at different speeds across the tower and deck.
+    'sky-bridge': group('--amb-beacon', cfg.beacons, beacon(G.beacons.bridge)) +
+      group('--amb-light', 1, headlights(Math.round(cfg.headlights))) +
+      group('--amb-fog', cfg.bridgeFog, wisps([
+        [700, 820, 760, 70, 54, 0.55], [1700, 870, 900, 80, 70, 0.5],
+        [400, 1010, 820, 90, 62, 0.65], [1500, 1060, 1000, 95, 80, 0.6], [2600, 1030, 700, 80, 58, 0.5],
+        [1000, 1180, 1100, 110, 90, 0.7], [2300, 1210, 900, 100, 74, 0.6]
+      ]))
+  };
+  Object.keys(parts).forEach(function (k) {
+    var art = box.querySelector('svg.' + k + '-layer:not(.amb)'); if (!art) return;
+    var el = document.createElementNS(NS, 'svg');
+    el.setAttribute('class', art.getAttribute('class') + ' amb');
+    el.setAttribute('viewBox', art.getAttribute('viewBox'));
+    el.setAttribute('preserveAspectRatio', art.getAttribute('preserveAspectRatio') || 'xMidYMax meet');
+    el.setAttribute('aria-hidden', 'true');
+    if (art.getAttribute('style')) el.setAttribute('style', art.getAttribute('style'));
+    el.innerHTML = parts[k];
+    art.insertAdjacentElement('afterend', el);
+  });
+  // Rest while the skyline is off screen.
+  if ('IntersectionObserver' in window && !box.__ambIO) {
+    box.__ambIO = new IntersectionObserver(function (e) {
+      var on = e[0].isIntersecting;
+      [].slice.call(box.querySelectorAll('svg.amb')).forEach(function (n) {
+        n.classList.toggle('amb-paused', !on);
+        try { if (on) n.unpauseAnimations(); else n.pauseAnimations(); } catch (x) {}
+      });
+    });
+    box.__ambIO.observe(box);
+  }
+};
+// Twinkle some of the night stars.
+SkyCycle.twinkle = function (stars, on) {
+  if (!stars) return;
+  [].slice.call(stars.querySelectorAll('circle')).forEach(function (c, i) {
+    var t = on && i % 2 === 0;
+    c.classList.toggle('amb-tw', t);
+    if (t) { c.style.setProperty('--dur', (2.5 + (i % 5) * 0.7) + 's'); c.style.setProperty('--delay', (-(i % 7) * 0.6) + 's'); }
+  });
+};
+
+// Tweak panel, shown when the page address ends in #tweak. Sliders change the city life live and are
+// remembered in this browser only; the panel prints the settings to send back.
+SkyCycle.tweakPanel = function (onChange) {
+  if (location.hash !== '#tweak') return;
+  var cfg = SkyCycle.tweaks();
+  var F = [
+    ['windows', 'Lit windows', 0, 70, 1], ['headlights', 'Headlights', 0, 8, 1], ['fog', 'Fog over city and water', 0, 2, 0.1], ['bridgeFog', 'Fog over the bridge', 0, 2, 0.1],
+    ['beacons', 'Tower lights', 0, 1, 0.1], ['twinkle', 'Star twinkle', 0, 1, 1], ['speed', 'Speed', 0.4, 2, 0.1]
+  ];
+  var box = document.createElement('div');
+  box.setAttribute('style', 'position:fixed;left:max(16px,env(safe-area-inset-left,0px));bottom:16px;z-index:50;width:260px;padding:14px 16px;border-radius:14px;' +
+    'background:rgba(20,18,40,.88);color:#F4F1FF;font:13px/1.4 system-ui,sans-serif;box-shadow:0 14px 40px -12px rgba(0,0,0,.5);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)');
+  box.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><strong style="font-size:13px;letter-spacing:.06em">CITY LIFE</strong>' +
+    '<button type="button" data-reset style="font:inherit;font-size:12px;color:#F4F1FF;background:none;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:2px 10px;cursor:pointer">Reset</button></div>' +
+    F.map(function (f) {
+      return '<label style="display:block;margin:8px 0 0">' + f[1] + ' <span data-v="' + f[0] + '" style="float:right;opacity:.75"></span>' +
+        '<input id="amb-' + f[0] + '" type="range" min="' + f[2] + '" max="' + f[3] + '" step="' + f[4] + '" data-k="' + f[0] + '" style="width:100%;margin:4px 0 0"></label>';
+    }).join('') +
+    '<p style="margin:12px 0 4px;opacity:.75">Send me these settings:</p><textarea id="amb-out" readonly rows="2" style="width:100%;box-sizing:border-box;font:12px/1.4 ui-monospace,monospace;border-radius:8px;border:0;padding:6px 8px;background:rgba(255,255,255,.1);color:#F4F1FF;resize:none"></textarea>';
+  document.body.appendChild(box);
+  function sync() {
+    F.forEach(function (f) { var i = box.querySelector('[data-k="' + f[0] + '"]'); i.value = cfg[f[0]]; box.querySelector('[data-v="' + f[0] + '"]').textContent = cfg[f[0]]; });
+    box.querySelector('#amb-out').value = JSON.stringify(cfg);
+  }
+  box.addEventListener('input', function (e) {
+    var k = e.target.getAttribute('data-k'); if (!k) return;
+    cfg[k] = parseFloat(e.target.value);
+    try { localStorage.setItem('amb-tweak', JSON.stringify(cfg)); } catch (x) {}
+    sync(); onChange(cfg);
+  });
+  box.querySelector('[data-reset]').addEventListener('click', function () {
+    cfg = Object.assign({}, SkyCycle.AMB_DEFAULTS);
+    try { localStorage.removeItem('amb-tweak'); } catch (x) {}
+    sync(); onChange(cfg);
+  });
+  box.querySelector('#amb-out').addEventListener('focus', function (e) { e.target.select(); });
+  sync();
+};

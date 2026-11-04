@@ -36,6 +36,23 @@
       layers.push([layer, SPEED[k]]);
     });
     head.appendChild(box);
+    // City life on the skyline; each life layer rides with its art layer.
+    SkyCycle.ambient(box, SkyCycle.tweaks());
+    [].slice.call(box.querySelectorAll('svg.amb')).forEach(function (el) {
+      var k = Object.keys(SPEED).filter(function (n) { return el.classList.contains(n + '-layer'); })[0];
+      if (k) layers.push([el, SPEED[k]]);
+    });
+    SkyCycle.twinkle(cel.querySelector('.stars'), SkyCycle.tweaks().twinkle > 0);
+    SkyCycle.tweakPanel(function (cfg) {
+      SkyCycle.ambient(box, cfg);
+      layers = layers.filter(function (l) { return !l[0].classList.contains('amb'); });
+      [].slice.call(box.querySelectorAll('svg.amb')).forEach(function (el) {
+        var k = Object.keys(SPEED).filter(function (n) { return el.classList.contains(n + '-layer'); })[0];
+        if (k) layers.push([el, SPEED[k]]);
+      });
+      SkyCycle.twinkle(cel.querySelector('.stars'), cfg.twinkle > 0);
+      queue();
+    });
     var fade = document.createElement('div');   // static fade over the moving layers
     fade.className = 'dusk-fade'; fade.setAttribute('aria-hidden', 'true');
     head.appendChild(fade);
@@ -75,13 +92,28 @@
     },
     // Arcs in the 1440×900 header sky; they rise and set behind the skyline on the right.
     geom: { sun: { cx: 1000, cy: 700, rx: 330, ry: 560, angles: [20, 195], rise: -15 },
-            moon: { cx: 1120, cy: 700, rx: 260, ry: 550, angles: [0, 90], set: 182 } }
+            moon: { cx: 760, cy: 720, rx: 740.1, ry: 672.6, keys: [[0.35, 0], [0.5, 43.1], [0.72, 56.4], [0.9, 180]] } }
   }) : null;
-  var target = function () { return root.getAttribute('data-theme') === 'light' ? 0 : 1; };
-  if (sky) {
-    sky.set(target());
-    new MutationObserver(function () { sky.go(target()); }).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
-  }
+  // Time of day: the visitor's saved pick, or else the device setting (light: morning, dark: dusk).
+  // data-theme follows it (morning and noon are light, dusk and midnight dark) for the static styles.
+  var time = SkyCycle.preferred(), pickers = [];
+  var toTime = function (n, animate) {
+    time = n;
+    root.setAttribute('data-theme', SkyCycle.isNight(n) ? 'dark' : 'light');
+    if (sky) { if (animate) sky.go(n); else sky.set(n); }
+    pickers.forEach(function (p) { p.show(n); });
+  };
+  toTime(time, false);
+  // One picker in the masthead (phones and tablets) and one pinned top right with the contents rail.
+  [document.querySelector('.masthead nav'), document.querySelector('.toc-rail')].forEach(function (where) {
+    if (!where) return;
+    var host = document.createElement('div');
+    var theme = where.querySelector('.theme');
+    if (theme) theme.insertAdjacentElement('afterend', host); else where.appendChild(host);
+    pickers.push(SkyCycle.picker(host, time, function (n) { SkyCycle.remember(n); toTime(n, true); }));
+  });
+  // Until the visitor picks, follow the device.
+  SkyCycle.watchDevice(function (n) { toTime(n, true); });
 
   // While the light part of the sky is behind the contents rail and the day/night pill,
   // mark the page .over-sky so they use dark ink; below that the night body is dark.
