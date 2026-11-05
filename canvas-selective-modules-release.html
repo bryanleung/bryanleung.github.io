@@ -67,8 +67,22 @@
             <header class="wrap case-head">
                 <h1>Selective Modules Release</h1>
                 <p class="lede">Simplifying assignment without losing instructor control</p>
-                <p class="case-intro">Assigning ten course materials to the same students required repeating a workflow ten times, approximately 150 clicks. I designed module-level assignment so instructors could assign the collection in 6.</p>
-                <p class="case-intro">The interface change was small. The harder problem was defining how module-level assignments should interact with existing assignments on individual materials.</p>
+                <div class="case-summary" role="note" aria-labelledby="summary-label">
+                    <p class="case-summary-label" id="summary-label">Summary</p>
+                    <div class="case-summary-body">
+                        <div class="case-summary-point"><span class="case-summary-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4.1 12 6"/><path d="m5.1 8-2.9-.8"/><path d="m6 12-1.9 2"/><path d="M7.2 2.2 8 5.1"/><path d="M9.04 9.69a.5.5 0 0 1 .65-.65l11 4.5a.5.5 0 0 1-.07.95l-4.35 1.04a1 1 0 0 0-.74.74l-1.04 4.35a.5.5 0 0 1-.95.07z"/></svg></span><p class="case-intro">Assigning ten course materials to the same students required repeating a workflow ten times, approximately 150 clicks. I designed module-level assignment so instructors could assign the collection in 6.</p></div>
+                        <div class="case-summary-more" id="summary-more">
+                            <div class="case-summary-point"><span class="case-summary-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="16" y="16" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></svg></span><p class="case-intro">The interface change was small. The harder problem was defining how module-level assignments should interact with existing assignments on individual materials.</p></div>
+                        </div>
+                        <button type="button" class="case-summary-toggle" aria-expanded="true" aria-controls="summary-more"><span>View less</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+                    </div>
+                </div>
+                <script>(function () {
+                  var b = document.currentScript.previousElementSibling.querySelector(".case-summary-toggle"), m = document.getElementById("summary-more");
+                  function set(open) { m.hidden = !open; b.setAttribute("aria-expanded", String(open)); b.firstChild.textContent = open ? "View less" : "View more"; }
+                  b.addEventListener("click", function () { set(m.hidden); });
+                  set(false);
+                })();</script>
                 <dl class="facts">
                     <div><dt>Product</dt><dd>Canvas LMS</dd></div>
                     <div><dt>Role</dt><dd>Senior Product Designer</dd></div>
@@ -107,6 +121,8 @@
                     </figure>
 <p>Instructors already organized related materials into modules. The opportunity was to make that existing structure assignable, rather than ask instructors to manage each item separately.</p>
 <blockquote><p>It would be great if I could give Modules unique gating rules specific to individual students or groups or sections within the course, similar to how I can create unique assignment due dates for different students and sections.</p></blockquote>
+<p>Beyond individual feedback, there was broader demand for this capability. A feature-prioritization survey posted in the Canvas Community forums allowed users to vote on features they wanted prioritized. Selective Modules Release ranked in the top five.</p>
+<p>This reinforced that the problem wasn’t limited to an isolated instructor workflow. It was a customer-requested capability worth addressing.</p>
 <h3>The central design problem was inheritance</h3>
 <p>Assigning a module could eliminate repetitive work, but it introduced a conflict: an item inside that module might already have its own assignment.</p>
 <p>Before designing the screens, we needed to decide which setting should take precedence.</p>
@@ -152,8 +168,9 @@
                         <figcaption>The modal introduced a new pattern and hid the page behind it. The tray reused an existing component and kept the Modules page in view.</figcaption>
                     </figure>
 <h3>What we tested</h3>
+<p>The need for module-level assignment was already established through customer demand. The usability study focused on a different question: which interaction pattern would make assignment easier to complete?</p>
 <p>Participants received the same task: assign an assignment to a student. A single link randomly directed each participant to one of the two prototypes.</p>
-<p>This test compared the assignment interactions. It did not establish whether instructors understood module inheritance or the behavior of item-level exceptions.</p>
+<p>The study compared the Permission Modal and Assign To tray. It was designed to evaluate the usability of the interaction patterns, not to revalidate the need for the feature itself.</p>
 <figure>
                         <div class="table-scroll">
                         <table>
@@ -319,7 +336,10 @@
                         </div>
                     </figure>
 <p>That is a 96% reduction in clicks for this scenario.</p>
-<p>This was a workflow comparison, not a measured reduction across all assignment activity. It did not establish adoption, time saved in live courses, or improved student outcomes.</p>
+<p>The value went beyond reducing clicks.</p>
+<p>By making an entire module assignable, instructors could more easily deliver differentiated learning experiences without repeatedly configuring individual materials.</p>
+<p>Without this capability, assigning the same content to different students or groups across multiple materials was cumbersome enough that instructors might not attempt it at all.</p>
+<p>The goal was to remove that administrative friction and make individualized course experiences more practical to manage.</p>
 <h3>What I could verify</h3>
 <p>The redesigned workflow substantially reduced the actions required to assign a collection to the same recipients.</p>
 <h3>What I could not verify</h3>
