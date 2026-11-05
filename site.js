@@ -246,3 +246,33 @@ document.querySelector('.theme').addEventListener('click', function () {
   }, { threshold: 0.25 });
   covers.forEach(function (c) { io.observe(c); });
 })();
+
+// Rule carousels: arrows (and arrow keys or a swipe) step through one group's rules.
+document.querySelectorAll('.rule-carousel').forEach(function (fig) {
+  var slides = [].slice.call(fig.querySelectorAll('.zoom'));
+  var count = fig.querySelector('.rc-count'), title = fig.querySelector('.rc-title');
+  var i = 0;
+  function show(n) {
+    slides[i].classList.add('rc-off');
+    i = (n + slides.length) % slides.length;
+    var img = slides[i].querySelector('img');
+    img.src = slides[i].getAttribute('href') + '?play=' + Date.now(); // restart the GIF from its first beat
+    img.loading = 'eager';
+    slides[i].classList.remove('rc-off');
+    count.textContent = (i + 1) + ' / ' + slides.length;
+    title.textContent = slides[i].dataset.title;
+  }
+  fig.querySelector('.rc-prev').addEventListener('click', function () { show(i - 1); });
+  fig.querySelector('.rc-next').addEventListener('click', function () { show(i + 1); });
+  fig.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') { e.preventDefault(); show(i - 1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); show(i + 1); }
+  });
+  var x0 = null;
+  fig.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+  fig.addEventListener('touchend', function (e) {
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0; x0 = null;
+    if (Math.abs(dx) > 40) show(dx < 0 ? i + 1 : i - 1);
+  });
+});

@@ -1063,3 +1063,18 @@ tbody th { font-weight: 500; }
   .toc-list a, .toc-pop, .toc-scrim { transition: none; }
   .toc-list a:hover { transform: none; }
 }
+
+/* Case study intro paragraphs under the lede */
+.case-intro { max-width: 40em; margin-top: 24px; font-size: 1.25rem; line-height: 1.6; }
+.case-intro + .case-intro { margin-top: 1em; }
+
+/* Rule carousels: one figure, several slides, arrows below */
+.rule-carousel .zoom.rc-off { display: none; }
+.rc-controls { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
+.rc-status { flex: 1; min-width: 0; margin: 0; display: flex; gap: 10px; align-items: baseline; font-size: 1rem; line-height: 1.4; color: var(--ink); }
+.rc-count { flex: none; font-variant-numeric: tabular-nums; color: var(--ink-soft); }
+.rc-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rc-controls button { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--rule); background: var(--surface); color: var(--ink); cursor: pointer; transition: border-color .2s, color .2s; }
+.rc-controls button:hover { border-color: var(--accent); color: var(--accent); }
+.rc-controls button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.rc-controls svg { width: 16px; height: 16px; }
