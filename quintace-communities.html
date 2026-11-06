@@ -51,6 +51,10 @@
             <svg viewBox="0 0 102 128" fill="none" aria-hidden="true"><path d="M63.554 125.999c4.873-.279 9.33-1.008 13.371-2.188 5.289-1.605 9.746-3.893 13.37-6.864a29.216 29.216 0 0 0 8.29-10.875c1.902-4.278 2.853-9.091 2.853-14.44 0-8.379-2.675-15.123-8.023-20.234-5.289-5.17-12.895-8.468-22.819-9.894 4.1-1.01 7.725-2.466 10.875-4.367 3.209-1.962 5.883-4.25 8.022-6.864 2.199-2.615 3.863-5.467 4.992-8.557a26.591 26.591 0 0 0 1.783-9.627c0-5.05-.832-9.567-2.496-13.549-1.664-3.981-4.22-7.338-7.666-10.072-3.447-2.793-7.814-4.903-13.103-6.329C67.714.713 61.475 0 54.284 0H27.9v7.22h26.384c11.232 0 19.521 2.199 24.87 6.596 5.407 4.338 8.11 10.756 8.11 19.254 0 3.268-.623 6.447-1.871 9.537-1.248 3.09-3.209 5.854-5.883 8.29-2.615 2.436-6.002 4.397-10.162 5.883-4.1 1.486-9.062 2.228-14.885 2.228H27.9v6.686h31.02c5.288 0 10.012.594 14.172 1.782 4.16 1.189 7.666 2.912 10.518 5.17 2.853 2.199 5.022 4.903 6.507 8.112 1.545 3.15 2.318 6.715 2.318 10.696 0 8.676-2.853 15.421-8.557 20.234-4.811 4.051-11.586 6.376-20.324 6.975v7.336Z" fill="currentColor"/><path d="M18.986 0H0v128h46.084a77.37 77.37 0 0 0 7.665-.366v-9.675l-34.156-5.023h-.607V0Z" fill="currentColor"/></svg>
             <span>Bryan Leung</span>
         </a>
+        <div class="view-switch" role="group" aria-label="Case study length">
+            <button type="button" data-view-btn="tldr" aria-pressed="true" aria-controls="view-tldr"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Brief</span></button>
+            <button type="button" data-view-btn="detailed" aria-pressed="false" aria-controls="view-detailed"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg><span>Detailed</span></button>
+        </div>
         <nav aria-label="Site">
             <ul>
                 <li><a href="./#work">All work</a></li>
@@ -103,6 +107,68 @@
             </div>
 
             <div class="wrap">
+            <div class="case-view" data-view="tldr" id="view-tldr">
+            <section class="section" aria-labelledby="tl-brief">
+                <h2 id="tl-brief">The brief</h2>
+                <div class="body">
+<p>QuintAce added player-run Communities to its Compete mode, so members could play together, share posts and compete on a weekly leaderboard. It was the team’s first feature built with AI tools, and with no active players yet, it tested delivery speed, not demand.</p>
+                </div>
+            </section>
+            <section class="section" aria-labelledby="tl-did">
+                <h2 id="tl-did">What I did</h2>
+                <div class="body">
+<p>I generated six layouts in Figma, chose Side Nav with product and design, and rebuilt it in our design system around getting players to a table. The live table and Join Table moved to the center, and Communities got its own tab.</p>
+                    <figure>
+                        <div class="shots stack-narrow" style="--cols: 2; --cols-narrow: 1; --ratio: 1.6000">
+                            <a class="zoom" href="img/quintace/explore-e-side-nav.webp" style="--own: 1.8106"><img width="1568" height="866" loading="lazy" decoding="async" src="img/quintace/explore-e-side-nav.webp" alt="Lo-fi wireframe: a side navigation rail, league tables on the left, a large rank points number and promotion bar in the middle, and league standings on the right with a small link to communities."></a>
+                            <a class="zoom" href="img/quintace/home-desktop.webp" style="--own: 1.4141"><img width="1448" height="1024" decoding="async" src="img/quintace/home-desktop.webp" alt="QuintAce Communities lobby: community tables on the left, a live poker table in the middle, and the community card and weekly leaderboard on the right."></a>
+                        </div>
+                        <figcaption>Side Nav as generated (left) and the final lobby (right).</figcaption>
+                    </figure>
+                </div>
+            </section>
+            <section class="section" aria-labelledby="tl-decisions">
+                <h2 id="tl-decisions">Key decisions</h2>
+                <div class="body">
+<p>I kept the lobby for joining tables and gave posts and the overview their own area. A horizontal list makes switching communities visible, and I specified entry and membership states, image layouts, and desktop, tablet and mobile flows.</p>
+                    <figure>
+                        <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.4141">
+                            <a class="zoom" href="img/quintace/overview-desktop.webp" style="--own: 1.4141"><img width="1448" height="1024" loading="lazy" decoding="async" src="img/quintace/overview-desktop.webp" alt="Community Overview: a welcome message, hand of the week and members progress, beside the member list and weekly leaderboard."></a>
+                        </div>
+                        <figcaption>Overview.</figcaption>
+                    </figure>
+                    <figure>
+                        <div class="shots stack-narrow" style="--cols: 2; --cols-narrow: 1; --ratio: 1.4141">
+                            <a class="zoom" href="img/quintace/switcher-dropdown.webp" style="--own: 1.4141"><img width="1448" height="1024" loading="lazy" decoding="async" src="img/quintace/switcher-dropdown.webp" alt="Option A: a dropdown above the table for switching communities."></a>
+                            <a class="zoom" href="img/quintace/switcher-list.webp" style="--own: 1.4141"><img width="1448" height="1024" loading="lazy" decoding="async" src="img/quintace/switcher-list.webp" alt="Option B: a horizontal list of community chips above the table."></a>
+                        </div>
+                        <figcaption>Dropdown (left) and horizontal list (right).</figcaption>
+                    </figure>
+                    <figure>
+                        <div class="shots stack-narrow" style="--cols: 2; --cols-narrow: 1; --ratio: 1.4141">
+                            <a class="zoom" href="img/quintace/discover-desktop.webp" style="--own: 1.4141"><img width="1448" height="1024" loading="lazy" decoding="async" src="img/quintace/discover-desktop.webp" alt="Discover a Community dialog with a search field and a grid of community cards."></a>
+                            <a class="zoom" href="img/quintace/create-desktop.webp" style="--own: 1.4141"><img width="1448" height="1024" loading="lazy" decoding="async" src="img/quintace/create-desktop.webp" alt="Create a Community dialog with a logo, a name field and a description field."></a>
+                        </div>
+                        <figcaption>Discover and Create.</figcaption>
+                    </figure>
+                    <figure>
+                        <div class="shots" style="--cols: 2; --cols-narrow: 2; --ratio: 0.4624">
+                            <a class="zoom" href="img/quintace/home-mobile.webp" style="--own: 0.4624"><img width="725" height="1568" loading="lazy" decoding="async" src="img/quintace/home-mobile.webp" alt="Communities lobby on mobile, with the community card, table list and bottom navigation."></a>
+                            <a class="zoom" href="img/quintace/feed-mobile.webp" style="--own: 0.3667"><img width="575" height="1568" loading="lazy" decoding="async" src="img/quintace/feed-mobile.webp" alt="Community feed on mobile, with Overview, Feed and Members tabs."></a>
+                        </div>
+                        <figcaption>The lobby and the community feed on mobile.</figcaption>
+                    </figure>
+                </div>
+            </section>
+            <section class="section" aria-labelledby="tl-outcome">
+                <h2 id="tl-outcome">Outcome</h2>
+                <div class="body">
+<p>Dev-complete on staging in under a week. My QA caught breakpoint, scrolling and component-variant bugs for engineering to fix. It isn’t released yet, so there’s no player data.</p>
+                </div>
+            </section>
+            <div class="view-end"><button type="button" class="view-jump" data-view-go="detailed"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg><span>Read the detailed case study</span></button></div>
+            </div>
+            <div class="case-view" data-view="detailed" id="view-detailed" hidden>
             <section class="section" aria-labelledby="the-brief">
                 <h2 id="the-brief">The brief</h2>
                 <div class="body">
@@ -287,6 +353,7 @@
 <p>I would also define product evaluation before release, starting with whether players join a community and return to its tables. Reaching staging quickly does not establish that players want the feature.</p>
                 </div>
             </section>
+            </div>
             </div>
         </article>
 

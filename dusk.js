@@ -105,6 +105,7 @@
   };
   toTime(time, false);
   // One toggle in the masthead (phones and tablets) and one pinned top right with the contents rail.
+  // The sections menu also gets a Light mode / Dark mode switch, used once the masthead is scrolled and its own toggle steps aside. Flipping it closes the menu.
   [document.querySelector('.masthead nav'), document.querySelector('.toc-rail')].forEach(function (where) {
     if (!where) return;
     var host = document.createElement('div');
@@ -112,6 +113,34 @@
     if (theme) theme.insertAdjacentElement('afterend', host); else where.appendChild(host);
     pickers.push(SkyCycle.picker(host, time, function (n) { SkyCycle.remember(n); toTime(n, true); }));
   });
+  var pop = document.querySelector('.toc-pop');
+  if (pop) {
+    var row = document.createElement('div');
+    row.className = 'toc-pop-theme';
+    var ico = function (d) { return '<svg viewBox="0 0 24 24" aria-hidden="true">' + d + '</svg>'; };
+    var SUN = ico('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>');
+    var MOON = ico('<path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/>');
+    row.innerHTML = '<span class="mode-label" data-mode="light">' + SUN + 'Light mode</span>' +
+      '<button type="button" class="mode-switch" role="switch" aria-label="Dark mode"><span class="mode-knob"></span></button>' +
+      '<span class="mode-label" data-mode="dark">' + MOON + 'Dark mode</span>';
+    pop.appendChild(row);
+    var sw = row.querySelector('.mode-switch');
+    pickers.push({ show: function (n) {
+      var dark = SkyCycle.isNight(n);
+      sw.setAttribute('aria-checked', String(dark));
+      row.setAttribute('data-mode', dark ? 'dark' : 'light');
+    } });
+    pickers[pickers.length - 1].show(time);
+    sw.addEventListener('click', function () {
+      var n = SkyCycle.isNight(time) ? 'morning' : 'dusk';
+      SkyCycle.remember(n); toTime(n, true);
+      // Let the knob finish sliding, then close the menu.
+      setTimeout(function () {
+        var t = document.querySelector('.masthead .toc-toggle');
+        if (root.classList.contains('toc-open') && t) t.click();
+      }, 320);
+    });
+  }
   // Until the visitor picks, follow the device.
   SkyCycle.watchDevice(function (n) { toTime(n, true); });
 

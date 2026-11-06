@@ -51,6 +51,10 @@
             <svg viewBox="0 0 102 128" fill="none" aria-hidden="true"><path d="M63.554 125.999c4.873-.279 9.33-1.008 13.371-2.188 5.289-1.605 9.746-3.893 13.37-6.864a29.216 29.216 0 0 0 8.29-10.875c1.902-4.278 2.853-9.091 2.853-14.44 0-8.379-2.675-15.123-8.023-20.234-5.289-5.17-12.895-8.468-22.819-9.894 4.1-1.01 7.725-2.466 10.875-4.367 3.209-1.962 5.883-4.25 8.022-6.864 2.199-2.615 3.863-5.467 4.992-8.557a26.591 26.591 0 0 0 1.783-9.627c0-5.05-.832-9.567-2.496-13.549-1.664-3.981-4.22-7.338-7.666-10.072-3.447-2.793-7.814-4.903-13.103-6.329C67.714.713 61.475 0 54.284 0H27.9v7.22h26.384c11.232 0 19.521 2.199 24.87 6.596 5.407 4.338 8.11 10.756 8.11 19.254 0 3.268-.623 6.447-1.871 9.537-1.248 3.09-3.209 5.854-5.883 8.29-2.615 2.436-6.002 4.397-10.162 5.883-4.1 1.486-9.062 2.228-14.885 2.228H27.9v6.686h31.02c5.288 0 10.012.594 14.172 1.782 4.16 1.189 7.666 2.912 10.518 5.17 2.853 2.199 5.022 4.903 6.507 8.112 1.545 3.15 2.318 6.715 2.318 10.696 0 8.676-2.853 15.421-8.557 20.234-4.811 4.051-11.586 6.376-20.324 6.975v7.336Z" fill="currentColor"/><path d="M18.986 0H0v128h46.084a77.37 77.37 0 0 0 7.665-.366v-9.675l-34.156-5.023h-.607V0Z" fill="currentColor"/></svg>
             <span>Bryan Leung</span>
         </a>
+        <div class="view-switch" role="group" aria-label="Case study length">
+            <button type="button" data-view-btn="tldr" aria-pressed="true" aria-controls="view-tldr"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Brief</span></button>
+            <button type="button" data-view-btn="detailed" aria-pressed="false" aria-controls="view-detailed"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg><span>Detailed</span></button>
+        </div>
         <nav aria-label="Site">
             <ul>
                 <li><a href="./#work">All work</a></li>
@@ -67,6 +71,24 @@
             <header class="wrap case-head">
                 <h1>Church Offering Entry</h1>
                 <p class="lede">Replacing a church's $200-a-month offering software with one that runs for about $15, then redesigning how the counting team records each gift, based on interviews with them.</p>
+                <div class="case-summary case-summary--rows" role="note" aria-labelledby="summary-label">
+                    <p class="case-summary-label" id="summary-label">Summary</p>
+                    <div class="case-summary-body">
+                        <div class="case-summary-row"><p class="case-summary-term"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg><span>Goal</span></p><p class="case-intro">Let the counting team enter a whole service’s offerings in one sitting, faster and with fewer mistakes, at a cost a small church can carry.</p></div>
+                        <div class="case-summary-more" id="summary-more">
+                            <div class="case-summary-row"><p class="case-summary-term"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><span>Problem</span></p><p class="case-intro">The old software cost $200 a month and had counters clicking through dropdowns for every gift. The office manager then typed every transaction again into QuickBooks.</p></div>
+                            <div class="case-summary-row"><p class="case-summary-term"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"/><path d="M16.38 3.62a1 1 0 0 1 3 3L7.37 18.64a2 2 0 0 1-.85.5l-2.87.84a.5.5 0 0 1-.62-.62l.84-2.87a2 2 0 0 1 .5-.85z"/></svg><span>Role</span></p><p class="case-intro">The church commissioned me to replace it. I designed the entry flow, built the software and set up the hosting.</p></div>
+                            <div class="case-summary-row"><p class="case-summary-term"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.33 2q2 0 3.67-.8a.5.5 0 0 1 .5.86V15a1 1 0 0 1-.4.8A6 6 0 0 1 16 17c-3 0-5-2-7.33-2-1.33 0-2.6.27-3.67.8"/></svg><span>Result</span></p><p class="case-intro">The new system runs for about $15 a month and sends offerings to QuickBooks, which removes about an hour of re-entry each week. The one-line entry is designed and prototyped, and testing with the counters starts soon.</p></div>
+                        </div>
+                        <button type="button" class="case-summary-toggle" aria-expanded="true" aria-controls="summary-more"><span>View less</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+                    </div>
+                </div>
+                <script>(function () {
+                  var b = document.currentScript.previousElementSibling.querySelector(".case-summary-toggle"), m = document.getElementById("summary-more");
+                  function set(open) { m.hidden = !open; b.setAttribute("aria-expanded", String(open)); b.firstChild.textContent = open ? "View less" : "View more"; }
+                  b.addEventListener("click", function () { set(m.hidden); });
+                  set(false);
+                })();</script>
                 <dl class="facts">
                     <div><dt>Client</dt><dd>A small bilingual church</dd></div>
                     <div><dt>Role</dt><dd>Designer and developer</dd></div>
@@ -91,18 +113,65 @@
             </div>
 
             <div class="wrap">
-            <section class="section" aria-labelledby="summary">
-                <h2 id="summary">Summary</h2>
+            <div class="case-view" data-view="tldr" id="view-tldr">
+            <section class="section" aria-labelledby="tl-problem">
+                <h2 id="tl-problem">The problem</h2>
                 <div class="body">
-<dl class="summary">
-<div><dt>Goal</dt><dd>Let the counting team enter a whole service's offerings in one sitting, faster and with fewer mistakes, at a cost a small church can carry.</dd></div>
-<div><dt>Problem</dt><dd>The old software cost $200 a month and had counters clicking through dropdowns for every gift. The office manager then typed every transaction again into QuickBooks.</dd></div>
-<div><dt>Role</dt><dd>The church commissioned me to replace it. I designed the entry flow, built the software and set up the hosting.</dd></div>
-<div><dt>Result</dt><dd>The new system runs for about $15 a month and sends offerings to QuickBooks, which removes about an hour of re-entry each week. The one-line entry is designed and prototyped, and testing with the counters starts soon.</dd></div>
-</dl>
+<p>A small bilingual church paid $200 a month for offering software. Counters clicked through dropdowns for every gift, and the office manager retyped every transaction into QuickBooks, about an hour each week.</p>
+                    <figure>
+                        <div class="shots bare" style="--cols: 1; --cols-narrow: 1">
+                            <a class="zoom" href="img/church-offerings/old-input-giving.gif" style="--own: 1.5214"><img width="1208" height="794" loading="lazy" decoding="async" src="img/church-offerings/old-input-giving.gif" alt="Recording of the old Input Giving screen. Each gift row has a member search, an amount, a fund dropdown, a check number and notes, entered one field at a time with the mouse."></a>
+                        </div>
+                        <figcaption>The old Input Giving screen. Every row is a search, a dropdown and three more fields.</figcaption>
+                    </figure>
                 </div>
             </section>
-
+            <section class="section" aria-labelledby="tl-did">
+                <h2 id="tl-did">What I did</h2>
+                <div class="body">
+<p>I interviewed four counters, explored eight ways to enter a gift, and designed, built and hosted the replacement. Their main complaint was switching between mouse and keyboard, so a typed line became the direction.</p>
+                    <figure>
+                        <div class="shots stack-narrow" style="--cols: 2; --cols-narrow: 1; --ratio: 1.7">
+                            <a class="zoom" href="img/church-offerings/explore-sentence.webp" style="--own: 1.857"><img width="2000" height="1077" loading="lazy" decoding="async" src="img/church-offerings/explore-sentence.webp" alt="Sentence exploration. On Sunday, Sep 28, Grace Chen gave $250.00 to the General Fund by check no. 1047, with each value an editable green word."></a>
+                            <a class="zoom" href="img/church-offerings/explore-command.webp" style="--own: 1.5714"><img width="1760" height="1120" loading="lazy" decoding="async" src="img/church-offerings/explore-command.webp" alt="Command bar exploration. The line grace 250 chk 1047 general is parsed into member, amount, method, fund and date chips, with matching members listed below."></a>
+                        </div>
+                        <figcaption>Sentence (left) reads well but is slow to fill in. Command bar (right) parses one typed line.</figcaption>
+                    </figure>
+                </div>
+            </section>
+            <section class="section" aria-labelledby="tl-solution">
+                <h2 id="tl-solution">The solution</h2>
+                <div class="body">
+<p>Each gift is one typed line in any order. A readback shows giver, amount and funds before saving, split gifts must add up, and unclear names stop for a decision. A finished batch goes to QuickBooks in one step.</p>
+                    <figure>
+                        <div class="shots bare" style="--cols: 1; --cols-narrow: 1">
+                            <a class="zoom" href="img/church-offerings/entry.gif" style="--own: 1.9638"><img width="923" height="470" loading="lazy" decoding="async" src="img/church-offerings/entry.gif" alt="Recording of three gifts being typed and recorded. Each is read back as it is typed, then appears at the top of the list as the batch total rolls up."></a>
+                        </div>
+                        <figcaption>Three gifts in a few seconds each. The batch total rolls up and saves as you go.</figcaption>
+                    </figure>
+                    <figure>
+                        <div class="shots bare" style="--cols: 1; --cols-narrow: 1">
+                            <a class="zoom" href="img/church-offerings/resolve.gif" style="--own: 1.9638"><img width="923" height="470" loading="lazy" decoding="async" src="img/church-offerings/resolve.gif" alt="Recording. Typing grace 50 shows two matching members to pick from. Then maria santos 40 cash finds no member and she is added as a new member before the gift is recorded."></a>
+                        </div>
+                        <figcaption>Picking between two Graces, then adding a first-time giver without leaving the batch.</figcaption>
+                    </figure>
+                    <figure>
+                        <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 2.0429">
+                            <a class="zoom" href="img/church-offerings/qb-mapping.webp" style="--own: 2.0429"><img width="2288" height="1120" loading="lazy" decoding="async" src="img/church-offerings/qb-mapping.webp" alt="Fund mapping table. General Fund, Missions, Building Fund and Benevolence each matched to a QuickBooks income account, with a Save mapping button."></a>
+                        </div>
+                        <figcaption>Each fund is matched to a QuickBooks income account once.</figcaption>
+                    </figure>
+                </div>
+            </section>
+            <section class="section" aria-labelledby="tl-outcome">
+                <h2 id="tl-outcome">Outcome</h2>
+                <div class="body">
+<p>About $15 a month instead of $200, and roughly an hour of weekly re-entry gone. The new entry hasn’t been used on a real Sunday yet, and testing with the counters starts soon.</p>
+                </div>
+            </section>
+            <div class="view-end"><button type="button" class="view-jump" data-view-go="detailed"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg><span>Read the detailed case study</span></button></div>
+            </div>
+            <div class="case-view" data-view="detailed" id="view-detailed" hidden>
             <section class="section" aria-labelledby="the-brief">
                 <h2 id="the-brief">The brief</h2>
                 <div class="body">
@@ -306,6 +375,7 @@
 </ul>
                 </div>
             </section>
+            </div>
             </div>
         </article>
 

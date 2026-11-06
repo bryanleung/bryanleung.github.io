@@ -75,7 +75,10 @@ document.querySelector('.theme').addEventListener('click', function () {
   var current = 0;
 
   function show(i) {
-    current = (i + links.length) % links.length;
+    var step = i < current ? -1 : 1, n = links.length;
+    i = (i + n) % n;
+    for (var t = 0; t < n && links[i].closest('[hidden]'); t++) i = (i + step + n) % n;
+    current = i;
     var link = links[current];
     var thumb = link.querySelector('img');
     var full = link.href;
@@ -112,6 +115,77 @@ document.querySelector('.theme').addEventListener('click', function () {
     document.documentElement.classList.remove('lb-open');
     links[current].focus();
   });
+})();
+
+// Brief / Detailed switch on a case study: shows one version of the page at a time. Brief (tldr) is the default;
+// ?view=detailed or a link to a heading inside the detailed version opens that one instead.
+(function () {
+  var views = [].slice.call(document.querySelectorAll('.case-view[data-view]'));
+  var buttons = [].slice.call(document.querySelectorAll('[data-view-btn]'));
+  if (views.length < 2) return;
+  // Switching while reading further down starts the new version from its first section.
+  function toStart() {
+    var first = views[0].parentNode, top = first.getBoundingClientRect().top;
+    var bar = document.querySelector('.masthead');
+    var offset = bar && getComputedStyle(bar).display !== 'none' ? bar.offsetHeight + 16 : 24;
+    if (top < offset) window.scrollTo({ top: window.scrollY + top - offset, behavior: 'auto' });
+  }
+  function set(name, jump) {
+    views.forEach(function (v) { v.hidden = v.getAttribute('data-view') !== name; });
+    buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-view-btn') === name)); });
+    document.documentElement.setAttribute('data-case-view', name);
+    document.dispatchEvent(new CustomEvent('caseview', { detail: name }));
+    if (jump) toStart();
+  }
+  buttons.forEach(function (b) {
+    b.addEventListener('click', function () { set(b.getAttribute('data-view-btn'), true); });
+  });
+  document.querySelectorAll('[data-view-go]').forEach(function (b) {
+    b.addEventListener('click', function () { set(b.getAttribute('data-view-go'), true); });
+  });
+  // The switch floats in a frosted dock at the top of the screen (see the scroll state below).
+  var sw = document.querySelector('.view-switch');
+  if (sw) {
+    document.documentElement.classList.add('has-views');
+    var dock = document.createElement('div');
+    dock.className = 'view-dock';
+    dock.appendChild(sw);
+    document.body.appendChild(dock);
+  }
+  var start = /[?&]view=detailed\b/.test(location.search) ? 'detailed' : 'tldr';
+  var target = location.hash && document.getElementById(location.hash.slice(1));
+  var inView = target && target.closest('.case-view');
+  if (inView) start = inView.getAttribute('data-view');
+  set(start);
+})();
+
+// Case study scroll state. Once the page scrolls, .view-stuck lets the masthead on phones and tablets
+// step its logo, All work and day/night aside (day/night moves into the sections menu); .view-past marks
+// the sky header as scrolled away. With a Brief / Detailed dock, .view-idle hides the dock a moment after
+// scrolling stops, unless the pointer or keyboard focus is on it.
+(function () {
+  if (!document.querySelector('.case-head') || !document.querySelector('.masthead')) return;
+  var root = document.documentElement, head = document.querySelector('.case-head');
+  var dock = document.querySelector('.view-dock');
+  var timer = 0, held = false;
+  function update(idle) {
+    var stuck = window.scrollY > 24;
+    root.classList.toggle('view-stuck', stuck);
+    root.classList.toggle('view-past', head.getBoundingClientRect().bottom < 80);
+    if (!dock) return;
+    root.classList.toggle('view-idle', stuck && idle && !held);
+    dock.inert = root.classList.contains('view-idle');
+  }
+  function later() { clearTimeout(timer); timer = setTimeout(function () { update(true); }, 1400); }
+  window.addEventListener('scroll', function () { update(false); later(); }, { passive: true });
+  if (dock) {
+    var hold = function (v) { return function () { held = v; if (v) update(false); else later(); }; };
+    dock.addEventListener('pointerenter', hold(true));
+    dock.addEventListener('pointerleave', hold(false));
+    dock.addEventListener('focusin', hold(true));
+    dock.addEventListener('focusout', hold(false));
+  }
+  update(window.scrollY > 24);
 })();
 
 // Case study table of contents, built from each section's h2.
@@ -195,14 +269,26 @@ document.querySelector('.theme').addEventListener('click', function () {
     if (e.key === 'Escape' && open) { setOpen(false); toggle.focus(); }
   });
 
-  // The current section is the last one whose top has passed 30% of the screen.
+  // Sections inside a hidden view (TLDR or Detailed) drop out of both lists.
+  function shown(h) { return !h.closest('[hidden]'); }
+  function sync() {
+    [desk, mob].forEach(function (r) {
+      r.links.forEach(function (a, j) { a.parentElement.hidden = !shown(sections[j]); });
+    });
+    queue();
+  }
+  document.addEventListener('caseview', sync);
+
+  // The current section is the last visible one whose top has passed 30% of the screen.
   function paint() {
-    var line = window.innerHeight * 0.3, k = -1;
+    var line = window.innerHeight * 0.3, k = -1, last = -1;
     for (var i = 0; i < sections.length; i++) {
+      if (!shown(sections[i])) continue;
+      last = i;
       if (sections[i].parentElement.getBoundingClientRect().top <= line) k = i;
     }
     // At the very bottom, a short last section can never reach the line.
-    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) k = sections.length - 1;
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) k = last;
     [desk, mob].forEach(function (r) {
       r.links.forEach(function (a, j) {
         if (j === k) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
@@ -214,7 +300,7 @@ document.querySelector('.theme').addEventListener('click', function () {
   function queue() { if (!queued) { queued = true; requestAnimationFrame(function () { queued = false; paint(); }); } }
   window.addEventListener('scroll', queue, { passive: true });
   window.addEventListener('resize', queue);
-  paint();
+  sync();
 })();
 
 // ?for=ai or ?for=lead reorders the homepage work for a role. No parameter keeps the default.

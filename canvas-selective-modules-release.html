@@ -51,6 +51,10 @@
             <svg viewBox="0 0 102 128" fill="none" aria-hidden="true"><path d="M63.554 125.999c4.873-.279 9.33-1.008 13.371-2.188 5.289-1.605 9.746-3.893 13.37-6.864a29.216 29.216 0 0 0 8.29-10.875c1.902-4.278 2.853-9.091 2.853-14.44 0-8.379-2.675-15.123-8.023-20.234-5.289-5.17-12.895-8.468-22.819-9.894 4.1-1.01 7.725-2.466 10.875-4.367 3.209-1.962 5.883-4.25 8.022-6.864 2.199-2.615 3.863-5.467 4.992-8.557a26.591 26.591 0 0 0 1.783-9.627c0-5.05-.832-9.567-2.496-13.549-1.664-3.981-4.22-7.338-7.666-10.072-3.447-2.793-7.814-4.903-13.103-6.329C67.714.713 61.475 0 54.284 0H27.9v7.22h26.384c11.232 0 19.521 2.199 24.87 6.596 5.407 4.338 8.11 10.756 8.11 19.254 0 3.268-.623 6.447-1.871 9.537-1.248 3.09-3.209 5.854-5.883 8.29-2.615 2.436-6.002 4.397-10.162 5.883-4.1 1.486-9.062 2.228-14.885 2.228H27.9v6.686h31.02c5.288 0 10.012.594 14.172 1.782 4.16 1.189 7.666 2.912 10.518 5.17 2.853 2.199 5.022 4.903 6.507 8.112 1.545 3.15 2.318 6.715 2.318 10.696 0 8.676-2.853 15.421-8.557 20.234-4.811 4.051-11.586 6.376-20.324 6.975v7.336Z" fill="currentColor"/><path d="M18.986 0H0v128h46.084a77.37 77.37 0 0 0 7.665-.366v-9.675l-34.156-5.023h-.607V0Z" fill="currentColor"/></svg>
             <span>Bryan Leung</span>
         </a>
+        <div class="view-switch" role="group" aria-label="Case study length">
+            <button type="button" data-view-btn="tldr" aria-pressed="true" aria-controls="view-tldr"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Brief</span></button>
+            <button type="button" data-view-btn="detailed" aria-pressed="false" aria-controls="view-detailed"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg><span>Detailed</span></button>
+        </div>
         <nav aria-label="Site">
             <ul>
                 <li><a href="./#work">All work</a></li>
@@ -103,6 +107,87 @@
             </div>
 
             <div class="wrap">
+            <div class="case-view" data-view="tldr" id="view-tldr">
+            <section class="section" aria-labelledby="tl-problem">
+                <h2 id="tl-problem">The problem</h2>
+                <div class="body">
+<p>Canvas assigned materials to specific students one item at a time, about 15 clicks each. Ten materials took about 150. The fix ranked in the top five of a Canvas Community feature survey.</p>
+                    <figure>
+                        <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 2.5969">
+                            <a class="zoom" href="https://framerusercontent.com/images/ktJ9Muuw6nHVZd2GIOvt5sJGdw.png" style="--own: 2.5969"><img width="2036" height="784" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/ktJ9Muuw6nHVZd2GIOvt5sJGdw.png?scale-down-to=512 512w, https://framerusercontent.com/images/ktJ9Muuw6nHVZd2GIOvt5sJGdw.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/ktJ9Muuw6nHVZd2GIOvt5sJGdw.png 2036w" sizes="(min-width: 810px) 736px, 100vw" src="https://framerusercontent.com/images/ktJ9Muuw6nHVZd2GIOvt5sJGdw.png?scale-down-to=1024" alt="Diagram of one student receiving extra course material that the rest of the class does not."></a>
+                        </div>
+                        <figcaption>A typical case: one advanced student gets extra practice material the rest of the class doesn't see.</figcaption>
+                    </figure>
+                    <figure>
+                        <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.7934">
+                            <a class="zoom" href="https://framerusercontent.com/images/WATjERqYFaaYnJU3sAGrCalOPr4.png" style="--own: 1.7934"><img width="1406" height="784" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/WATjERqYFaaYnJU3sAGrCalOPr4.png?scale-down-to=512 512w, https://framerusercontent.com/images/WATjERqYFaaYnJU3sAGrCalOPr4.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/WATjERqYFaaYnJU3sAGrCalOPr4.png 1406w" sizes="(min-width: 810px) 736px, 100vw" src="https://framerusercontent.com/images/WATjERqYFaaYnJU3sAGrCalOPr4.png?scale-down-to=1024" alt="Flow diagram of the three pages an instructor passed through to assign one material."></a>
+                        </div>
+                        <figcaption>The old flow: three pages to reach Assign To, then back out again for the next material.</figcaption>
+                    </figure>
+                </div>
+            </section>
+            <section class="section" aria-labelledby="tl-approach">
+                <h2 id="tl-approach">What I did</h2>
+                <div class="body">
+<p>I ran workshops with product and engineering, then tested two prototypes in Maze with 54 participants. The existing Assign To tray beat a new permission modal on success (68.6% vs 61.8%) and speed (41 vs 59 seconds), and saved about a sprint.</p>
+                    <figure>
+                        <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 2.7565">
+                            <a class="zoom" href="img/selective-modules/approaches-compared.png" style="--own: 2.7565"><img width="1800" height="653" loading="lazy" decoding="async" src="img/selective-modules/approaches-compared.png" alt="The permission modal beside the Assign To tray. The modal covers the Modules page. The tray keeps the Modules page visible."></a>
+                        </div>
+                        <figcaption>The modal introduced a new pattern and hid the page behind it. The tray reused an existing component and kept the Modules page in view.</figcaption>
+                    </figure>
+                </div>
+            </section>
+            <section class="section" aria-labelledby="tl-solution">
+                <h2 id="tl-solution">The solution</h2>
+                <div class="body">
+<p>Instructors assign a whole module once and every item inherits it. An item’s own assignment still wins, so module changes never erase a deliberate exception. Assign To also moved onto the Modules page.</p>
+                    <figure>
+                        <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.2323">
+                            <a class="zoom" href="img/selective-modules/assign-module.gif" style="--own: 1.2323"><img width="960" height="779" loading="lazy" decoding="async" src="img/selective-modules/assign-module.gif" alt="Animated walkthrough with a cursor. It opens the module menu, chooses Assign To, switches from Everyone to Assign To, searches, picks two sections and a student, and saves. The view zooms in on each click and zooms back out to the confirmed Modules page."></a>
+                        </div>
+                        <figcaption>Assigning a whole module, from the module menu to the saved confirmation.</figcaption>
+                    </figure>
+                    <figure class="rule-carousel" aria-roledescription="carousel" aria-label="Assigning a module rules">
+                        <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.3333">
+                            <a class="zoom" href="img/selective-modules/rules/rules-assigning-1.gif" style="--own: 1.3333" data-title="Items inherit the module’s assignment"><img width="960" height="720" loading="lazy" decoding="async" src="img/selective-modules/rules/rules-assigning-1.gif" alt="Items inherit the module’s assignment. An instructor assigns the module to five students. Every item in the module gets the same five students."></a>
+                            <a class="zoom rc-off" href="img/selective-modules/rules/rules-assigning-2.gif" style="--own: 1.3333" data-title="Students added later reach every item"><img width="960" height="720" loading="lazy" decoding="async" src="img/selective-modules/rules/rules-assigning-2.gif" alt="Students added later reach every item. The instructor adds Jennifer to the module. Jennifer joins the module’s group on every item."></a>
+                            <a class="zoom rc-off" href="img/selective-modules/rules/rules-assigning-3.gif" style="--own: 1.3333" data-title="A student’s separate card is left alone"><img width="960" height="720" loading="lazy" decoding="async" src="img/selective-modules/rules/rules-assigning-3.gif" alt="A student’s separate card is left alone. Jennifer already has a separate card on the assignment. The instructor adds Jennifer to the module. The assignment keeps Jennifer’s separate card. The other items add Jennifer to the module’s group."></a>
+                            <a class="zoom rc-off" href="img/selective-modules/rules/rules-assigning-4.gif" style="--own: 1.3333" data-title="Sections work the same way as students"><img width="960" height="720" loading="lazy" decoding="async" src="img/selective-modules/rules/rules-assigning-4.gif" alt="Sections work the same way as students. The instructor adds Section A to the module. Section A joins the module’s group on every item."></a>
+                            <a class="zoom rc-off" href="img/selective-modules/rules/rules-assigning-5.gif" style="--own: 1.3333" data-title="A student’s own card wins over their section"><img width="960" height="720" loading="lazy" decoding="async" src="img/selective-modules/rules/rules-assigning-5.gif" alt="A student’s own card wins over their section. Jennifer is in Section A and has a separate card on the assignment. The instructor adds Section A. On the assignment, Jennifer’s separate card takes precedence over Section A."></a>
+                        </div>
+                        <div class="rc-controls">
+                            <button class="rc-prev" type="button" aria-label="Previous rule"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg></button>
+                            <p class="rc-status" aria-live="polite"><span class="rc-count">1 / 5</span><span class="rc-title">Items inherit the module’s assignment</span></p>
+                            <button class="rc-next" type="button" aria-label="Next rule"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg></button>
+                        </div>
+                        <figcaption>Assigning a module. What happens to the items inside it when people are added.</figcaption>
+                    </figure>
+                    <figure>
+                        <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.7934">
+                            <a class="zoom" href="https://framerusercontent.com/images/mPw8y6FNQn1NUAlCRzWoubyLokM.png" style="--own: 1.7934"><img width="1406" height="784" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/mPw8y6FNQn1NUAlCRzWoubyLokM.png?scale-down-to=512 512w, https://framerusercontent.com/images/mPw8y6FNQn1NUAlCRzWoubyLokM.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/mPw8y6FNQn1NUAlCRzWoubyLokM.png 1406w" sizes="(min-width: 810px) 736px, 100vw" src="https://framerusercontent.com/images/mPw8y6FNQn1NUAlCRzWoubyLokM.png?scale-down-to=1024" alt="Flow diagram of the shortened path to Assign To."></a>
+                        </div>
+                        <figcaption>The new flow.</figcaption>
+                    </figure>
+                    <figure>
+                        <div class="shots stack-narrow" style="--cols: 3; --cols-narrow: 1; --ratio: 1.6446">
+                            <a class="zoom" href="https://framerusercontent.com/images/K5r3rigR1G8RVJbZ61cNMi2opPo.png" style="--own: 1.6446"><img width="2036" height="1238" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/K5r3rigR1G8RVJbZ61cNMi2opPo.png?scale-down-to=512 512w, https://framerusercontent.com/images/K5r3rigR1G8RVJbZ61cNMi2opPo.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/K5r3rigR1G8RVJbZ61cNMi2opPo.png 2036w" sizes="(min-width: 810px) 245px, 100vw" src="https://framerusercontent.com/images/K5r3rigR1G8RVJbZ61cNMi2opPo.png?scale-down-to=1024" alt="Modules page with Assign To in the item menu."></a>
+                            <a class="zoom" href="https://framerusercontent.com/images/M4XO2EVoH3XHTZSXM2Vvh0zGHLA.png" style="--own: 1.6446"><img width="2036" height="1238" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/M4XO2EVoH3XHTZSXM2Vvh0zGHLA.png?scale-down-to=512 512w, https://framerusercontent.com/images/M4XO2EVoH3XHTZSXM2Vvh0zGHLA.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/M4XO2EVoH3XHTZSXM2Vvh0zGHLA.png 2036w" sizes="(min-width: 810px) 245px, 100vw" src="https://framerusercontent.com/images/M4XO2EVoH3XHTZSXM2Vvh0zGHLA.png?scale-down-to=1024" alt="Modules page with the Assign To tray open."></a>
+                            <a class="zoom" href="https://framerusercontent.com/images/rQLSaJyFDn2nERsU0baDuBb0ocg.png" style="--own: 1.6446"><img width="2036" height="1238" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/rQLSaJyFDn2nERsU0baDuBb0ocg.png?scale-down-to=512 512w, https://framerusercontent.com/images/rQLSaJyFDn2nERsU0baDuBb0ocg.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/rQLSaJyFDn2nERsU0baDuBb0ocg.png 2036w" sizes="(min-width: 810px) 245px, 100vw" src="https://framerusercontent.com/images/rQLSaJyFDn2nERsU0baDuBb0ocg.png?scale-down-to=1024" alt="Summary page with the Assign To tray open."></a>
+                        </div>
+                        <figcaption>Assign To from the Modules page and the Summary page.</figcaption>
+                    </figure>
+                </div>
+            </section>
+            <section class="section" aria-labelledby="tl-outcome">
+                <h2 id="tl-outcome">Outcome</h2>
+                <div class="body">
+<p>Ten materials went from about 150 clicks to 6. It shipped after I left Instructure, so adoption wasn’t measured.</p>
+                </div>
+            </section>
+            <div class="view-end"><button type="button" class="view-jump" data-view-go="detailed"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg><span>Read the detailed case study</span></button></div>
+            </div>
+            <div class="case-view" data-view="detailed" id="view-detailed" hidden>
             <section class="section" aria-labelledby="the-challenge">
                 <h2 id="the-challenge">The challenge</h2>
                 <div class="body">
@@ -311,6 +396,7 @@
 <p>Keeping item-level control was right, but control needs visibility. The next problem is helping instructors see who can access what.</p>
                 </div>
             </section>
+            </div>
             </div>
         </article>
 
