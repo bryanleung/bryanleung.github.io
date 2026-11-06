@@ -59,6 +59,8 @@ a{color:#FFE3CC}a:hover{color:#FFFFFF}
 .hit{display:contents;color:inherit;text-decoration:none;cursor:pointer}
 .hit:focus{outline:none}
 .node{transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+/* Safari drops the rounded corners while the cover zooms on hover; a still wrapper with its own clip-path keeps them. */
+.node .clip{position:absolute;inset:0;display:block;border-radius:inherit;overflow:hidden;clip-path:inset(0 round 18px)}
 .hit:hover .node,.hit:focus-visible .node{transform:translateY(-6px)}
 .hit:focus-visible .node{outline:1px solid #FFFFFF !important;outline-offset:10px !important}.tint{transition:opacity .6s ease}
 .hit:hover .tint,.hit:focus-visible .tint{opacity:0 !important}
@@ -1497,7 +1499,7 @@ header.top .sky-pick-btn{transition:background-color .25s ease,border-color .25s
       
         <div class="stop" style="position: absolute; left: calc(50% + 0px); top: 160px; width: 0; height: 0; z-index: 1">
           <a class="hit" href="./canvas-selective-modules-release">
-          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -199px; top: -132.5px; width: 398px; height: 265px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)">
+          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -199px; top: -132.5px; width: 398px; height: 265px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)"><span class="clip">
             
             
               <span class="cv smr-cover"><span class="stage">
@@ -1515,7 +1517,7 @@ header.top .sky-pick-btn{transition:background-color .25s ease,border-color .25s
             
             
             <span class="tint" aria-hidden="true" style="position: absolute; inset: 0; background: var(--tint); mix-blend-mode: color; opacity: 0.55"></span>
-          </span>
+          </span></span>
           <div class="lbl" style="position: absolute; top: -132.5px; left: 226px; width: 300px; height: 265px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 6px; text-align: left">
             <p style="margin: 0; font-size: 17px; line-height: 1.25; font-weight: 400; letter-spacing: .04em; color: var(--title)">Selective Modules Release</p>
             <p class="desc" style="margin: 4px 0 0; font-size: 16px; line-height: 1.55; font-weight: 300; color: var(--desc)">Tailoring material to one student took about 15 clicks per item, so instructors avoided it. I made whole modules assignable.</p>
@@ -1526,7 +1528,7 @@ header.top .sky-pick-btn{transition:background-color .25s ease,border-color .25s
       
         <div class="stop" style="position: absolute; left: calc(50% + 130px); top: 520px; width: 0; height: 0; z-index: 1">
           <a class="hit" href="./quintace-communities">
-          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -199px; top: -132.5px; width: 398px; height: 265px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)">
+          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -199px; top: -132.5px; width: 398px; height: 265px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)"><span class="clip">
             
               <img class="plain" src="img/quintace/cover.webp" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: 15% 50%">
             
@@ -1538,7 +1540,7 @@ header.top .sky-pick-btn{transition:background-color .25s ease,border-color .25s
             
             
             <span class="tint" aria-hidden="true" style="position: absolute; inset: 0; background: var(--tint); mix-blend-mode: color; opacity: 0.55"></span>
-          </span>
+          </span></span>
           <div class="lbl" style="position: absolute; top: -132.5px; right: 226px; width: 300px; height: 265px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 6px; text-align: right">
             <p style="margin: 0; font-size: 17px; line-height: 1.25; font-weight: 400; letter-spacing: .04em; color: var(--title)">QuintAce Communities</p>
             <p class="desc" style="margin: 4px 0 0; font-size: 16px; line-height: 1.55; font-weight: 300; color: var(--desc)">Player-run communities for a poker app. I generated six layouts with AI, reworked the one we chose, and finished it in our design system.</p>
@@ -1549,7 +1551,7 @@ header.top .sky-pick-btn{transition:background-color .25s ease,border-color .25s
       
         <div class="stop" style="position: absolute; left: calc(50% + 0px); top: 880px; width: 0; height: 0; z-index: 1">
           <a class="hit" href="./church-offerings">
-          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -199px; top: -132.5px; width: 398px; height: 265px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)">
+          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -199px; top: -132.5px; width: 398px; height: 265px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)"><span class="clip">
             
             
             
@@ -1572,7 +1574,7 @@ header.top .sky-pick-btn{transition:background-color .25s ease,border-color .25s
             
             
             <span class="tint" aria-hidden="true" style="position: absolute; inset: 0; background: var(--tint); mix-blend-mode: color; opacity: 0.55"></span>
-          </span>
+          </span></span>
           <div class="lbl" style="position: absolute; top: -132.5px; right: 226px; width: 300px; height: 265px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 6px; text-align: right">
             <p style="margin: 0; font-size: 17px; line-height: 1.25; font-weight: 400; letter-spacing: .04em; color: var(--title)">Church Offering Entry</p>
             <p class="desc" style="margin: 4px 0 0; font-size: 16px; line-height: 1.55; font-weight: 300; color: var(--desc)">A church paid $200 a month for slow offering software. I built a replacement and redesigned entry as one typed line per gift.</p>
@@ -1583,7 +1585,7 @@ header.top .sky-pick-btn{transition:background-color .25s ease,border-color .25s
       
         <div class="stop" style="position: absolute; left: calc(50% + -130px); top: 1240px; width: 0; height: 0; z-index: 1">
           <a class="hit" href="./canvas-course-pacing">
-          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -199px; top: -132.5px; width: 398px; height: 265px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)">
+          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -199px; top: -132.5px; width: 398px; height: 265px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)"><span class="clip">
             
               <img class="plain" src="https://framerusercontent.com/images/VUlSg5py3GczRGDx6RuFXnJpjqM.png" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover">
             
@@ -1595,7 +1597,7 @@ header.top .sky-pick-btn{transition:background-color .25s ease,border-color .25s
             
             
             <span class="tint" aria-hidden="true" style="position: absolute; inset: 0; background: var(--tint); mix-blend-mode: color; opacity: 0.55"></span>
-          </span>
+          </span></span>
           <div class="lbl" style="position: absolute; top: -132.5px; left: 226px; width: 300px; height: 265px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 6px; text-align: left">
             <p style="margin: 0; font-size: 17px; line-height: 1.25; font-weight: 400; letter-spacing: .04em; color: var(--title)">Course Pacing Redesign</p>
             <p class="desc" style="margin: 4px 0 0; font-size: 16px; line-height: 1.55; font-weight: 300; color: var(--desc)">Course Pacing set one pace for a whole course, and about 1% of courses used it. I redesigned it for sections and individual students.</p>
@@ -1606,7 +1608,7 @@ header.top .sky-pick-btn{transition:background-color .25s ease,border-color .25s
       
         <div class="stop" style="position: absolute; left: calc(50% + 0px); top: 1600px; width: 0; height: 0; z-index: 1">
           <a class="hit" href="./canvas-bulk-publish">
-          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -199px; top: -132.5px; width: 398px; height: 265px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)">
+          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -199px; top: -132.5px; width: 398px; height: 265px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)"><span class="clip">
             
             
             
@@ -1621,7 +1623,7 @@ header.top .sky-pick-btn{transition:background-color .25s ease,border-color .25s
             
             
             <span class="tint" aria-hidden="true" style="position: absolute; inset: 0; background: var(--tint); mix-blend-mode: color; opacity: 0.55"></span>
-          </span>
+          </span></span>
           <div class="lbl" style="position: absolute; top: -132.5px; left: 226px; width: 300px; height: 265px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 6px; text-align: left">
             <p style="margin: 0; font-size: 17px; line-height: 1.25; font-weight: 400; letter-spacing: .04em; color: var(--title)">Bulk Publish</p>
             <p class="desc" style="margin: 4px 0 0; font-size: 16px; line-height: 1.55; font-weight: 300; color: var(--desc)">Instructors published 80 to 120 items one click at a time. An engineer and I fixed it in a hackathon week.</p>
@@ -1632,7 +1634,7 @@ header.top .sky-pick-btn{transition:background-color .25s ease,border-color .25s
       
         <div class="stop" style="position: absolute; left: calc(50% + 130px); top: 1960px; width: 0; height: 0; z-index: 1">
           <a class="hit" href="./zynga-poker-handclarity">
-          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -199px; top: -132.5px; width: 398px; height: 265px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)">
+          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -199px; top: -132.5px; width: 398px; height: 265px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)"><span class="clip">
             
             
             
@@ -1656,7 +1658,7 @@ header.top .sky-pick-btn{transition:background-color .25s ease,border-color .25s
             
             
             <span class="tint" aria-hidden="true" style="position: absolute; inset: 0; background: var(--tint); mix-blend-mode: color; opacity: 0.55"></span>
-          </span>
+          </span></span>
           <div class="lbl" style="position: absolute; top: -132.5px; right: 226px; width: 300px; height: 265px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 6px; text-align: right">
             <p style="margin: 0; font-size: 17px; line-height: 1.25; font-weight: 400; letter-spacing: .04em; color: var(--title)">Hand Clarity</p>
             <p class="desc" style="margin: 4px 0 0; font-size: 16px; line-height: 1.55; font-weight: 300; color: var(--desc)">Players thought they’d won hands they lost, and called the game rigged. I redesigned how the table shows who won and why.</p>
@@ -1667,7 +1669,7 @@ header.top .sky-pick-btn{transition:background-color .25s ease,border-color .25s
       
         <div class="stop" style="position: absolute; left: calc(50% + 0px); top: 2320px; width: 0; height: 0; z-index: 1">
           <a class="hit" href="./zynga-hpps">
-          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -199px; top: -132.5px; width: 398px; height: 265px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)">
+          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -199px; top: -132.5px; width: 398px; height: 265px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)"><span class="clip">
             
             
             
@@ -1688,7 +1690,7 @@ header.top .sky-pick-btn{transition:background-color .25s ease,border-color .25s
             
             
             <span class="tint" aria-hidden="true" style="position: absolute; inset: 0; background: var(--tint); mix-blend-mode: color; opacity: 0.55"></span>
-          </span>
+          </span></span>
           <div class="lbl" style="position: absolute; top: -132.5px; right: 226px; width: 300px; height: 265px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 6px; text-align: right">
             <p style="margin: 0; font-size: 17px; line-height: 1.25; font-weight: 400; letter-spacing: .04em; color: var(--title)">Harry Potter: Puzzles & Spells</p>
             <p class="desc" style="margin: 4px 0 0; font-size: 16px; line-height: 1.55; font-weight: 300; color: var(--desc)">I managed a designer and led experience design on a match-3 game with about 400k daily players.</p>
@@ -1699,7 +1701,7 @@ header.top .sky-pick-btn{transition:background-color .25s ease,border-color .25s
       
         <div class="stop" style="position: absolute; left: calc(50% + -130px); top: 2680px; width: 0; height: 0; z-index: 1">
           <a class="hit" href="./zynga-poker">
-          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -199px; top: -132.5px; width: 398px; height: 265px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)">
+          <span class="node" aria-hidden="true" style="display: block; position: absolute; left: -199px; top: -132.5px; width: 398px; height: 265px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: var(--card); outline: 1px solid rgba(255,241,224,.35); outline-offset: 7px; box-shadow: 0 30px 50px var(--shadow)"><span class="clip">
             
             
             
@@ -1722,7 +1724,7 @@ header.top .sky-pick-btn{transition:background-color .25s ease,border-color .25s
             
             
             <span class="tint" aria-hidden="true" style="position: absolute; inset: 0; background: var(--tint); mix-blend-mode: color; opacity: 0.55"></span>
-          </span>
+          </span></span>
           <div class="lbl" style="position: absolute; top: -132.5px; left: 226px; width: 300px; height: 265px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 6px; text-align: left">
             <p style="margin: 0; font-size: 17px; line-height: 1.25; font-weight: 400; letter-spacing: .04em; color: var(--title)">Zynga Poker</p>
             <p class="desc" style="margin: 4px 0 0; font-size: 16px; line-height: 1.55; font-weight: 300; color: var(--desc)">Leagues, Challenges, the VIP Center and the store, during the move from native iOS to Unity.</p>
