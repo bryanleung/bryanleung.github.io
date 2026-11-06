@@ -246,6 +246,17 @@ main{padding-top:48px !important}
 @media (prefers-reduced-motion: reduce){.cue-arrow{animation:none}}
 @media (max-width:767px){.workcue{top:-92px !important}}
 @keyframes fade{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+/* The header sticks so the day/night toggle stays at hand; once the page scrolls the logo steps aside
+   and the toggle gets a frosted backing so it reads over the work below. Back at the top, the logo returns. */
+/* overflow: clip keeps the wide skyline art from causing sideways scroll without breaking position: sticky. */
+.root{overflow:clip !important}
+header.top{position:sticky !important;top:0;z-index:30;pointer-events:none}
+header.top>*{pointer-events:auto}
+header.top>a{transition:opacity .25s ease,visibility .25s}
+.home-stuck header.top>a{opacity:0;visibility:hidden;pointer-events:none}
+header.top .sky-pick-btn{transition:background-color .25s ease,border-color .25s ease,box-shadow .25s ease}
+.home-stuck header.top .sky-pick-btn{background:color-mix(in srgb,var(--btn-ink) 58%,transparent);border-color:color-mix(in srgb,var(--ink) 18%,transparent);-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);box-shadow:0 10px 28px -14px rgba(0,0,0,.45)}
+@media (prefers-reduced-motion: reduce){header.top>a,header.top .sky-pick-btn{transition:none}}
 </style>
 </head>
 <body>
@@ -3353,6 +3364,15 @@ class Component extends DCLogic {
   });
   app.componentDidMount();
   window.__patch();
+})();
+</script>
+<script>
+// Homepage: mark the page as scrolled so the sticky header can hide the logo (see header.top styles).
+(function () {
+  var root = document.documentElement;
+  function update() { root.classList.toggle('home-stuck', window.scrollY > 24); }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
 })();
 </script>
 </body>
