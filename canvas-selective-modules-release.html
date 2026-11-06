@@ -105,62 +105,40 @@
                 <h2 id="the-challenge">The challenge</h2>
                 <div class="body">
 <h3>A repeated task that belonged at a higher level</h3>
-<p>Instructors need to give different students different materials: additional practice for an advanced student, remedial activities for another group, or content intended for a particular course section.</p>
+<p>Instructors often give different students different materials, such as extra practice for an advanced student, remedial work for a group, or content for one section.</p>
 <figure>
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 2.5969">
                             <a class="zoom" href="https://framerusercontent.com/images/ktJ9Muuw6nHVZd2GIOvt5sJGdw.png" style="--own: 2.5969"><img width="2036" height="784" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/ktJ9Muuw6nHVZd2GIOvt5sJGdw.png?scale-down-to=512 512w, https://framerusercontent.com/images/ktJ9Muuw6nHVZd2GIOvt5sJGdw.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/ktJ9Muuw6nHVZd2GIOvt5sJGdw.png 2036w" sizes="(min-width: 810px) 736px, 100vw" src="https://framerusercontent.com/images/ktJ9Muuw6nHVZd2GIOvt5sJGdw.png?scale-down-to=1024" alt="Diagram of one student receiving extra course material that the rest of the class does not."></a>
                         </div>
                         <figcaption>A typical case: one advanced student gets extra practice material the rest of the class doesn't see.</figcaption>
                     </figure>
-<p>Canvas supported this one material at a time. Assigning one item took approximately 15 clicks across three pages. Assigning ten materials to the same students meant repeating that work ten times.</p>
+<p>Canvas handled this one material at a time. Each took about 15 clicks across three pages, so ten materials meant doing it all ten times.</p>
 <figure>
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.7934">
                             <a class="zoom" href="https://framerusercontent.com/images/WATjERqYFaaYnJU3sAGrCalOPr4.png" style="--own: 1.7934"><img width="1406" height="784" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/WATjERqYFaaYnJU3sAGrCalOPr4.png?scale-down-to=512 512w, https://framerusercontent.com/images/WATjERqYFaaYnJU3sAGrCalOPr4.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/WATjERqYFaaYnJU3sAGrCalOPr4.png 1406w" sizes="(min-width: 810px) 736px, 100vw" src="https://framerusercontent.com/images/WATjERqYFaaYnJU3sAGrCalOPr4.png?scale-down-to=1024" alt="Flow diagram of the three pages an instructor passed through to assign one material."></a>
                         </div>
                         <figcaption>The old flow: three pages to reach Assign To, then back out again for the next material.</figcaption>
                     </figure>
-<p>Instructors already organized related materials into modules. The opportunity was to make that existing structure assignable, rather than ask instructors to manage each item separately.</p>
+<p>Instructors already grouped related materials into modules. Making the module assignable would let them do it once.</p>
 <blockquote><p>It would be great if I could give Modules unique gating rules specific to individual students or groups or sections within the course, similar to how I can create unique assignment due dates for different students and sections.</p></blockquote>
-<p>Beyond individual feedback, there was broader demand for this capability. A feature-prioritization survey posted in the Canvas Community forums allowed users to vote on features they wanted prioritized. Selective Modules Release ranked in the top five.</p>
-<p>This reinforced that the problem wasn’t limited to an isolated instructor workflow. It was a customer-requested capability worth addressing.</p>
+<p>It wasn’t one instructor’s wish. In a Canvas Community prioritization survey, Selective Modules Release ranked in the top five.</p>
 <h3>The central design problem was inheritance</h3>
-<p>Assigning a module could eliminate repetitive work, but it introduced a conflict: an item inside that module might already have its own assignment.</p>
-<p>Before designing the screens, we needed to decide which setting should take precedence.</p>
-<p>A module-level change could simplify management while also overwriting an instructor’s deliberate exception. Preserving every exception, however, meant a module would not necessarily have one uniform assignment.</p>
-<p>The goal was to reduce repetitive work without silently undoing instructors’ choices.</p>
+<p>An item inside a module might already have its own assignment. Overwriting it would undo an instructor’s deliberate choice. Keeping it meant a module wouldn’t always have one uniform assignment.</p>
+<p>We had to decide which one wins before designing any screens.</p>
                 </div>
             </section>
             <section class="section" aria-labelledby="my-role">
                 <h2 id="my-role">My role</h2>
                 <div class="body">
-<p>I facilitated workshops with the product manager and engineers to establish a shared understanding of the problem before choosing an interface.</p>
-<p>I then:</p>
-<ul>
-<li>Prototyped two approaches to assignment.</li>
-<li>Wrote and built an unmoderated test in Maze.</li>
-<li>Interpreted the results alongside implementation and interaction trade-offs.</li>
-<li>Recommended reusing the existing Assign To tray.</li>
-<li>Proposed assignment-precedence rules and worked through edge cases with product and engineering.</li>
-</ul>
-<p>The product manager distributed the test through the Canvas Community. Another designer identified the existing tray pattern elsewhere in Canvas, giving us an alternative to introducing a new component.</p>
+<p>I ran workshops with the product manager and engineers to agree on the problem before choosing an interface. From there, I prototyped two approaches, built an unmoderated test in Maze, recommended the existing Assign To tray, and defined the precedence rules with product and engineering.</p>
+<p>The product manager shared the test through the Canvas Community. Another designer pointed us to the tray pattern already used elsewhere in Canvas.</p>
                 </div>
             </section>
             <section class="section" aria-labelledby="interaction-pattern">
                 <h2 id="interaction-pattern">Choosing an interaction pattern</h2>
                 <div class="body">
 <h3>Two approaches</h3>
-<p>I explored two ways for instructors to assign content.</p>
-<figure>
-                        <div class="table-scroll">
-                        <table>
-                            <thead><tr><th scope="col">Approach</th><th scope="col">Concept</th><th scope="col">Main trade-off</th></tr></thead>
-                            <tbody>
-                                <tr><th scope="row">Permission modal</th><td>A new interaction modeled on sharing permissions</td><td>Introduced a new pattern and covered the underlying page</td></tr>
-                                <tr><th scope="row">Assign To tray</th><td>Extend an existing Canvas component</td><td>Reused a familiar pattern while keeping the Modules page visible</td></tr>
-                            </tbody>
-                        </table>
-                        </div>
-                    </figure>
+<p>I prototyped two ways to assign content.</p>
 <figure>
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 2.7565">
                             <a class="zoom" href="img/selective-modules/approaches-compared.png" style="--own: 2.7565"><img width="1800" height="653" loading="lazy" decoding="async" src="img/selective-modules/approaches-compared.png" alt="The permission modal beside the Assign To tray. The modal covers the Modules page. The tray keeps the Modules page visible."></a>
@@ -168,9 +146,8 @@
                         <figcaption>The modal introduced a new pattern and hid the page behind it. The tray reused an existing component and kept the Modules page in view.</figcaption>
                     </figure>
 <h3>What we tested</h3>
-<p>The need for module-level assignment was already established through customer demand. The usability study focused on a different question: which interaction pattern would make assignment easier to complete?</p>
-<p>Participants received the same task: assign an assignment to a student. A single link randomly directed each participant to one of the two prototypes.</p>
-<p>The study compared the Permission Modal and Assign To tray. It was designed to evaluate the usability of the interaction patterns, not to revalidate the need for the feature itself.</p>
+<p>Customer demand had already settled whether to build this. The study asked a narrower question, which pattern made assignment easier to complete.</p>
+<p>Everyone got the same task, assigning an assignment to a student. A single link randomly opened one of the two prototypes.</p>
 <figure>
                         <div class="table-scroll">
                         <table>
@@ -181,27 +158,22 @@
                             </tbody>
                         </table>
                         </div>
-                        <figcaption>These are the rates reported by Maze. The success percentages do not translate directly into whole participant counts.</figcaption>
+                        <figcaption>Rates as reported by Maze.</figcaption>
                     </figure>
 <h3>Interpreting the results</h3>
-<p>The tray had a higher reported success rate and a shorter average completion time. It also had more misclicks.</p>
-<p>I did not treat the approximately seven-percentage-point success difference as conclusive. The test provided directional evidence, not proof that the tray was the better experience.</p>
-<p>I recommended the tray based on the combined trade-offs:</p>
+<p>The tray had a higher success rate and a faster average time, but more misclicks. I read that as a direction, not proof, and recommended the tray for three reasons.</p>
 <ul>
-<li><strong>It preserved context.</strong> Instructors could keep the Modules page visible while assigning content.</li>
-<li><strong>It reused an existing pattern.</strong> We could extend a component whose accessibility behavior had already been worked through.</li>
-<li><strong>It reduced implementation effort.</strong> The engineering manager estimated that the modal would require approximately one additional sprint.</li>
+<li><strong>It kept context.</strong> The Modules page stayed visible while assigning.</li>
+<li><strong>It reused a pattern.</strong> The component’s accessibility was already worked through.</li>
+<li><strong>It cost less to build.</strong> The engineering manager estimated the modal would take about one more sprint.</li>
 </ul>
-<p>The higher misclick rate remained unresolved. I did not inspect the click maps closely enough to determine whether it reflected confusion or exploration. That limited how confidently I could interpret the tray’s faster completion time.</p>
                 </div>
             </section>
             <section class="section" aria-labelledby="product-behavior">
                 <h2 id="product-behavior">Defining the product behavior</h2>
                 <div class="body">
 <h3>1. Assign the collection, not each item</h3>
-<p>The primary change was to make the module assignable.</p>
-<p>Instead of assigning each material separately, instructors could select recipients once at the module level. Materials inside the module would inherit that assignment, subject to item-level exceptions.</p>
-<p>This removed repeated assignment work when the same recipients needed the whole collection.</p>
+<p>Instructors pick recipients once, at the module level, and every material inside inherits them.</p>
 <figure>
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.2323">
                             <a class="zoom" href="img/selective-modules/assign-module.gif" style="--own: 1.2323"><img width="960" height="779" loading="lazy" decoding="async" src="img/selective-modules/assign-module.gif" alt="Animated walkthrough with a cursor. It opens the module menu, chooses Assign To, switches from Everyone to Assign To, searches, picks two sections and a student, and saves. The view zooms in on each click and zooms back out to the confirmed Modules page."></a>
@@ -209,16 +181,8 @@
                         <figcaption>Assigning a whole module, from the module menu to the saved confirmation.</figcaption>
                     </figure>
 <h3>2. Preserve explicit item-level decisions</h3>
-<p>I proposed that an item’s own assignment should take precedence over its module’s assignment.</p>
-<p>An instructor who deliberately changes an individual material is expressing a more specific intention. A later module-level setting should not silently erase that choice.</p>
-<p>The product manager and engineering manager agreed with this approach.</p>
-<p>This decision established a hierarchy:</p>
-<ul>
-<li>The module provides the shared assignment.</li>
-<li>An explicit item-level assignment takes precedence.</li>
-<li>The module does not overwrite a deliberate item-level exception.</li>
-</ul>
-<p>The trade-off is that assigning a module does not guarantee every item has identical recipients. Preserving control makes visibility into those exceptions important.</p>
+<p>I proposed that an item’s own assignment wins over its module’s. Changing a single material is a more specific decision, and a later module change shouldn’t silently erase it. The product manager and engineering manager agreed.</p>
+<p>The cost is that a module’s items won’t always share the same recipients.</p>
 <figure class="rule-carousel" aria-roledescription="carousel" aria-label="Assigning a module rules">
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.3333">
                             <a class="zoom" href="img/selective-modules/rules/rules-assigning-1.gif" style="--own: 1.3333" data-title="Items inherit the module’s assignment"><img width="960" height="720" loading="lazy" decoding="async" src="img/selective-modules/rules/rules-assigning-1.gif" alt="Items inherit the module’s assignment. An instructor assigns the module to five students. Every item in the module gets the same five students."></a>
@@ -248,10 +212,7 @@
                         <figcaption>Removing people. Only the module’s own group changes. Separate cards stay.</figcaption>
                     </figure>
 <h3>3. Keep dates on individual materials</h3>
-<p>We separated who receives content from when that content is due or available.</p>
-<p>Due dates and availability can differ by material and by student. Supporting those settings at the module level would have added complexity, and instructors confirmed they did not need it there.</p>
-<p>Module assignment therefore answered one question: who should receive this collection?</p>
-<p>Dates remained on individual materials.</p>
+<p>We separated who gets content from when it’s due. Dates and availability vary by material and by student, and instructors told us they didn’t need them at the module level. Modules decide who, and dates stay on each material.</p>
 <figure>
                         <div class="shots" style="--cols: 2; --cols-narrow: 2; --ratio: 1.2863">
                             <a class="zoom" href="https://framerusercontent.com/images/E14DZKmdc5oevwOckVlhjNoW8sA.png" style="--own: 1.4421"><img width="946" height="656" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/E14DZKmdc5oevwOckVlhjNoW8sA.png?scale-down-to=512 512w, https://framerusercontent.com/images/E14DZKmdc5oevwOckVlhjNoW8sA.png 946w" sizes="(min-width: 810px) 368px, 50vw" src="https://framerusercontent.com/images/E14DZKmdc5oevwOckVlhjNoW8sA.png?scale-down-to=512" alt="Assign To tray with student, due date and availability fields."></a>
@@ -259,7 +220,6 @@
                         </div>
                         <figcaption>The Assign To tray: who, due date and availability.</figcaption>
                     </figure>
-<p>This kept the module-level interaction focused rather than turning it into a second place to manage every assignment setting.</p>
 <figure class="rule-carousel" aria-roledescription="carousel" aria-label="Dates set on items rules">
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.3333">
                             <a class="zoom" href="img/selective-modules/rules/rules-dates-1.gif" style="--own: 1.3333" data-title="Item dates keep a student on the item"><img width="960" height="720" loading="lazy" decoding="async" src="img/selective-modules/rules/rules-dates-1.gif" alt="Item dates keep a student on the item. Each item has a due date for the group. The instructor removes Ramy from the module. The items keep their cards and dates, so Ramy stays on them."></a>
@@ -273,8 +233,7 @@
                         <figcaption>Dates set on items. Item-level dates are kept when the module changes.</figcaption>
                     </figure>
 <h3>4. Shorten the path to individual assignment</h3>
-<p>Module assignment addressed the repeated-work problem, but instructors still needed to manage individual materials.</p>
-<p>We also brought Assign To closer to the work by making it available from the Modules page and the assignment Summary page, rather than requiring instructors to navigate three pages deep.</p>
+<p>Instructors still manage single materials, so we also put Assign To on the Modules page and the assignment Summary page instead of three pages deep.</p>
 <figure>
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.7934">
                             <a class="zoom" href="https://framerusercontent.com/images/mPw8y6FNQn1NUAlCRzWoubyLokM.png" style="--own: 1.7934"><img width="1406" height="784" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/mPw8y6FNQn1NUAlCRzWoubyLokM.png?scale-down-to=512 512w, https://framerusercontent.com/images/mPw8y6FNQn1NUAlCRzWoubyLokM.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/mPw8y6FNQn1NUAlCRzWoubyLokM.png 1406w" sizes="(min-width: 810px) 736px, 100vw" src="https://framerusercontent.com/images/mPw8y6FNQn1NUAlCRzWoubyLokM.png?scale-down-to=1024" alt="Flow diagram of the shortened path to Assign To."></a>
@@ -289,19 +248,13 @@
                         </div>
                         <figcaption>Assign To from the Modules page and the Summary page.</figcaption>
                     </figure>
-<p>The two changes served different needs:</p>
-<ul>
-<li>Module assignment reduced repetition across a collection.</li>
-<li>Additional entry points reduced navigation for individual changes.</li>
-</ul>
                 </div>
             </section>
             <section class="section" aria-labelledby="exceptions">
                 <h2 id="exceptions">Working through exceptions</h2>
                 <div class="body">
 <h3>Most of the complexity sat in the rules, not the screens.</h3>
-<p>I documented edge cases involving module, section, and student assignments, proposed behavior for each, and reviewed them with the product manager and engineers.</p>
-<p>Where we lacked evidence, we made judgment calls rather than treating assumptions as validated findings.</p>
+<p>I documented edge cases across module, section and student assignments, proposed behavior for each, and reviewed them with product and engineering.</p>
 <figure class="rule-carousel" aria-roledescription="carousel" aria-label="Adding and moving items rules">
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.3333">
                             <a class="zoom" href="img/selective-modules/rules/rules-items-1.gif" style="--own: 1.3333" data-title="New items inherit the module’s assignment"><img width="960" height="720" loading="lazy" decoding="async" src="img/selective-modules/rules/rules-items-1.gif" alt="New items inherit the module’s assignment. The module is assigned to five students. The instructor adds a page to it. The new page starts with the same five students."></a>
@@ -315,14 +268,14 @@
                         </div>
                         <figcaption>Adding and moving items. Items take on the assignment of the module they sit in.</figcaption>
                     </figure>
-<p>One unresolved issue was visibility. The project did not include a Modules-page overview showing who was assigned to what. That remained an important next problem, particularly because item-level exceptions could differ from the module’s assignment.</p>
+<p>One gap remained. There was no Modules-page overview of who is assigned to what, which matters more when items can differ from their module.</p>
                 </div>
             </section>
             <section class="section" aria-labelledby="results">
                 <h2 id="results">Outcome</h2>
                 <div class="body">
-<h3>From 150 clicks to 6 in the compared workflow</h3>
-<p>For ten materials already grouped in one module and intended for the same students:</p>
+<h3>From 150 clicks to 6</h3>
+<p>Ten materials in one module, assigned to the same students.</p>
 <figure>
                         <div class="table-scroll">
                         <table>
@@ -335,32 +288,25 @@
                         </table>
                         </div>
                     </figure>
-<p>That is a 96% reduction in clicks for this scenario.</p>
-<p>The value went beyond reducing clicks.</p>
-<p>By making an entire module assignable, instructors could more easily deliver differentiated learning experiences without repeatedly configuring individual materials.</p>
-<p>Without this capability, assigning the same content to different students or groups across multiple materials was cumbersome enough that instructors might not attempt it at all.</p>
-<p>The goal was to remove that administrative friction and make individualized course experiences more practical to manage.</p>
-<h3>What I could verify</h3>
-<p>The redesigned workflow substantially reduced the actions required to assign a collection to the same recipients.</p>
-<h3>What I could not verify</h3>
-<p>The feature shipped after I left Instructure, so I did not measure post-launch usage or effectiveness.</p>
-<p>Instructor feedback before release indicated demand, but it was not evidence that the shipped experience succeeded:</p>
+<p>A 96% reduction in clicks.</p>
+<p>The bigger change was what it made practical. Tailoring content across many materials had been tedious enough that instructors might not try. Assigning the whole module removes that friction.</p>
+<h3>After launch</h3>
+<p>The feature shipped after I left Instructure, so I didn’t measure adoption. Instructors were asking for it before release.</p>
 <blockquote><p>I can’t wait to see this feature enabled! I have been hoping for a feature like this since I started using Canvas back in 2020.</p></blockquote>
-<p>For a post-launch evaluation, I would start with the share of courses assigning modules to specific students or sections. I would pair that with research into whether instructors understood inheritance and could verify the resulting access correctly.</p>
+<p>To evaluate it, I’d start with the share of courses assigning modules to specific students or sections, then check whether instructors understand how inheritance works.</p>
                 </div>
             </section>
             <section class="section" aria-labelledby="reflection">
                 <h2 id="reflection">Reflection</h2>
                 <div class="body">
 <h3>Define the decision criteria before testing</h3>
-<p>I would establish the sample-size rationale and decision criteria before running the comparison. That would make it clearer whether the study was intended to select an approach or provide one input into a broader product decision.</p>
-<h3>Investigate contradictory signals</h3>
-<p>The tray’s higher misclick rate deserved follow-up before the decision. Reviewing click maps would have helped distinguish harmless exploration from an interaction problem.</p>
+<p>Setting the sample size and decision criteria up front would have made clear whether the study was choosing an approach or informing one.</p>
+<h3>Follow up on mixed signals</h3>
+<p>The tray’s higher misclick rate deserved a look at the click maps before deciding, to tell exploration from confusion.</p>
 <h3>Test the rules, not only the controls</h3>
-<p>The interaction comparison addressed how instructors assigned a material. A stronger evaluation would also test whether they could predict what happened when module assignments and item-level exceptions conflicted.</p>
+<p>A stronger study would also check whether instructors can predict what happens when a module and an item disagree.</p>
 <h3>Make exceptions visible</h3>
-<p>Preserving item-level control was intentional. But control is harder to use when instructors cannot easily inspect the resulting assignments.</p>
-<p>The next design problem was therefore not another shortcut. It was helping instructors understand and verify who could access what.</p>
+<p>Keeping item-level control was right, but control needs visibility. The next problem is helping instructors see who can access what.</p>
                 </div>
             </section>
             </div>
