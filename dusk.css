@@ -345,3 +345,38 @@ footer a { color: #FFFFFF; }
 @media (prefers-reduced-motion: reduce) {
   .case-summary-toggle svg { transition: none; }
 }
+
+/* Summary as labeled rows: a label column to scan down, the statement beside it at a readable measure. */
+.case-summary--rows .case-summary-body { padding-bottom: 22px; }
+.case-summary-row {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 1fr);
+  column-gap: 24px;
+  align-items: start;
+  padding: 14px 0;
+}
+.case-summary-row + .case-summary-row,
+.case-summary-more .case-summary-row:first-child { border-top: 1px solid color-mix(in srgb, var(--sky-ink) 14%, transparent); }
+.case-summary-body > .case-summary-row:first-child { padding-top: 2px; }
+.case-summary--rows .case-summary-more { margin-top: 0; }
+.case-summary-term {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding-top: 0.25em;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sky-ink-soft);
+}
+.case-summary-term svg { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.case-summary--rows .case-intro { max-width: 62ch; font-size: 1.125rem; line-height: 1.55; }
+.case-summary--rows .case-summary-toggle { margin-left: calc(11rem + 24px); }
+@media (max-width: 767px) {
+  .case-summary-row { grid-template-columns: 1fr; row-gap: 6px; padding: 14px 0; }
+  .case-summary-term { padding-top: 0; }
+  .case-summary--rows .case-intro { font-size: 1.0625rem; }
+  .case-summary--rows .case-summary-toggle { margin-left: 0; }
+}
