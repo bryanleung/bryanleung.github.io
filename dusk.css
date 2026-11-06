@@ -150,6 +150,7 @@ h3 { font-weight: 500; }
 }
 .case-head h1 { color: var(--sky-ink); }
 .case-head .lede { color: var(--sky-ink-soft); }
+.case-head .case-intro { color: var(--sky-ink); }
 .case-head .facts { border-top-color: var(--sky-rule); }
 .case-head .facts dt { color: var(--sky-ink-soft); }
 .case-head .facts dd { color: var(--sky-ink); }
