@@ -252,6 +252,11 @@ main{padding-top:48px !important}
    and the toggle gets a frosted backing so it reads over the work below. Back at the top, the logo returns. */
 /* overflow: clip keeps the wide skyline art from causing sideways scroll without breaking position: sticky. */
 .root{overflow:clip !important}
+/* A soft, feathered blur behind the intro so the bridge and skyline melt away under the text on wide screens. */
+.hero>*{position:relative;z-index:1}
+.hero::before{content:"";position:absolute;z-index:0;left:-80px;top:0;width:min(860px,calc(100% + 160px));height:420px;pointer-events:none;
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);background:color-mix(in srgb,var(--bg) 18%,transparent);
+  -webkit-mask-image:radial-gradient(ellipse closest-side,#000 30%,transparent);mask-image:radial-gradient(ellipse closest-side,#000 30%,transparent)}
 header.top{position:sticky !important;top:0;z-index:30;pointer-events:none}
 header.top>*{pointer-events:auto}
 header.top>a{transition:opacity .25s ease,visibility .25s}
