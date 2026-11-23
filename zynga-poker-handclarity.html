@@ -66,7 +66,7 @@
         <article>
             <header class="wrap case-head">
                 <h1>Zynga Poker: Hand Clarity</h1>
-                <p class="lede">Players thought they had won hands they lost. I redesigned how the table shows who won and why.</p>
+                <p class="lede">Players were sure they had the winning hand and still lost. I redesigned how the table shows who won, and why.</p>
                 <dl class="facts">
                     <div><dt>Employer</dt><dd>Zynga</dd></div>
                     <div><dt>Role</dt><dd>Principal UX Designer</dd></div>
@@ -89,30 +89,30 @@
                 <h2 id="summary">Summary</h2>
                 <div class="body">
 <dl class="summary">
-<div><dt>Problem</dt><dd>Players believed they had won and still lost. They asked for refunds and left 1-star reviews calling the game rigged.</dd></div>
-<div><dt>Hypothesis</dt><dd>The table showed who won, but not why. Showing why would make a correct result look correct.</dd></div>
-<div><dt>Solution</dt><dd>A kicker card in the banner explains ties. Winning cards glow, the rest dim, and a stronger banner names the hand.</dd></div>
-<div><dt>Result</dt><dd>Shipped to all players at once, alongside other changes. Its effect wasn't measured on its own.</dd></div>
+<div><dt>Problem</dt><dd>Players were claiming they had the winning hand but still lost. They called support asking for their chips back and left 1-star reviews calling the game rigged.</dd></div>
+<div><dt>Hypothesis</dt><dd>The table showed who won, but never why. If players could see why, a correct result would actually look correct.</dd></div>
+<div><dt>Solution</dt><dd>A kicker card in the banner explains ties. The winning cards glow, the rest dim, and a bolder banner names the winning hand.</dd></div>
+<div><dt>Result</dt><dd>Shipped to all players at once, along with other changes, so its effect couldn't be measured on its own.</dd></div>
 </dl>
                 </div>
             </section>
             <section class="section" aria-labelledby="the-challenge">
                 <h2 id="the-challenge">The problem</h2>
                 <div class="body">
-<p>Players called the game rigged in 1-star reviews and asked customer service for refunds. Lower ratings mean fewer new installs, so the product team was asked to look into it. I don't have the call count.</p>
-<p>The causes came from the team's experience with the game, and mine from years on it, rather than a formal study.</p>
+<p>Players were calling Zynga support asking for their lost chips back, and in frustration leaving 1-star reviews saying the game was rigged. Lower ratings mean fewer new installs, so the product team was asked to look into it. I don't have the call count.</p>
+<p>We didn't run a formal study. The causes came from the team's experience with the game and my own years working on it.</p>
 <ul>
-<li><strong>Too fast.</strong> The pause between rounds was too short to confirm who had won.</li>
-<li><strong>Side pots.</strong> Side pots and their payouts are hard to understand and hard to show clearly.</li>
-<li><strong>Hand rankings.</strong> Some players didn't know what decides the winner when two players hold the same hand.</li>
+<li>The pause between rounds was too short for players to confirm who had won.</li>
+<li>Side pots and their payouts are hard to understand, and hard to show clearly.</li>
+<li>Some players just aren't familiar with what decides the winner when two players have the same hand.</li>
 </ul>
                 </div>
             </section>
             <section class="section" aria-labelledby="hypothesis">
                 <h2 id="hypothesis">The hypothesis</h2>
                 <div class="body">
-<p>The table showed who won, but never why. When two players held the same hand, nothing on screen explained the result, so a correct result could look rigged. If the table showed why a hand won, players would have less reason to doubt it.</p>
-<p>I proposed five changes that were simple and quick to build.</p>
+<p>The table showed who won, but never why. When two players had the same hand, nothing on screen explained the result, so a perfectly correct result could look rigged. If the table showed why a hand won, players would have less reason to doubt it.</p>
+<p>We passed ideas around the team, and I proposed the five quickest ones we could act on right away.</p>
 <ul>
 <li>Lengthen the pause between hands.</li>
 <li>Reposition the winner's hole cards so they are easier to see.</li>
@@ -120,7 +120,7 @@
 <li>Dim the community cards that aren't part of the winning hand.</li>
 <li>Add stronger visual indicators to the winning hand.</li>
 </ul>
-<p>I wanted the longer pause, but the engineers judged it too complex, so it was dropped. The visual changes were quick to release.</p>
+<p>I wanted the longer pause, but it would have added way too much technical complexity, so we dropped it. The visual changes were quick to ship because they were mostly just art.</p>
 <figure>
                         <div class="shots stack-narrow" style="--cols: 3; --cols-narrow: 1; --ratio: 1.7766">
                             <a class="zoom" href="https://framerusercontent.com/images/RnEJNrZSCsLNUMnVPVtfcvIhToI.png" style="--own: 1.7766"><img width="1137" height="640" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/RnEJNrZSCsLNUMnVPVtfcvIhToI.png?scale-down-to=512 512w, https://framerusercontent.com/images/RnEJNrZSCsLNUMnVPVtfcvIhToI.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/RnEJNrZSCsLNUMnVPVtfcvIhToI.png 1137w" sizes="(min-width: 810px) 245px, 100vw" src="https://framerusercontent.com/images/RnEJNrZSCsLNUMnVPVtfcvIhToI.png?scale-down-to=1024" alt="Table exploration with the winning hand labeled."></a>
@@ -131,7 +131,7 @@
                         </div>
                         <figcaption>Explorations at the table.</figcaption>
                     </figure>
-<p>Adjusting each part on its own still wasn't clear enough, so I pushed the banner further.</p>
+<p>We tweaked every part we could, and it still wasn't clear enough. So I pushed the banner further.</p>
 <figure>
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.5833">
                             <a class="zoom" href="https://framerusercontent.com/images/VoxOlMYrdF9TfSQoJ2A8XQrb50.png" style="--own: 1.5833"><img width="1976" height="1248" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/VoxOlMYrdF9TfSQoJ2A8XQrb50.png?scale-down-to=512 512w, https://framerusercontent.com/images/VoxOlMYrdF9TfSQoJ2A8XQrb50.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/VoxOlMYrdF9TfSQoJ2A8XQrb50.png 1976w" sizes="(min-width: 810px) 736px, 100vw" src="https://framerusercontent.com/images/VoxOlMYrdF9TfSQoJ2A8XQrb50.png?scale-down-to=1024" alt="Grid of winning banner layout variations."></a>
@@ -144,7 +144,7 @@
                 <h2 id="before-and-after">The final design</h2>
                 <div class="body">
 <h3>The kicker card</h3>
-<p>The biggest single change. When two players hold the same hand, the next-highest card decides the winner. Before, nothing showed that card, so it wasn't clear why one hand beat the other. Showing it in the banner explains the result and teaches the rule.</p>
+<p>This was the biggest single change. When two players have the same hand, the next-highest card decides the winner. Nothing on the table used to show that card, so it wasn't clear why one hand beat the other. Putting it in the banner explains the result and teaches the rule at the same time.</p>
 <figure>
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 1.7766">
                             <a class="zoom" href="https://framerusercontent.com/images/6B4NVsStjkXfbww1Dl3vwwz2i0.png" style="--own: 1.7766"><img width="2274" height="1280" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/6B4NVsStjkXfbww1Dl3vwwz2i0.png?scale-down-to=512 512w, https://framerusercontent.com/images/6B4NVsStjkXfbww1Dl3vwwz2i0.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/6B4NVsStjkXfbww1Dl3vwwz2i0.png?scale-down-to=2048 2048w, https://framerusercontent.com/images/6B4NVsStjkXfbww1Dl3vwwz2i0.png 2274w" sizes="(min-width: 810px) 736px, 100vw" src="https://framerusercontent.com/images/6B4NVsStjkXfbww1Dl3vwwz2i0.png?scale-down-to=2048" alt="Final table design with the winning banner and kicker card."></a>
@@ -152,7 +152,7 @@
                         <figcaption>The final design, with the kicker card in the banner.</figcaption>
                     </figure>
 <h3>Supporting changes</h3>
-<p>The rest make the winning hand easier to see at a glance. Each player who receives a side pot also gets a labeled tag underneath.</p>
+<p>The rest make the winning hand easier to spot at a glance. Each player who wins a side pot also gets a labeled tag underneath.</p>
 <figure>
                         <div class="shots" style="--cols: 2; --cols-narrow: 2; --ratio: 0.9980">
                             <a class="zoom" href="https://framerusercontent.com/images/u0QEAzOtyW0PyRs9raEx1mCAQ14.png" style="--own: 0.9980"><img width="974" height="976" loading="lazy" decoding="async" srcset="https://framerusercontent.com/images/u0QEAzOtyW0PyRs9raEx1mCAQ14.png?scale-down-to=512 512w, https://framerusercontent.com/images/u0QEAzOtyW0PyRs9raEx1mCAQ14.png 974w" sizes="(min-width: 810px) 368px, 50vw" src="https://framerusercontent.com/images/u0QEAzOtyW0PyRs9raEx1mCAQ14.png?scale-down-to=512" alt="Before: tilted hole cards above the winner label."></a>
@@ -181,7 +181,7 @@
                 <div class="body">
 <ul>
 <li>Shipped to all players at once.</li>
-<li>Other features changed at the same time and there was no holdout group, so this update's effect on ratings and refund calls wasn't measured.</li>
+<li>Other features changed at the same time and there was no holdout group, so I can't say how much of any change in ratings or refund calls came from this update.</li>
 </ul>
                 </div>
             </section>
@@ -189,9 +189,9 @@
                 <h2 id="reflection">Reflection</h2>
                 <div class="body">
 <ul>
-<li>I would size the problem with support and review data before designing, instead of relying on our sense of it.</li>
-<li>A holdout group on the old table would have separated this change from the others.</li>
-<li>The pause between hands is the one cause we couldn't address directly.</li>
+<li>I'd size the problem with support and review data before designing, instead of going on our gut.</li>
+<li>A holdout group on the old table would have separated this change from everything else that shipped.</li>
+<li>The pause between hands is the one cause we never fixed directly.</li>
 </ul>
                 </div>
             </section>
