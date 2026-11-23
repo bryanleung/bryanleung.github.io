@@ -176,14 +176,7 @@
                 <h2 id="the-brief">The brief</h2>
                 <div class="body">
 <p>After each service, a small counting team sits down with the envelopes, checks and cash and records every gift. Those records become the church's deposit and each member's annual giving statement, so a wrong name or a wrong fund matters well beyond Sunday.</p>
-<p>The church wanted quicker entry with fewer mistakes, and a lower bill than the $200 a month it was paying.</p>
-<p>The congregation is bilingual, with English and Chinese names in the same member list, and many givers split a single check across several funds.</p>
-                </div>
-            </section>
-
-            <section class="section" aria-labelledby="interviews">
-                <h2 id="interviews">What the counters said</h2>
-                <div class="body">
+<p>The church wanted quicker entry with fewer mistakes, and a lower bill than the $200 a month it was paying. The congregation is bilingual, with English and Chinese names in the same member list, and many givers split a single check across several funds.</p>
 <p>I interviewed four counters about how a Sunday goes in the old software. Two problems came up again and again.</p>
 <ul>
 <li><strong>Too much clicking.</strong> Each gift meant opening several dropdowns, then moving from the mouse back to the keyboard to type an amount, and back again for the next gift. That switching was the part they found most annoying.</li>
@@ -243,14 +236,7 @@
                         <figcaption>Three gifts in a few seconds each. The batch total rolls up and saves as you go.</figcaption>
                     </figure>
 <p>Anything left out falls back to a default. The method and fund carry over from the last gift, so a run of cash gifts to the General Fund needs only a name and an amount. Typing <code>@missions</code> changes the default fund for the rest of the batch.</p>
-                </div>
-            </section>
-
-            <section class="section" aria-labelledby="split">
-                <h2 id="split">Split gifts without arithmetic</h2>
-                <div class="body">
-<p>One check often covers several funds. Here the counter types the check amount and only the shares they know, and the rest goes to the default fund as the remainder.</p>
-<p>If the shares come to more than the check, the line won't record, and the readback says by how much.</p>
+<p>One check often covers several funds. The counter types the check amount and only the shares they know, and the rest goes to the default fund as the remainder. If the shares come to more than the check, the line won't record, and the readback says by how much.</p>
                     <figure>
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 4.0267">
                             <a class="zoom" href="img/church-offerings/over.webp" style="--own: 4.0267"><img width="2416" height="600" loading="lazy" decoding="async" src="img/church-offerings/over.webp" alt="Readback for peter 30 missions 50. The Funds column warns that funds add up to $20 more than the amount."></a>
@@ -260,8 +246,8 @@
                 </div>
             </section>
 
-            <section class="section" aria-labelledby="names">
-                <h2 id="names">When a name doesn't match</h2>
+            <section class="section" aria-labelledby="mistakes">
+                <h2 id="mistakes">Catching mistakes</h2>
                 <div class="body">
 <p>Names cause trouble. Two members can share a first name, a visitor may not be in the system yet, and some gifts have no name. Rather than guess, the readback stops and asks.</p>
 <ul>
@@ -283,12 +269,6 @@
                         <figcaption>Two matches, and no match.</figcaption>
                     </figure>
 <p>Names show in both English and Chinese.</p>
-                </div>
-            </section>
-
-            <section class="section" aria-labelledby="fixing">
-                <h2 id="fixing">Fixing an entry in place</h2>
-                <div class="body">
 <p>Fixing a mistake should be as quick as making it. The Up arrow opens the last entry, and clicking any row opens that one. Edits happen in the list, and Save stays off until the funds add up to the gift.</p>
                     <figure>
                         <div class="shots bare" style="--cols: 1; --cols-narrow: 1">
@@ -299,8 +279,8 @@
                 </div>
             </section>
 
-            <section class="section" aria-labelledby="submitting">
-                <h2 id="submitting">Submitting the batch</h2>
+            <section class="section" aria-labelledby="quickbooks">
+                <h2 id="quickbooks">From batch to QuickBooks</h2>
                 <div class="body">
 <p>Every entry saves as it's recorded. Submitting is a separate step that shows totals by fund, the number of donors and any anonymous gifts, for the treasurer to check against the cash and checks in hand.</p>
                     <figure>
@@ -309,7 +289,6 @@
                         </div>
                         <figcaption>The batch summary before it is submitted.</figcaption>
                     </figure>
-<h3>Starting empty, and smaller screens</h3>
 <p>An empty batch explains the one-line format and offers an example to try. The same screen works on a tablet or phone, with the readback stacked under the entry line.</p>
                     <figure>
                         <div class="shots stack-narrow" style="--cols: 2; --cols-narrow: 1; --ratio: 1.6">
@@ -318,13 +297,7 @@
                         </div>
                         <figcaption>An empty batch, and the entry on a phone.</figcaption>
                     </figure>
-                </div>
-            </section>
-
-            <section class="section" aria-labelledby="quickbooks">
-                <h2 id="quickbooks">No more typing it twice</h2>
-                <div class="body">
-<p>The second problem was the office manager copying the counters' work into QuickBooks by hand every week. The new system connects to QuickBooks, and each fund is mapped to an income account once. After that, a batch is sent in one step and can't be sent twice.</p>
+<p>Once a batch is submitted, it no longer has to be copied into QuickBooks by hand. The new system connects to the church's QuickBooks company, and each fund is mapped to an income account once. After that, a batch is sent in one step and can't be sent twice.</p>
 <p>That removes about an hour of re-entry from the office manager's week, and one more place where a number could be copied wrong.</p>
                     <figure>
                         <div class="shots" style="--cols: 1; --cols-narrow: 1; --ratio: 3.02">
@@ -341,33 +314,21 @@
                 </div>
             </section>
 
-            <section class="section" aria-labelledby="cost">
-                <h2 id="cost">Bringing the cost down</h2>
-                <div class="body">
-<p>The new system runs for about $15 a month against the old $200, and $10 of that is Azure hosting. It uses small cloud containers and the smallest database tier, and every choice had to work within that.</p>
-<p>Because the same system can host more than one church, each with its own data, the cost could fall further if other churches join.</p>
-                </div>
-            </section>
-
             <section class="section" aria-labelledby="results">
-                <h2 id="results">Outcome</h2>
+                <h2 id="results">Outcome and what's next</h2>
                 <div class="body">
 <dl class="numbers">
 <div><dt>Monthly cost, old system</dt><dd>$200</dd></div>
 <div><dt>Monthly cost, new system</dt><dd>~$15</dd></div>
 <div><dt>Re-entry into QuickBooks removed, per week</dt><dd>~1 hour</dd></div>
 </dl>
+<p>Azure hosting is $10 of the new monthly cost. The system runs on small cloud containers and the smallest database tier, and every choice had to work within that. Because it can host more than one church, each with its own data, the cost could fall further if other churches join.</p>
 <ul>
 <li><strong>Designed for speed.</strong> A gift is one typed line, with no dropdowns and no reaching for the mouse.</li>
 <li><strong>Designed against mistakes.</strong> Every gift is read back before it is saved, splits must add up, and unclear names stop for a decision instead of guessing.</li>
 <li><strong>Not measured yet.</strong> The one-line entry hasn't been used on a real Sunday, so there are no numbers for entry time or errors. Testing starts soon.</li>
 </ul>
-                </div>
-            </section>
-
-            <section class="section" aria-labelledby="reflection">
-                <h2 id="reflection">Reflection</h2>
-                <div class="body">
+<h3>Reflection</h3>
 <ul>
 <li>The interviews pointed at the switching between mouse and keyboard rather than at any one field. That is what made a typed line the direction worth testing.</li>
 <li>Typing suits counters who are comfortable with a keyboard. For volunteers who aren't, the keypad direction is still worth building as a second mode.</li>
