@@ -796,6 +796,10 @@ figcaption {
 .zoom:hover { border-color: var(--accent); }
 .zoom img { width: 100%; height: 100%; object-fit: contain; }
 .shots.bare img { width: 100%; height: auto; }
+/* A live scene in a figure frame (scenes/): not a zoom link */
+.zoom.scene { cursor: auto; }
+.zoom.scene:hover { border-color: var(--rule); }
+.zoom.scene .ss-fit { width: 100%; height: 100%; }
 
 .numbers {
   display: grid;

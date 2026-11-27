@@ -1,0 +1,557 @@
+/* Course Pacing scene. Canvas's own inks: slate nav, Canvas blue links, the
+   pace's lavender date card. Card rules first; the hero's wide layout
+   overrides them at the end. */
+.cp {
+  & .ss-stage {
+    --gutter: 28px;
+    --cv-blue: #2b7abc;
+    --cv-ink: #2d3b45;
+    --cv-muted: #6b7780;
+    --cv-line: #e3e6e9;
+    --cv-nav: #394b58;
+    overflow: hidden;
+    border-radius: 18px;
+    background: #e3e5f7;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+
+  /* Pinned bottom bleed: a gutter left, top and right, off the bottom */
+  .cp-win {
+    position: absolute;
+    top: var(--gutter);
+    left: var(--gutter);
+    width: calc(398px - 2 * var(--gutter));
+    height: 300px;
+    border-radius: 10px;
+    box-shadow: var(--ss-shadow-hero);
+  }
+
+  .cp-win .ss-window__body {
+    position: relative;
+    background: #fff;
+  }
+
+  .cp-app {
+    position: absolute;
+    inset: 0;
+    display: flex;
+  }
+
+  .cp-nav {
+    flex: none;
+    width: 38px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding-top: 14px;
+    background: var(--cv-nav);
+    color: #c9d1d7;
+  }
+
+  .cp-nav__item {
+    display: grid;
+    place-items: center;
+  }
+
+  .cp-nav__item[data-on] {
+    width: 38px;
+    height: 28px;
+    margin: -6px 0;
+    background: #fff;
+    color: var(--cv-blue);
+  }
+
+  .cp-page {
+    flex: 1;
+    min-width: 0;
+    padding: 14px 16px 0;
+  }
+
+  /* Under the open pace the page is gone, not just covered */
+  .cp-page, .cp-nav, .cp-course { transition: opacity 0.1s ease; }
+  .cp-page[data-covered], .cp-nav[data-covered], .cp-course[data-covered] { opacity: 0; transition: opacity 0.1s ease 0.22s; }
+
+  .cp-title {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--cv-ink);
+  }
+
+  .cp-tabs {
+    margin-top: 10px;
+    gap: 16px;
+    border-color: var(--cv-line);
+  }
+
+  .cp-tabs .ss-tabs__tab {
+    padding-bottom: 7px;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--cv-muted);
+  }
+
+  .cp-tabs .ss-tabs__tab[data-on] {
+    color: var(--cv-ink);
+    font-weight: 700;
+  }
+
+  .cp-tabs .ss-tabs__bar {
+    background: var(--cv-blue);
+  }
+
+  .cp-list {
+    margin-top: 4px;
+  }
+
+  .cp-row {
+    padding: 7px 0;
+    border-bottom: 1px solid var(--cv-line);
+    border-radius: 0;
+  }
+
+  .cp-row__meta {
+    display: flex;
+    gap: 40px;
+  }
+
+  .cp-name {
+    font-size: 12px;
+    color: var(--cv-blue);
+  }
+
+  /* The pace, full screen over the course page: InstUI's modal fade and rise */
+  .cp-pace {
+    position: absolute;
+    inset: 0;
+    background: #fff;
+    opacity: 0;
+    pointer-events: none;
+    /* Closing: the contents leave first, then the surface */
+    transition: opacity 0.2s ease 0.14s;
+  }
+
+  .cp-pace__in {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    opacity: 0;
+    transform: translateY(8px);
+    will-change: transform;
+    transition: opacity 0.16s ease, transform 0.2s ease;
+  }
+
+  /* Opening: the white surface covers the page, then the pace rises in */
+  .cp-pace[data-open] {
+    opacity: 1;
+    transition: opacity 0.18s ease;
+  }
+
+  .cp-pace[data-open] .cp-pace__in {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.3s ease 0.14s, transform 0.42s cubic-bezier(0.25, 0.8, 0.25, 1) 0.14s;
+  }
+
+  .cp-pace__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    height: 40px;
+    padding: 0 10px 0 16px;
+    border-bottom: 1px solid var(--cv-line);
+  }
+
+  .cp-pace__title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--cv-ink);
+  }
+
+  .cp-close {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    color: var(--cv-ink);
+  }
+
+  .cp-close[data-hover] {
+    background: #f2f4f5;
+  }
+
+  .cp-pace__body {
+    padding: 12px 16px 0;
+  }
+
+  .cp-cards {
+    display: flex;
+    gap: 10px;
+  }
+
+  .cp-card {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: 6px;
+  }
+
+  .cp-dates {
+    background: #f1ebfa;
+    color: #6f3fb0;
+  }
+
+  .cp-dates__arrow {
+    color: #8a63c2;
+  }
+
+  .cp-date {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .cp-date__label {
+    font-size: 10px;
+    line-height: 1.3;
+    color: var(--cv-muted);
+  }
+
+  .cp-date__value {
+    font-size: 13px;
+    line-height: 1.3;
+    font-weight: 700;
+    color: #5d2e9e;
+  }
+
+  .cp-table {
+    margin-top: 8px;
+  }
+
+  .cp-item {
+    display: grid;
+    grid-template-columns: 14px minmax(0, 1fr) 46px 50px;
+    align-items: center;
+    gap: 10px;
+    height: 34px;
+    border-bottom: 1px solid var(--cv-line);
+    color: var(--cv-muted);
+  }
+
+  .cp-item[data-edit] {
+    color: var(--cv-ink);
+  }
+
+  .cp-item__name {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--cv-ink);
+  }
+
+  .cp-item__due {
+    font-size: 11px;
+    color: var(--cv-ink);
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .cp-step {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 22px;
+    padding-left: 7px;
+    border: 1px solid #c7cdd1;
+    border-radius: 4px;
+    font-size: 11px;
+    color: var(--cv-ink);
+  }
+
+  .cp-step__btns {
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    border-left: 1px solid #c7cdd1;
+  }
+
+  .cp-step__btns > span {
+    flex: 1;
+    display: grid;
+    place-items: center;
+    width: 16px;
+    color: var(--cv-muted);
+  }
+
+  .cp-step__btns > span[data-pressed] {
+    background: #eef1f3;
+  }
+
+  .cp-spot {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+  }
+
+  .cp-spot--rest { left: 244px; top: 84px; }
+  .cp-spot--home { left: 301px; top: 169px; }
+
+  /* The hero sits in the case study's figure frame, which rounds it */
+  &.cp--hero .ss-stage { border-radius: 0; }
+}
+
+/* ---- Hero, wide: 736 x 491, the figure's width in the case study ---- */
+.cp--hero .ss-stage[data-layout='wide'] {
+  --gutter: 56px;
+
+  .cp-win {
+    top: 44px;
+    width: calc(736px - 2 * var(--gutter));
+    height: 520px;
+  }
+
+  .cp-nav {
+    width: 58px;
+    gap: 6px;
+    padding-top: 10px;
+  }
+
+  .cp-nav__item {
+    gap: 3px;
+    width: 58px;
+    padding: 6px 0;
+  }
+
+  .cp-nav__item[data-on] {
+    width: 58px;
+    height: auto;
+    margin: 0;
+  }
+
+  .cp-nav__label {
+    font-size: 9.5px;
+    line-height: 1.3;
+  }
+
+  .cp-course {
+    flex: none;
+    width: 128px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 20px 16px;
+    border-right: 1px solid var(--cv-line);
+  }
+
+  .cp-course__on {
+    margin: -3px 0 -3px -16px;
+    padding-left: 14px;
+    border-left: 2px solid var(--cv-ink);
+    font-size: 12px;
+    line-height: 1.3;
+    font-weight: 700;
+    color: var(--cv-ink);
+  }
+
+  .cp-page {
+    padding: 18px 24px 0;
+  }
+
+  .cp-title {
+    font-size: 20px;
+  }
+
+  .cp-desc {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-top: 8px;
+  }
+
+  .cp-stats {
+    display: flex;
+    gap: 28px;
+    margin-top: 14px;
+    padding: 10px 14px;
+    border: 1px solid var(--cv-line);
+    border-radius: 6px;
+  }
+
+  .cp-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .cp-stat__label {
+    font-size: 10.5px;
+    line-height: 1.3;
+    color: var(--cv-muted);
+  }
+
+  .cp-stat__value {
+    font-size: 14px;
+    line-height: 1.3;
+    font-weight: 700;
+    color: var(--cv-ink);
+  }
+
+  .cp-tabs {
+    margin-top: 16px;
+  }
+
+  .cp-tabs .ss-tabs__tab {
+    font-size: 13px;
+  }
+
+  .cp-search {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .cp-search__field {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 30px;
+    padding: 0 10px;
+    border: 1px solid #c7cdd1;
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--cv-muted);
+  }
+
+  .cp-search__btn {
+    display: grid;
+    place-items: center;
+    flex: none;
+    height: 30px;
+    padding: 0 14px;
+    border-radius: 4px;
+    background: var(--cv-blue);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .cp-row {
+    padding: 8px 0;
+  }
+
+  .cp-name {
+    font-size: 13px;
+  }
+
+  .cp-pace__head {
+    height: 48px;
+    padding: 0 14px 0 24px;
+  }
+
+  .cp-pace__title {
+    font-size: 15px;
+  }
+
+  .cp-close {
+    width: 28px;
+    height: 28px;
+  }
+
+  .cp-pace__body {
+    padding: 18px 24px 0;
+  }
+
+  .cp-who {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--cv-ink);
+  }
+
+  .cp-card {
+    padding: 12px 14px;
+  }
+
+  .cp-card--blue {
+    background: #e8f2fb;
+    color: var(--cv-blue);
+  }
+
+  .cp-card--green {
+    background: #e6f5ec;
+    color: #1f8a4c;
+  }
+
+  .cp-card--blue .cp-date__value,
+  .cp-card--green .cp-date__value {
+    color: var(--cv-ink);
+  }
+
+  .cp-date__label {
+    font-size: 10.5px;
+  }
+
+  .cp-date__value {
+    font-size: 14px;
+  }
+
+  .cp-table {
+    margin-top: 16px;
+    border: 1px solid var(--cv-line);
+    border-bottom: 0;
+    border-radius: 6px 6px 0 0;
+  }
+
+  .cp-module {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 32px;
+    padding: 0 12px;
+    border-bottom: 1px solid var(--cv-line);
+    background: #f5f5f5;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--cv-ink);
+  }
+
+  .cp-item {
+    grid-template-columns: 16px minmax(0, 1fr) 56px 84px;
+    gap: 12px;
+    height: 36px;
+    padding: 0 12px;
+  }
+
+  .cp-item--head {
+    height: 30px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--cv-ink);
+  }
+
+  .cp-item__name {
+    font-size: 13px;
+  }
+
+  .cp-item__due {
+    font-size: 12px;
+  }
+
+  .cp-step {
+    height: 26px;
+    font-size: 12px;
+  }
+
+  .cp-spot--rest { left: 360px; top: 24px; }
+  .cp-spot--home { left: 563px; top: 357px; }
+}
