@@ -10,6 +10,6 @@ export default defineConfig({
     emptyOutDir: true,
     cssCodeSplit: false,
     minify: 'esbuild',
-    lib: { entry: resolve(__dirname, 'entry.tsx'), formats: ['iife'], name: 'CoursePacingScene', fileName: () => 'course-pacing-scene.js', cssFileName: 'course-pacing-scene' },
+    lib: { entry: resolve(__dirname, 'entry.tsx'), formats: ['iife'], name: 'Scenes', fileName: () => 'scenes.js', cssFileName: 'scenes' },
   },
 })

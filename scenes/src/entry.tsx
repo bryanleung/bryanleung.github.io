@@ -1,16 +1,28 @@
 import { createRoot } from 'react-dom/client'
+import type { ReactElement } from 'react'
+import { BulkPublishCard, BulkPublishHero } from './bulk-publish'
 import { CoursePacingCard, CoursePacingHero } from './course-pacing'
+import { SelectiveModulesCard, SelectiveModulesHero } from './selective-modules'
 
-// Mounts the Course Pacing scene into the static site:
-//   <span data-scene="course-pacing-card"></span>  homepage thumbnail
-//   <div data-scene="course-pacing-hero"></div>     case study hero
+// Mounts the case study scenes into the static site. A host names its scene:
+//   <span data-scene="course-pacing-card"></span>   homepage thumbnail
+//   <div data-scene="course-pacing-hero"></div>      case study hero
 // Each host keeps its static poster image inside until the scene mounts.
+const SCENES: Record<string, () => ReactElement> = {
+  'course-pacing-card': () => <CoursePacingCard fill />,
+  'course-pacing-hero': () => <CoursePacingHero />,
+  'bulk-publish-card': () => <BulkPublishCard fill />,
+  'bulk-publish-hero': () => <BulkPublishHero />,
+  'selective-modules-card': () => <SelectiveModulesCard fill />,
+  'selective-modules-hero': () => <SelectiveModulesHero />,
+}
+
 function mount() {
-  document.querySelectorAll<HTMLElement>('[data-scene^="course-pacing-"]').forEach((el) => {
-    if (el.dataset.mounted) return
+  document.querySelectorAll<HTMLElement>('[data-scene]').forEach((el) => {
+    const make = SCENES[el.dataset.scene ?? '']
+    if (!make || el.dataset.mounted) return
     el.dataset.mounted = '1'
-    const kind = el.dataset.scene
-    createRoot(el).render(kind === 'course-pacing-hero' ? <CoursePacingHero /> : <CoursePacingCard fill />)
+    createRoot(el).render(make())
   })
 }
 

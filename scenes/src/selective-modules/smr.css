@@ -1,0 +1,241 @@
+/* Selective Modules Release: the case study's light blue ground */
+.smr {
+  & .ss-stage { background: #c6dff3; }
+
+  .smr-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  /* Who the module and each item are assigned to: lands after Save */
+  .smr-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    flex: none;
+    height: 20px;
+    padding: 0 8px 0 6px;
+    border-radius: 10px;
+    background: #eef1f3;
+    font-size: 10px;
+    line-height: 1;
+    color: var(--cv-ink);
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(-3px) scale(0.92);
+    transform-origin: 0 50%;
+    will-change: transform;
+    transition: opacity 0.22s ease, transform 0.36s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+
+  .smr-tag--head {
+    background: #e2eefa;
+    color: var(--cv-blue-dark);
+    font-weight: 700;
+  }
+
+  .smr-tag[data-show] {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Under the module's kebab, right edges aligned */
+  .smr-menu {
+    top: 46px;
+    right: 22px;
+  }
+
+  .smr-tray {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 232px;
+    z-index: 6;
+    background: #fff;
+    border-left: 1px solid var(--cv-line);
+    box-shadow: -10px 0 24px rgba(45, 59, 69, 0.12);
+    transform: translateX(105%);
+    will-change: transform;
+    transition: transform 0.42s cubic-bezier(0.45, 0, 0.1, 1);
+  }
+
+  .smr-tray[data-open] { transform: none; }
+
+  /* The contents fade in behind the sliding edge and leave before it, so
+     no word is ever cut by the window as the tray moves */
+  .smr-tray__in {
+    opacity: 0;
+    transition: opacity 0.12s ease;
+  }
+
+  .smr-tray[data-open] .smr-tray__in {
+    opacity: 1;
+    transition: opacity 0.2s ease 0.3s;
+  }
+
+  .smr-tray__head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 12px 10px 10px 14px;
+    border-bottom: 1px solid var(--cv-line);
+  }
+
+  .smr-tray__titles {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .smr-tray__title {
+    font-size: 13px;
+    line-height: 1.3;
+    font-weight: 700;
+    color: var(--cv-ink);
+  }
+
+  .smr-tray__sub {
+    font-size: 10px;
+    line-height: 1.3;
+    color: var(--cv-muted);
+  }
+
+  .smr-tray__body {
+    position: relative;
+    padding: 12px 14px;
+  }
+
+  .smr-label {
+    margin-bottom: 6px;
+    font-size: 11px;
+    line-height: 1.3;
+    font-weight: 700;
+    color: var(--cv-ink);
+  }
+
+  .smr-field {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 30px;
+    padding: 0 6px;
+    border: 1px solid #c7cdd1;
+    border-radius: 4px;
+    font-size: 11.5px;
+    color: var(--cv-ink);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .smr-field[data-focus] {
+    border-color: var(--cv-blue);
+    box-shadow: 0 0 0 1px var(--cv-blue);
+  }
+
+  .smr-field--quiet { margin-bottom: 10px; }
+
+  .smr-field { position: relative; }
+
+  /* Stays mounted and fades, in the field's text slot */
+  .smr-placeholder {
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #8b969e;
+    transition: opacity 0.15s ease;
+  }
+
+  .smr-placeholder[data-hide] { opacity: 0; }
+  .smr-typed:not(:empty) { padding-left: 2px; }
+
+  .smr-caret {
+    width: 1px;
+    height: 14px;
+    background: var(--cv-ink);
+    animation: smr-blink 1s steps(1) infinite;
+  }
+
+  .smr-chip {
+    display: none;
+    align-items: center;
+    gap: 5px;
+    height: 20px;
+    padding: 0 6px 0 8px;
+    border: 1px solid #c7cdd1;
+    border-radius: 10px;
+    background: var(--cv-gray);
+    font-size: 11px;
+    white-space: nowrap;
+    transform-origin: 0 50%;
+    will-change: transform;
+    animation: smr-chip-in 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+
+  .smr-chip[data-show] { display: inline-flex; }
+
+  .smr-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 6px;
+    margin-top: 16px;
+  }
+
+  .smr-options {
+    top: 60px;
+    left: 14px;
+    right: 14px;
+  }
+
+  /* One inset all round: the label and the rows sit 14px from the edges */
+  .smr-options { padding: 6px; }
+  .smr-options .cvs-menu__item { padding: 0 8px; border-radius: 3px; }
+
+  .smr-options__label {
+    padding: 8px 8px 4px;
+    font-size: 10px;
+    line-height: 1.3;
+    font-weight: 700;
+    color: var(--cv-muted);
+  }
+
+  .smr-options .cvs-menu__item { gap: 8px; }
+
+  .smr-spot--rest { left: 150px; top: 182px; }
+  .smr-spot--home { left: 301px; top: 169px; }
+}
+
+@keyframes smr-blink { 50% { opacity: 0; } }
+@keyframes smr-chip-in { from { opacity: 0; transform: scale(0.9); } }
+
+.cvs--hero.smr .ss-stage[data-layout='wide'] {
+  .smr-menu {
+    top: 90px;
+    right: 30px;
+  }
+
+  .smr-tag {
+    height: 20px;
+    padding: 0 8px;
+    font-size: 10.5px;
+  }
+
+  .smr-module-b { margin-top: 14px; }
+
+  .smr-tray { width: 290px; }
+
+  .smr-tray__head { padding: 16px 14px 12px 18px; }
+  .smr-tray__title { font-size: 15px; }
+  .smr-tray__body { padding: 16px 18px; }
+  .smr-label { font-size: 12px; }
+  .smr-field { height: 32px; font-size: 12px; }
+  .smr-dates { margin-top: 14px; }
+  .smr-actions { margin-top: 20px; }
+  .smr-options { top: 74px; left: 18px; right: 18px; }
+
+  .smr-spot--rest { left: 300px; top: 26px; }
+  .smr-spot--home { left: 563px; top: 357px; }
+}
