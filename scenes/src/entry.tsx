@@ -3,6 +3,7 @@ import type { ReactElement } from 'react'
 import { BulkPublishCard, BulkPublishHero } from './bulk-publish'
 import { CoursePacingCard, CoursePacingHero } from './course-pacing'
 import { SelectiveModulesCard, SelectiveModulesHero } from './selective-modules'
+import { ChurchOfferingsFullCard, ChurchOfferingsFullHero } from './church-offerings'
 
 // Mounts the case study scenes into the static site. A host names its scene:
 //   <span data-scene="course-pacing-card"></span>   homepage thumbnail
@@ -15,6 +16,8 @@ const SCENES: Record<string, () => ReactElement> = {
   'bulk-publish-hero': () => <BulkPublishHero />,
   'selective-modules-card': () => <SelectiveModulesCard fill />,
   'selective-modules-hero': () => <SelectiveModulesHero />,
+  'church-offerings-card': () => <ChurchOfferingsFullCard fill />,
+  'church-offerings-hero': () => <ChurchOfferingsFullHero />,
 }
 
 function mount() {
