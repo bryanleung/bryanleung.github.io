@@ -47,21 +47,24 @@ input { caret-color: var(--accent); }
 
 main { flex: 1 1 0; min-width: 0; overflow-y: auto; }
 .pg { height: 100%; padding: 20px 28px 28px; display: flex; flex-direction: column; gap: 20px; }
-.head { flex: none; display: flex; align-items: center; gap: 16px; min-height: 44px; flex-wrap: wrap; row-gap: 8px; }
-.back { display: flex; align-items: center; gap: 6px; height: 44px; font-size: 14px; }
-.ttl { display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 8px; border: 0; border-radius: 8px; background: transparent; }
+.head { flex: none; display: flex; align-items: center; gap: 12px; min-height: 60px; flex-wrap: wrap; row-gap: 8px; }
+.back { display: flex; align-items: center; justify-content: center; width: 36px; height: 44px; margin-left: -10px; border-radius: 8px; }
+.back:hover { background: var(--raise); }
+.ttls { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; min-width: 0; }
+.ttl { display: flex; align-items: center; gap: 8px; padding: 0 8px; margin-left: -8px; border: 0; border-radius: 8px; background: transparent; }
 .ttl:hover { background: var(--raise); }
 .ttl .pen { opacity: 0; color: var(--muted); transition: opacity .15s; }
 .ttl:hover .pen, .ttl:focus-visible .pen { opacity: 1; }
-.ttl.name { margin-left: -8px; color: var(--text-strong); font-size: 17px; font-weight: 600; cursor: text; }
-.ttl.date { color: var(--muted); font-size: 14px; }
-.inl { height: 40px; padding: 0 10px; background: var(--field); border: 1px solid var(--accent); border-radius: 8px; color: var(--text-strong); outline: 0; box-shadow: 0 0 0 3px var(--accent-soft); }
+.ttl.name { height: 30px; color: var(--text-strong); font-size: 19px; font-weight: 600; cursor: text; }
+.ttl.date { height: 24px; gap: 6px; border-radius: 6px; color: var(--muted); font-size: 13px; }
+.inl { padding: 0 10px; margin-left: -8px; background: var(--field); border: 1px solid var(--accent); border-radius: 8px; color: var(--text-strong); outline: 0; box-shadow: 0 0 0 3px var(--accent-soft); }
 .grow { flex-grow: 1; }
-.count { font-size: 14px; color: var(--muted); }
-.odo { display: flex; align-items: flex-start; height: 1.2em; overflow: hidden; font-size: 20px; font-weight: 500; line-height: 1.2em; color: var(--text-strong); }
+.htot { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; padding-right: 8px; }
+.odo { display: flex; align-items: flex-start; height: 1.2em; overflow: hidden; font-size: 28px; font-weight: 600; line-height: 1.2em; letter-spacing: -0.01em; color: var(--text-strong); }
 .odo > span { display: inline-block; height: 1.2em; overflow: hidden; }
 .odo .strip { display: block; white-space: pre-line; transition: transform .6s cubic-bezier(.2,.8,.2,1); }
-.status { display: flex; align-items: center; gap: 6px; min-width: 150px; padding-right: 8px; font-size: 13px; color: var(--ok); }
+.meta { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+.status { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--ok); }
 .status.wait { color: var(--muted); }
 .spin { animation: spin .8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
@@ -75,46 +78,50 @@ main { flex: 1 1 0; min-width: 0; overflow-y: auto; }
 .btn.soft { border-color: var(--accent-line); background: var(--accent-soft); color: var(--accent-text); font-weight: 500; }
 .btn.del { border-color: var(--err-line); color: var(--err); }
 .btn.del:hover { background: var(--err-soft); }
-.f { height: 38px; min-width: 0; width: 100%; padding: 0 10px; background: var(--field); border: 1px solid var(--field-line); border-radius: 8px; color: var(--text-strong); font-size: 14px; outline: 0; }
+.f { height: 34px; min-width: 0; width: 100%; padding: 0 10px; background: var(--field); border: 1px solid var(--field-line); border-radius: 8px; color: var(--text-strong); font-size: 14px; outline: 0; }
 .f:focus { border-color: var(--accent); }
 
 .entry { flex: none; display: flex; flex-direction: column; background: var(--panel); border: 1px solid var(--accent); border-radius: 14px; overflow: hidden; }
 .entry label.q { display: flex; align-items: center; gap: 14px; height: 64px; padding: 0 12px 0 20px; }
 .entry input.q { flex-grow: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--text-strong); font-size: 19px; }
 .entry input.q::placeholder { color: #8A909C; }
-.preview { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .8fr) minmax(0, 1.2fr); border-top: 1px solid var(--line); background: var(--panel-2); }
-.preview > div { display: flex; flex-direction: column; gap: 4px; padding: 14px 20px 16px; min-height: 84px; min-width: 0; }
+.icon { flex: none; display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 0; border-radius: 10px; background: transparent; color: var(--muted); }
+.icon:hover { background: var(--line); color: var(--text-strong); }
+.preview { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, .65fr) minmax(0, 1.2fr); border-top: 1px solid var(--line); background: var(--panel-2); }
+.preview > div { display: flex; flex-direction: column; gap: 4px; padding: 12px 20px 14px; min-width: 0; }
 .preview > div + div { border-left: 1px solid var(--line); }
 .lbl { font-size: 12px; color: var(--muted); }
 .sub { font-size: 13px; color: var(--muted); }
+.wl { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
 .who { font-size: 20px; font-weight: 600; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-strong); }
 .who.idle { color: var(--muted); font-weight: 400; }
 .who.bad { color: var(--err); }
-.amt { font-size: 22px; font-weight: 500; line-height: 1.15; color: var(--text-strong); }
+.wtag { flex: none; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--muted); }
+.wtag.new { font-family: inherit; font-size: 12px; color: var(--accent-text); background: var(--accent-soft); padding: 1px 6px; border-radius: 5px; white-space: nowrap; }
+.amt { font-size: 20px; font-weight: 500; line-height: 1.25; color: var(--text-strong); }
 .amt.idle { color: var(--muted); }
-.fl { display: flex; align-items: baseline; gap: 8px; font-size: 15px; }
-.fl .n { color: var(--text-strong); font-weight: 500; }
-.fl .n.idle { color: var(--muted); font-weight: 400; }
-.fl .tag { font-size: 12px; color: var(--muted); flex-grow: 1; }
-.fl .a { font-size: 14px; color: var(--text-strong); }
-.note { font-size: 13px; font-weight: 600; color: var(--muted); }
-.note.ok { color: var(--ok); } .note.bad { color: var(--err); }
-.picks { display: flex; flex-wrap: wrap; gap: 6px; padding-top: 4px; }
-.picks .btn { height: 32px; }
-.adding { display: flex; gap: 6px; padding-top: 4px; }
-.adding .f { height: 34px; }
-.adding .go, .adding .btn { height: 34px; font-size: 13px; padding: 0 12px; }
-
-.hints { flex: none; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: -8px; padding: 0 4px; font-size: 13px; color: var(--muted); }
+.fwrap { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 16px; row-gap: 2px; line-height: 1.25; font-size: 20px; }
+.fwrap.multi { font-size: 16px; }
+.fi { display: inline-flex; align-items: baseline; gap: 6px; white-space: nowrap; }
+.fi .n { color: var(--text-strong); font-weight: 500; }
+.fi .n.idle { color: var(--muted); font-weight: 400; }
+.fi .a { font-size: .88em; color: var(--text-2); }
+.ferr { font-size: 13px; font-weight: 600; color: var(--err); }
+.picks { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding-top: 2px; }
+.choice { display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border: 1px solid var(--field-line); border-radius: 8px; background: transparent; color: var(--text); font-size: 13px; }
+.choice:hover { background: var(--line); }
+.choice[aria-pressed="true"] { padding-right: 6px; border-color: var(--accent); background: var(--accent-soft); color: var(--accent-text); font-weight: 600; }
+.picks .hint { font-size: 12px; color: var(--muted); margin-left: 2px; }
 .key { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-2); padding: 2px 6px; border: 1px solid var(--field-line); border-radius: 5px; background: var(--panel); }
-.hints .key:not(:first-child) { margin-left: 12px; }
+.key.sm { font-size: 10px; padding: 1px 5px; }
 
 .list { display: flex; flex-direction: column; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; overflow-y: auto; flex-grow: 1; min-height: 240px; scrollbar-width: thin; scrollbar-color: var(--field-line) transparent; }
 .cols { display: grid; grid-template-columns: 40px minmax(0, 1fr) 130px 170px 100px; gap: 12px; align-items: center; }
 .lh { position: sticky; top: 0; z-index: 1; flex: none; padding: 10px 20px; font-size: 12px; color: var(--muted); background: var(--panel); border-bottom: 1px solid var(--line); }
+.rw { position: relative; flex: none; }
 .r { display: flex; flex-direction: column; flex: none; width: 100%; padding: 0 20px; border: 0; border-bottom: 1px solid var(--divider); text-align: left; background: transparent; }
 .r:hover { background: var(--raise); }
-.r.split { padding-bottom: 10px; }
+.r.open { padding-bottom: 10px; }
 .r.fresh { background: var(--accent-soft); }
 .r .cols { height: 44px; }
 .r .cols.ln { height: 24px; }
@@ -125,20 +132,28 @@ main { flex: 1 1 0; min-width: 0; overflow-y: auto; }
 .r .env.new { font-family: inherit; color: var(--accent-text); background: var(--accent-soft); padding: 1px 6px; border-radius: 5px; white-space: nowrap; }
 .r .t2 { font-size: 14px; color: var(--text-2); }
 .r .ra { font-size: 14px; text-align: right; color: var(--text-strong); }
-.r .ln .t2 { font-size: 13px; }
+.r .ln .t2 { font-size: 13px; padding-left: 20px; }
 .r .ln .ra { font-size: 13px; color: var(--muted); }
-.ed { display: flex; flex-direction: column; gap: 12px; padding: 14px 20px 16px; background: var(--raise); box-shadow: inset 0 0 0 1px var(--accent); flex: none; }
-.ed .top { display: grid; grid-template-columns: 28px minmax(0, 1fr) 120px 110px 120px; gap: 8px; align-items: center; }
-.ed .lines { display: flex; flex-direction: column; gap: 6px; padding-left: 36px; }
-.ed .line { display: grid; grid-template-columns: minmax(0, 1fr) 120px 38px; gap: 8px; align-items: center; }
-.ed .x { display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; padding: 0; color: var(--muted); }
-.ed .acts { display: flex; align-items: center; gap: 8px; padding-left: 36px; flex-wrap: wrap; }
-.ed .acts .go { height: 36px; font-size: 13px; border-radius: 8px; }
-.bal { flex-grow: 1; font-size: 13px; font-weight: 600; color: var(--ok); }
-.bal.bad { color: var(--err); }
+.tg { position: absolute; top: 8px; right: 126px; display: flex; align-items: center; gap: 6px; width: 176px; height: 28px; padding: 0 6px; border: 0; border-radius: 6px; background: transparent; color: var(--text-2); font-size: 14px; text-align: left; }
+.tg:hover { background: var(--line); }
+.tg svg { transition: transform .15s; }
+.tg[aria-expanded="true"] svg { transform: rotate(90deg); }
+.ed { display: flex; flex-direction: column; gap: 8px; padding: 12px 20px 14px; background: var(--raise); box-shadow: inset 0 0 0 1px var(--accent); flex: none; }
+.ed .g { display: grid; grid-template-columns: 40px minmax(0, 1fr) 120px 110px 120px 32px; gap: 8px; align-items: center; }
+.ed .fl-l { font-size: 12px; color: var(--muted); text-align: right; }
+.ed .x { display: flex; align-items: center; justify-content: center; width: 32px; height: 34px; padding: 0; border: 0; border-radius: 8px; background: transparent; color: var(--muted); }
+.ed .x:hover { background: var(--line); }
+.ed .add { justify-self: start; display: flex; align-items: center; gap: 6px; height: 30px; padding: 0 8px; margin-left: -8px; border: 0; border-radius: 6px; background: transparent; color: var(--accent-text); font-size: 13px; font-weight: 500; }
+.ed .add:hover { background: var(--line); }
+.ed .acts { display: flex; align-items: center; gap: 8px; padding-top: 6px; padding-left: 48px; border-top: 1px solid var(--line); flex-wrap: wrap; }
+.ed .acts .go, .ed .acts .btn { height: 34px; font-size: 13px; border-radius: 8px; }
+.ed .del2 { height: 34px; padding: 0 10px; margin-left: -10px; border: 0; border-radius: 8px; background: transparent; color: var(--err); font-size: 13px; }
+.ed .del2:hover { background: var(--err-soft); }
+.ed .ehint { flex-grow: 1; font-size: 12px; color: var(--muted); }
+.bal { font-size: 12px; font-weight: 600; text-align: right; color: var(--err); }
 .empty { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; flex-grow: 1; padding: 40px 24px; text-align: center; }
 .empty h2 { margin: 0; font-size: 17px; font-weight: 600; color: var(--text-strong); }
-.empty p { margin: 0; max-width: 440px; font-size: 14px; line-height: 1.5; color: var(--muted); }
+.empty p { margin: 0; max-width: 380px; font-size: 14px; line-height: 1.5; color: var(--muted); }
 
 .scrim { position: fixed; inset: 0; z-index: 20; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(15, 12, 24, .55); }
 .dlg { display: flex; flex-direction: column; width: 480px; max-width: 100%; max-height: 100%; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); overflow: hidden; }
@@ -156,6 +171,12 @@ main { flex: 1 1 0; min-width: 0; overflow-y: auto; }
 .toast[hidden] { display: flex; opacity: 0; pointer-events: none; }
 .demo { position: fixed; right: 16px; bottom: 16px; z-index: 10; display: flex; align-items: center; gap: 10px; padding: 8px 8px 8px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); font-size: 13px; color: var(--muted); box-shadow: 0 4px 16px rgba(22, 28, 43, .08); }
 .demo .btn { height: 32px; }
+.seg { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; padding: 3px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel-2); }
+.seg button { height: 36px; border: 0; border-radius: 7px; background: transparent; color: var(--text-2); font-size: 14px; }
+.seg button[aria-pressed="true"] { background: var(--panel); color: var(--text-strong); font-weight: 600; box-shadow: 0 1px 2px rgba(22, 28, 43, .12), 0 0 0 1px var(--line); }
+.sc { display: grid; grid-template-columns: 110px minmax(0, 1fr); row-gap: 9px; column-gap: 12px; align-items: baseline; font-size: 13px; color: var(--text-2); }
+.dlg h3 { margin: 0; font-size: 13px; font-weight: 600; color: var(--text-strong); }
+.fld { font-size: 13px; font-weight: 600; color: var(--text-strong); }
 
 @media (max-width: 1100px) {
   .sb { width: 76px; padding: 16px 12px; align-items: center; }
@@ -165,8 +186,8 @@ main { flex: 1 1 0; min-width: 0; overflow-y: auto; }
   .pg { padding: 20px 24px 28px; }
   .cols { grid-template-columns: 40px minmax(0, 1fr) 112px 100px; }
   .cols > :nth-child(3) { display: none; }
-  .ed .top { grid-template-columns: 28px minmax(0, 1fr) 110px 110px; }
-  .ed .top > :nth-child(4) { display: none; }
+  .tg { width: 124px; }
+  .ed .g { grid-template-columns: 40px minmax(0, 1fr) 110px 100px 110px 32px; }
 }
 @media (max-width: 680px) {
   .app { flex-direction: column-reverse; height: auto; min-height: 100vh; }
@@ -181,16 +202,20 @@ main { flex: 1 1 0; min-width: 0; overflow-y: auto; }
   .entry input.q { font-size: 16px; }
   .entry label.q { padding: 0 8px 0 14px; }
   .hints { display: none; }
-  .status { min-width: 0; }
+  .tg { display: none; }
+  .htot { align-items: flex-start; }
   .cols { grid-template-columns: minmax(0, 1fr) auto; }
   .cols > :nth-child(1), .cols > :nth-child(3), .cols > :nth-child(4) { display: none; }
   .r, .lh { padding-left: 14px; padding-right: 14px; }
   .list { min-height: 360px; flex-grow: 0; }
-  .ed .top { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-  .ed .top > :nth-child(1) { display: none; }
-  .ed .top > :nth-child(2) { grid-column: 1 / -1; }
-  .ed .top > :nth-child(4) { display: flex; }
-  .ed .lines, .ed .acts { padding-left: 0; }
+  .ed .g { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .ed .g > :nth-child(1) { display: none; }
+  .ed .g > :nth-child(2) { grid-column: 1 / -1; text-align: left; }
+  .ed .acts { padding-left: 0; }
+  .ed .ehint { display: none; }
+  .ed .acts .del2 { margin-right: auto; }
+  .entry label.q { gap: 6px; }
+  .entry label.q .go { padding: 0 12px; }
   .demo { left: 16px; right: 16px; bottom: 76px; justify-content: space-between; }
 }
 </style>
@@ -215,14 +240,14 @@ main { flex: 1 1 0; min-width: 0; overflow-y: auto; }
   <main>
     <div class="pg">
       <div class="head">
-        <a class="back" href="#offerings" data-noop><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg>Offerings</a>
-        <span id="name-slot"></span>
-        <span id="date-slot"></span>
+        <a class="back" href="#offerings" data-noop aria-label="Back to Offerings" title="Back to Offerings"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg></a>
+        <div class="ttls"><span id="name-slot"></span><span id="date-slot"></span></div>
         <span class="grow"></span>
-        <span class="num count" id="count"></span>
-        <span class="sr" aria-live="polite" id="total-live"></span>
-        <span class="num odo" aria-hidden="true" id="odo">$</span>
-        <span role="status" class="status" id="status"></span>
+        <div class="htot">
+          <span class="sr" aria-live="polite" id="total-live"></span>
+          <span class="num odo" aria-hidden="true" id="odo">$</span>
+          <span class="meta"><span class="num" id="count"></span><span id="dot" aria-hidden="true">·</span><span role="status" class="status" id="status"></span></span>
+        </div>
         <button class="go" type="button" id="submit">Submit batch</button>
       </div>
 
@@ -230,6 +255,7 @@ main { flex: 1 1 0; min-width: 0; overflow-y: auto; }
         <label class="q">
           <span class="sr">Next offering</span>
           <input class="num q" id="q" placeholder="e.g. grace chen 100 general 75 missions 25" autocomplete="off" spellcheck="false">
+          <button class="icon" type="button" id="cfg" aria-label="Entry defaults and shortcuts" title="Entry defaults and shortcuts"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M2.5 4.5h6M11.5 4.5h2M2.5 11.5h2M7.5 11.5h6"/><circle cx="10" cy="4.5" r="1.5"/><circle cx="6" cy="11.5" r="1.5"/></svg></button>
           <button class="go" type="button" id="record">Record
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 3v5a2 2 0 0 1-2 2H4"/><path d="M7 7l-3 3 3 3"/></svg>
           </button>
@@ -237,18 +263,12 @@ main { flex: 1 1 0; min-width: 0; overflow-y: auto; }
         <div class="preview" aria-live="polite" id="preview"></div>
       </div>
 
-      <div class="hints">
-        <span class="key">Enter</span> to record
-        <span class="key">@missions</span> makes Missions the default fund
-        <span class="key">anon</span> for a gift with no name
-        <span class="key">Up</span> to edit the last entry
-      </div>
-
       <div class="list" id="list"></div>
     </div>
   </main>
 </div>
 <div id="dialog"></div>
+<div id="cfg-dialog"></div>
 <div class="toast" id="toast" hidden role="status"></div>
 <div class="demo" id="demo"><span>Prototype with sample data. Nothing is saved.</span><button class="btn" type="button" id="reset">Reset</button></div>
 
@@ -297,7 +317,7 @@ main { flex: 1 1 0; min-width: 0; overflow-y: auto; }
     s = {
       q: '', stickyFund: 'General Fund', stickyMethod: 'Check',
       rows: empty ? [] : [joseph].concat(common).concat(older),
-      edit: null, added: [], adding: null,
+      edit: null, added: [], pick: 0, expanded: {}, cfgOpen: false,
       batchName: 'English Worship', batchDate: '2026-09-27', nameDraft: null, dateDraft: null,
       saveState: 'saved', everSaved: false, submitOpen: false,
     }
@@ -419,48 +439,62 @@ main { flex: 1 1 0; min-width: 0; overflow-y: auto; }
     const count = s.rows.length
     $('#name-slot').innerHTML = s.nameDraft === null
       ? `<button class="ttl name" type="button" data-act="edit-name" aria-label="Rename batch, currently ${esc(s.batchName)}">${esc(s.batchName)}${PEN}</button>`
-      : `<input class="inl" data-k="name" value="${esc(s.nameDraft)}" aria-label="Batch name" style="width:260px;font-size:17px;font-weight:600">`
+      : `<input class="inl" data-k="name" value="${esc(s.nameDraft)}" aria-label="Batch name" style="width:280px;height:30px;font-size:19px;font-weight:600">`
     $('#date-slot').innerHTML = s.dateDraft === null
-      ? `<button class="ttl date" type="button" data-act="edit-date" aria-label="Change batch date, currently ${fmtDate(s.batchDate)}">${fmtDate(s.batchDate)}${PEN}</button>`
-      : `<input class="inl" type="date" data-k="date" value="${esc(s.dateDraft)}" aria-label="Batch date" style="width:170px;font-size:14px">`
-    $('#count').textContent = count === 1 ? '1 entry' : count + ' entries'
+      ? `<button class="ttl date" type="button" data-act="edit-date" aria-label="Change batch date, currently ${fmtDate(s.batchDate)}"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="3.5" width="11" height="10" rx="1.5"/><path d="M2.5 6.5h11M5.5 2v3M10.5 2v3"/></svg>${fmtDate(s.batchDate)}${PEN}</button>`
+      : `<input class="inl" type="date" data-k="date" value="${esc(s.dateDraft)}" aria-label="Batch date" style="width:170px;height:26px;font-size:13px">`
+    $('#count').textContent = count === 0 ? 'No entries yet' : (count === 1 ? '1 entry' : count + ' entries')
     $('#total-live').textContent = 'Batch total ' + money(totalOf())
     setOdo(totalOf())
-    const waiting = s.saveState === 'saving' || (count === 0 && !s.everSaved)
+    const idle = count === 0 && !s.everSaved
+    $('#dot').hidden = idle
     const st = $('#status')
-    st.className = 'status' + (waiting ? ' wait' : '')
+    st.className = 'status' + (s.saveState === 'saving' ? ' wait' : '')
     st.innerHTML = s.saveState === 'saving'
-      ? '<svg class="spin" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M8 2a6 6 0 1 1-6 6"/></svg>Saving…'
-      : (count === 0 && !s.everSaved ? 'Nothing to save yet' : '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3.5 8.5 3 3 6-7"/></svg>All changes saved')
+      ? '<svg class="spin" width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M8 2a6 6 0 1 1-6 6"/></svg>Saving…'
+      : (idle ? '' : '<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3.5 8.5 3 3 6-7"/></svg>Saved')
     $('#submit').disabled = !count
   }
 
   // ── Live preview under the entry line ───────────────
+  const m0 = n => '$' + (Math.abs(n - Math.round(n)) > 0.001 ? n.toFixed(2) : String(Math.round(n))).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  // Suggestions offered when the typed name matches several members or none.
+  function choicesFor(p) {
+    const unknown = !p.person && !p.ambiguous && p.rest.length > 0
+    if (p.ambiguous) return p.hits.map(h => ({ kind: 'member', env: h.env, name: h.name, label: h.name + (h.env ? ' · ' + h.env : ' · new') }))
+    if (unknown) return [{ kind: 'new', name: title(p.rest), label: `Add “${title(p.rest)}” as new member` }, { kind: 'anon', label: 'Record as anonymous' }]
+    return []
+  }
+  const pickIndex = opts => opts.length ? (((s.pick || 0) % opts.length) + opts.length) % opts.length : 0
+  function applyChoice(o, p) {
+    if (o.kind === 'new') s.added = s.added.concat([{ env: '', name: o.name, isNew: true }])
+    const lead = o.kind === 'new' ? o.name.toLowerCase() : (o.kind === 'anon' ? 'anon' : (o.env || o.name.toLowerCase()))
+    setQ((lead + ' ' + others(p)).trim())
+    s.pick = 0
+    commit()
+    q.focus()
+  }
   function renderPreview() {
     const p = parse(s.q)
-    const has = !!s.q.trim()
-    const unknown = !p.person && !p.ambiguous && p.rest.length > 0
-    let who = '<span class="who idle">Type a name or envelope no.</span>', whoSub = ''
-    if (p.person) { who = `<span class="who">${esc(p.person.name)}</span>`; whoSub = p.person.anon ? 'Not linked to a member' : (p.person.isNew ? 'New member · finish their profile later' : 'Envelope ' + p.person.env) }
-    else if (p.ambiguous) { who = `<span class="who bad">${p.hits.length} members match “${esc(p.rest.join(' '))}”</span>`; whoSub = 'Pick one below, or type more of the name.' }
-    else if (p.rest.length) { who = `<span class="who bad">No member named “${esc(p.rest.join(' '))}”</span>`; whoSub = s.adding ? 'New member' : '' }
-    let extra = ''
-    if (unknown && !s.adding) extra = `<div class="picks"><button class="btn soft" type="button" data-act="start-add">Add “${esc(title(p.rest))}” as a new member</button><button class="btn" type="button" data-act="anon">Record as anonymous</button></div>`
-    if (unknown && s.adding) extra = `<div class="adding"><label style="display:flex;flex-grow:1;min-width:0"><span class="sr">New member name</span><input class="f" data-k="add-name" value="${esc(s.adding.name)}"></label><button class="go" type="button" data-act="confirm-add">Add member</button><button class="btn" type="button" data-act="cancel-add">Cancel</button></div>`
-    if (p.ambiguous) extra = `<div class="picks">${p.hits.map(h => `<button class="btn soft" type="button" data-act="pick" data-env="${esc(h.env)}">${esc(h.name)} · ${esc(h.env)}</button>`).join('')}</div>`
+    let who = '<span class="who idle">Type a name or envelope no.</span>', tag = ''
+    if (p.person) { who = `<span class="who">${esc(p.person.name)}</span>`; tag = p.person.anon ? '' : (p.person.isNew ? '<span class="wtag new">new member</span>' : `<span class="wtag">#${esc(p.person.env)}</span>`) }
+    else if (p.ambiguous) who = `<span class="who bad">${p.hits.length} members match “${esc(p.rest.join(' '))}”</span>`
+    else if (p.rest.length) who = `<span class="who bad">No member named “${esc(p.rest.join(' '))}”</span>`
+    const opts = choicesFor(p), pk = pickIndex(opts)
+    const extra = opts.length ? `<div class="picks">${opts.map((o, i) => `<button class="choice" type="button" data-act="choose" data-i="${i}" aria-pressed="${i === pk}">${esc(o.label)}${i === pk ? '<span class="key sm">Enter</span>' : ''}</button>`).join('')}<span class="hint"><span class="key sm">Tab</span> to switch</span></div>` : ''
 
     const method = p.method || p.sticky.method || s.stickyMethod
-    let funds, note = '', noteCls = ''
+    const multi = p.total !== null && p.lines.length > 1
+    let items, err = ''
     if (p.total !== null) {
-      funds = p.lines.map(l => `<div class="fl"><span class="n">${esc(l.fund)}</span><span class="tag">${l.carried ? 'default' : (l.rest && p.lines.length > 1 ? 'remainder' : '')}</span><span class="num a">${money(l.amt)}</span></div>`).join('')
-      if (p.over) { note = `Funds add up to ${money(p.over)} more than the amount. Lower a fund or raise the amount.`; noteCls = 'bad' }
-      else if (p.lines.length > 1) { note = `Funds add up to ${money(p.total)}`; noteCls = 'ok' }
-    } else funds = `<div class="fl"><span class="n idle">${esc(p.sticky.fund || s.stickyFund)}</span><span class="tag">default</span><span class="num a"></span></div>`
+      items = p.lines.map(l => `<span class="fi"><span class="n">${esc(l.fund)}</span>${multi ? `<span class="num a">${m0(l.amt)}</span>` : ''}</span>`).join('')
+      if (p.over) err = `Funds are ${m0(p.over)} over the amount`
+    } else items = `<span class="fi"><span class="n idle">${esc(p.sticky.fund || s.stickyFund)}</span></span>`
 
     $('#preview').innerHTML = `
-      <div><span class="lbl">Giver</span>${who}<span class="sub">${esc(whoSub)}</span>${extra}</div>
-      <div><span class="lbl">Amount</span><span class="num amt ${p.total !== null ? '' : 'idle'}">${p.total !== null ? money(p.total) : '$0.00'}</span><span class="sub">${esc(method + (p.check ? ' ' + p.check : '') + (has && p.method ? '' : ' · default'))}</span></div>
-      <div><span class="lbl">Funds</span>${funds}<span class="note ${noteCls}">${esc(note)}</span></div>`
+      <div><span class="lbl">Giver</span><span class="wl">${who}${tag}</span>${extra}</div>
+      <div><span class="lbl">Amount</span><span class="num amt ${p.total !== null ? '' : 'idle'}">${p.total !== null ? money(p.total) : '$0.00'}</span><span class="sub">${esc(method + (p.check ? ' ' + p.check : ''))}</span></div>
+      <div><span class="lbl">${multi ? p.lines.length + ' funds' : 'Fund'}</span><div class="fwrap ${multi ? 'multi' : ''}">${items}</div>${err ? `<span class="ferr">${esc(err)}</span>` : ''}</div>`
     $('#record').disabled = !(p.person && p.total !== null && !p.over)
   }
 
@@ -468,8 +502,8 @@ main { flex: 1 1 0; min-width: 0; overflow-y: auto; }
   const balance = d => (parseFloat(d.total) || 0) - sum(d.lines)
   const balText = d => {
     const bal = balance(d)
-    if (Math.abs(bal) < 0.001) return d.lines.length > 1 ? 'Funds add up to ' + money(parseFloat(d.total) || 0) : ''
-    return bal > 0 ? money(bal) + ' still needs a fund' : 'Funds are ' + money(-bal) + ' more than the amount. Lower a fund or raise the amount.'
+    if (Math.abs(bal) < 0.001) return ''
+    return bal > 0 ? money(bal) + ' left to assign' : money(-bal) + ' over the amount'
   }
   function editHtml(r) {
     const d = s.edit, even = Math.abs(balance(d)) < 0.001
@@ -477,24 +511,32 @@ main { flex: 1 1 0; min-width: 0; overflow-y: auto; }
     if (!opts.some(o => o[0] === d.env) && d.env !== 'anon' && d.env.indexOf('new:') !== 0) { const p = people.find(x => x.env === d.env); if (p) opts.push([p.env, p.name + ' · ' + p.env]) }
     opts.push(['anon', 'Anonymous'])
     if (d.env.indexOf('new:') === 0) opts.push([d.env, d.env.slice(4) + ' · new member'])
+    const n = d.lines.length
     return `<div class="ed" data-edit>
-      <div class="top">
+      <div class="g">
         <span class="num" style="font-size:13px;color:var(--accent)">${pad(r.no)}</span>
         <label style="display:flex;min-width:0"><span class="sr">Giver</span><select class="f" data-k="e-env">${opts.map(([v, l]) => `<option value="${esc(v)}" ${v === d.env ? 'selected' : ''}>${esc(l)}</option>`).join('')}</select></label>
         <label style="display:flex"><span class="sr">Method</span><select class="f" data-k="e-method">${METHODS.map(m => `<option ${m === d.method ? 'selected' : ''}>${m}</option>`).join('')}</select></label>
-        <label style="display:flex"><span class="sr">Check number</span><input class="f num" data-k="e-check" value="${esc(d.check)}" placeholder="Check no." style="font-size:13px"></label>
+        ${d.method === 'Check' ? `<label style="display:flex"><span class="sr">Check number</span><input class="f num" data-k="e-check" value="${esc(d.check)}" placeholder="Check no." style="font-size:13px"></label>` : '<span></span>'}
         <label style="display:flex"><span class="sr">Amount</span><input class="f num" data-k="e-total" value="${esc(d.total)}" inputmode="decimal" style="text-align:right;font-size:13px"></label>
+        <span></span>
       </div>
-      <div class="lines">${d.lines.map((l, i) => `
-        <div class="line">
-          <label style="display:flex"><span class="sr">Fund</span><select class="f" data-k="e-fund" data-i="${i}">${FUNDS.map(f => `<option ${f === l.fund ? 'selected' : ''}>${f}</option>`).join('')}</select></label>
-          <label style="display:flex"><span class="sr">Amount for this fund</span><input class="f num" data-k="e-amt" data-i="${i}" value="${esc(l.amt)}" inputmode="decimal" style="text-align:right;font-size:13px"></label>
-          <button class="btn x" type="button" data-act="e-remove-line" data-i="${i}" aria-label="Remove this fund"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 3l10 10M13 3 3 13"/></svg></button>
-        </div>`).join('')}</div>
+      ${d.lines.map((l, i) => `
+      <div class="g">
+        <span></span>
+        <span class="fl-l">${i === 0 ? (n > 1 ? 'Funds' : 'Fund') : ''}</span>
+        <label style="display:flex;grid-column:span 2"><span class="sr">Fund</span><select class="f" data-k="e-fund" data-i="${i}">${FUNDS.map(f => `<option ${f === l.fund ? 'selected' : ''}>${f}</option>`).join('')}</select></label>
+        <label style="display:flex"><span class="sr">Amount for this fund</span><input class="f num" data-k="e-amt" data-i="${i}" value="${esc(l.amt)}" inputmode="decimal" style="text-align:right;font-size:13px"></label>
+        ${n > 1 ? `<button class="x" type="button" data-act="e-remove-line" data-i="${i}" aria-label="Remove ${esc(l.fund)}"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 3l10 10M13 3 3 13"/></svg></button>` : '<span></span>'}
+      </div>`).join('')}
+      <div class="g">
+        <span></span>
+        <span class="bal">${esc(balText(d))}</span>
+        <button class="add" type="button" data-act="e-add-line" style="grid-column:span 2"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M8 3v10M3 8h10"/></svg>Split into another fund</button>
+      </div>
       <div class="acts">
-        <button class="btn" type="button" data-act="e-add-line" style="color:var(--accent-text)">Add a fund</button>
-        <span class="bal ${even ? '' : 'bad'}">${esc(balText(d))}</span>
-        <button class="btn del" type="button" data-act="e-delete">Delete entry</button>
+        <button class="del2" type="button" data-act="e-delete">Delete entry</button>
+        <span class="ehint"><span class="key sm">Enter</span> saves · <span class="key sm">Esc</span> cancels</span>
         <button class="btn" type="button" data-act="e-cancel">Cancel</button>
         <button class="go" type="button" data-act="e-save" ${even ? '' : 'disabled'}>Save</button>
       </div>
@@ -502,24 +544,24 @@ main { flex: 1 1 0; min-width: 0; overflow-y: auto; }
   }
   function rowHtml(r) {
     if (s.edit && s.edit.no === r.no) return editHtml(r)
-    const split = r.lines.length > 1
-    return `<button class="r ${split ? 'split' : ''} ${r.fresh ? 'fresh' : ''}" type="button" data-act="open" data-no="${r.no}" aria-label="Edit entry ${pad(r.no)}">
+    const split = r.lines.length > 1, open = split && !!s.expanded[r.no]
+    return `<div class="rw"><button class="r ${open ? 'open' : ''} ${r.fresh ? 'fresh' : ''}" type="button" data-act="open" data-no="${r.no}" aria-label="Edit entry ${pad(r.no)}">
       <span class="cols">
         <span class="num no">${pad(r.no)}</span>
         <span class="nm"><b>${esc(r.name)}</b><span class="env ${r.isNew ? 'new' : ''}">${r.isNew ? 'new member' : esc(r.env)}</span></span>
         <span class="t2">${esc(r.method + (r.check ? ' ' + r.check : ''))}</span>
-        <span class="t2">${split ? r.lines.length + ' funds' : esc(r.lines[0].fund)}</span>
+        <span class="t2">${split ? '' : esc(r.lines[0].fund)}</span>
         <span class="num ra">${money(sum(r.lines))}</span>
       </span>
-      ${split ? r.lines.map(l => `<span class="cols ln"><span></span><span></span><span></span><span class="t2">${esc(l.fund)}</span><span class="num ra">${money(l.amt)}</span></span>`).join('') : ''}
-    </button>`
+      ${open ? r.lines.map(l => `<span class="cols ln"><span></span><span></span><span></span><span class="t2">${esc(l.fund)}</span><span class="num ra">${money(l.amt)}</span></span>`).join('') : ''}
+    </button>${split ? `<button class="tg" type="button" data-act="toggle" data-no="${r.no}" aria-expanded="${open}" aria-label="${open ? 'Hide' : 'Show'} fund split for entry ${pad(r.no)}"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg>${r.lines.length} funds</button>` : ''}</div>`
   }
   function renderList() {
     const head = '<div class="lh cols"><span>No.</span><span>Giver</span><span>Method</span><span>Fund</span><span style="text-align:right">Amount</span></div>'
     $('#list').innerHTML = head + (s.rows.length ? s.rows.map(rowHtml).join('') : `
       <div class="empty">
-        <h2>No entries in this batch yet</h2>
-        <p>Type a giver’s name, an amount and a fund in the box above, then press Enter. Each entry appears here, newest first. You can submit the batch once it has at least one entry.</p>
+        <h2>No entries yet</h2>
+        <p>Type a giver, an amount and a fund above, then press <span class="key">Enter</span>.</p>
         <button class="btn" type="button" data-act="example" style="display:flex;align-items:center;gap:10px;height:44px;margin-top:6px;padding:0 14px;border-radius:10px;font-size:14px">Fill in an example<span class="num" style="font-size:13px;color:var(--muted)">grace chen 100 chk 1047 general</span></button>
       </div>`)
   }
@@ -573,28 +615,52 @@ main { flex: 1 1 0; min-width: 0; overflow-y: auto; }
     $('[data-act="confirm-submit"]').focus()
   }
 
-  function render() { renderHead(); renderPreview(); renderList(); renderDialog() }
+  function renderCfg() {
+    if (!s.cfgOpen) { $('#cfg-dialog').innerHTML = ''; return }
+    const sc = [['Enter', 'Record the entry'], ['Tab', 'Switch between suggested givers'], ['Up', 'Edit the last entry, when the box is empty'], ['0412', 'Find a giver by envelope number'], ['chk 1047', 'Paid by check, with its number'], ['anon', 'A gift with no name'], ['@missions', 'Make Missions the default fund']]
+    $('#cfg-dialog').innerHTML = `<div class="scrim" data-act="cfg-scrim">
+      <div class="dlg" role="dialog" aria-modal="true" aria-labelledby="ed-title" style="width:460px">
+        <div style="display:flex;flex-direction:column;gap:4px;padding:22px 24px 18px">
+          <h2 id="ed-title">Entry defaults</h2>
+          <span style="font-size:14px;color:var(--muted)">Used when an entry doesn’t name a method or fund.</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;padding:0 24px 20px">
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <span class="fld" id="ed-method">Method</span>
+            <div class="seg" role="group" aria-labelledby="ed-method">${METHODS.map(m => `<button type="button" data-act="set-method" data-m="${m}" aria-pressed="${m === s.stickyMethod}">${m}</button>`).join('')}</div>
+          </div>
+          <label style="display:flex;flex-direction:column;gap:8px"><span class="fld">Fund</span>
+            <select class="f" data-k="cfg-fund" style="height:40px">${FUNDS.map(f => `<option ${f === s.stickyFund ? 'selected' : ''}>${f}</option>`).join('')}</select></label>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;padding:18px 24px 20px;border-top:1px solid var(--divider);background:var(--panel-2);overflow-y:auto">
+          <h3>Typing shortcuts</h3>
+          <div class="sc">${sc.map(([k, v]) => `<span><span class="key">${esc(k)}</span></span><span>${esc(v)}</span>`).join('')}</div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;padding:14px 24px 18px;border-top:1px solid var(--divider)">
+          <button class="go" type="button" data-act="close-cfg">Done</button>
+        </div>
+      </div></div>`
+  }
+  const closeCfg = () => { s.cfgOpen = false; renderCfg(); q.focus() }
+
+  function render() { renderHead(); renderPreview(); renderList(); renderDialog(); renderCfg() }
 
   // ── Events ─────────────────────────────────────────
   const q = $('#q')
-  q.addEventListener('input', () => { s.q = q.value; s.adding = null; renderPreview() })
+  q.addEventListener('input', () => { s.q = q.value; s.pick = 0; renderPreview() })
   q.addEventListener('keydown', e => {
-    if (e.key === 'Enter') { e.preventDefault(); commit() }
+    const p = parse(s.q), opts = choicesFor(p)
+    if (opts.length && ((e.key === 'Tab' && !e.shiftKey) || e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
+      e.preventDefault(); s.pick = pickIndex(opts) + (e.key === 'ArrowUp' ? -1 : 1); renderPreview(); return
+    }
+    if (e.key === 'Enter') { e.preventDefault(); if (opts.length) applyChoice(opts[pickIndex(opts)], p); else commit() }
     if (e.key === 'ArrowUp' && !s.q && s.rows.length) { e.preventDefault(); startEdit(s.rows[0]) }
   })
   $('#record').addEventListener('click', () => { commit(); q.focus() })
+  $('#cfg').addEventListener('click', () => { s.cfgOpen = true; renderCfg(); $('[data-act="close-cfg"]').focus() })
   $('#submit').addEventListener('click', () => { s.submitOpen = true; s.edit = null; renderList(); renderDialog() })
 
   const others = p => s.q.trim().split(/\s+/).filter(t => p.rest.indexOf(t.toLowerCase()) < 0).join(' ')
-  function confirmAdd() {
-    const name = (s.adding ? s.adding.name : '').trim()
-    if (!name) return
-    const p = parse(s.q)
-    s.added = s.added.concat([{ env: '', name, isNew: true }])
-    s.adding = null
-    setQ((name.toLowerCase() + ' ' + others(p)).trim())
-    renderPreview(); q.focus()
-  }
   const closeSubmit = () => { s.submitOpen = false; renderDialog(); q.focus() }
 
   document.addEventListener('click', e => {
@@ -605,11 +671,11 @@ main { flex: 1 1 0; min-width: 0; overflow-y: auto; }
     if (act === 'scrim') { if (e.target === t) closeSubmit(); return }
     if (act === 'edit-name') { s.nameDraft = s.batchName; renderHead(); const f = $('[data-k="name"]'); f.focus(); f.select() }
     if (act === 'edit-date') { s.dateDraft = s.batchDate; renderHead(); $('[data-k="date"]').focus() }
-    if (act === 'start-add') { s.adding = { name: title(parse(s.q).rest) }; renderPreview(); const f = $('[data-k="add-name"]'); f.focus(); f.select() }
-    if (act === 'cancel-add') { s.adding = null; renderPreview(); q.focus() }
-    if (act === 'confirm-add') confirmAdd()
-    if (act === 'anon') { setQ(('anon ' + others(parse(s.q))).trim()); s.adding = null; renderPreview(); q.focus() }
-    if (act === 'pick') { setQ(t.dataset.env + ' ' + others(parse(s.q))); renderPreview(); q.focus() }
+    if (act === 'cfg-scrim') { if (e.target === t) closeCfg(); return }
+    if (act === 'close-cfg') closeCfg()
+    if (act === 'set-method') { s.stickyMethod = t.dataset.m; renderCfg(); renderPreview(); $(`[data-act="set-method"][data-m="${t.dataset.m}"]`).focus() }
+    if (act === 'choose') { const p = parse(s.q); applyChoice(choicesFor(p)[Number(t.dataset.i)], p) }
+    if (act === 'toggle') { const no = Number(t.dataset.no); s.expanded[no] = !s.expanded[no]; renderList(); const b = $(`[data-act="toggle"][data-no="${no}"]`); if (b) b.focus() }
     if (act === 'example') { setQ('grace chen 100 chk 1047 general'); renderPreview(); q.focus() }
     if (act === 'open') startEdit(s.rows.find(r => r.no === Number(t.dataset.no)))
     if (act === 'e-add-line') { const d = s.edit, r0 = balance(d); d.lines.push({ fund: d.lines.some(l => l.fund === 'Missions') ? 'Building Fund' : 'Missions', amt: (r0 > 0 ? r0 : 0).toFixed(2) }); renderList() }
@@ -633,7 +699,6 @@ main { flex: 1 1 0; min-width: 0; overflow-y: auto; }
     const k = e.target.dataset.k
     if (!k) return
     const v = e.target.value
-    if (k === 'add-name') s.adding = { name: v }
     if (k === 'name') s.nameDraft = v
     if (k === 'date') s.dateDraft = v
     if (k === 'e-check') s.edit.check = v
@@ -643,7 +708,8 @@ main { flex: 1 1 0; min-width: 0; overflow-y: auto; }
   document.addEventListener('change', e => {
     const k = e.target.dataset.k, v = e.target.value
     if (k === 'e-env') s.edit.env = v
-    if (k === 'e-method') s.edit.method = v
+    if (k === 'e-method') { s.edit.method = v; renderList(); $('[data-edit] [data-k="e-method"]').focus() }
+    if (k === 'cfg-fund') { s.stickyFund = v; renderPreview() }
     if (k === 'e-fund') s.edit.lines[Number(e.target.dataset.i)].fund = v
   })
   function commitName() {
@@ -668,12 +734,12 @@ main { flex: 1 1 0; min-width: 0; overflow-y: auto; }
     const k = e.target.dataset && e.target.dataset.k
     if (k === 'name') { if (e.key === 'Enter') { e.preventDefault(); commitName(); q.focus() } if (e.key === 'Escape') { s.nameDraft = null; renderHead(); q.focus() } }
     if (k === 'date') { if (e.key === 'Enter') { e.preventDefault(); commitDate(); q.focus() } if (e.key === 'Escape') { s.dateDraft = null; renderHead(); q.focus() } }
-    if (k === 'add-name') { if (e.key === 'Enter') { e.preventDefault(); confirmAdd() } if (e.key === 'Escape') { s.adding = null; renderPreview(); q.focus() } }
     if (e.target.closest && e.target.closest('[data-edit]')) {
       if (e.key === 'Enter' && e.target.tagName !== 'BUTTON') { e.preventDefault(); saveEdit() }
       if (e.key === 'Escape') { e.preventDefault(); s.edit = null; renderList(); q.focus() }
     }
     if (s.submitOpen && e.key === 'Escape') closeSubmit()
+    if (s.cfgOpen && e.key === 'Escape') closeCfg()
   })
 
   let tt
